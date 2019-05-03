@@ -9,6 +9,14 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.tp_pdmm.model.Year;
+
+import io.realm.Realm;
+
+import android.util.Log;
+
+import io.realm.Realm;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -22,10 +30,35 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                WriteToDB(1, view);
             }
         });
+    }
+
+    public void WriteToDB(final int year, final View view) {
+        final Realm realm = Realm.getDefaultInstance();
+
+        realm.executeTransactionAsync(new Realm.Transaction() {
+            @Override
+            public void execute(Realm bgRealm) {
+                Year myYear = bgRealm.createObject(Year.class);
+                myYear.setYear(year);
+            }
+        }, new Realm.Transaction.OnSuccess() {
+            @Override
+            public void onSuccess() {
+                Snackbar.make(view, "Data Inserted", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+                //Log.v("DataBase", "Data Inserted");
+                Log.d("DataBase", "PATH: " + realm.getPath());
+            }
+        }, new Realm.Transaction.OnError() {
+            @Override
+            public void onError(Throwable error) {
+                Log.v("DataBase", error.getMessage());
+            }
+        });
+
     }
 
     @Override
@@ -46,7 +79,6 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 }
