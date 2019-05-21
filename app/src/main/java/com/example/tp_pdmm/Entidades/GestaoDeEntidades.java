@@ -1,15 +1,15 @@
-package com.example.tp_pdmm.model;
+package com.example.tp_pdmm.Entidades;
 
 import android.util.Log;
 
 import io.realm.Realm;
 import io.realm.RealmObject;
 
-public abstract class EntityManagement {
+public abstract class GestaoDeEntidades {
     private Realm realm = Realm.getDefaultInstance();
 
 
-    public EntityManagement() {
+    public GestaoDeEntidades() {
     }
 
     public abstract void ExecuteCreat(Realm bgRealm);

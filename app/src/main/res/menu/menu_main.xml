@@ -5,11 +5,40 @@ xmlns:app="http://schemas.android.com/apk/res-auto">
 <item
 
     android:id="@+id/action_favorite"
-
     android:icon="@drawable/ic_launcher_background"
-
     android:title="sdv"
-
     app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="100"
+        android:title="titulo"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_Creat"
+        android:orderInCategory="100"
+        android:title="@string/action_Creat"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_Delete"
+        android:orderInCategory="100"
+        android:title="@string/action_Delete"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_Update"
+        android:orderInCategory="100"
+        android:title="@string/action_Update"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_Read"
+        android:orderInCategory="100"
+        android:title="@string/action_Read"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_ResetDataBase"
+        android:orderInCategory="100"
+        android:title="@string/action_ResetDataBase"
+        app:showAsAction="never" />
+
 
 </menu>

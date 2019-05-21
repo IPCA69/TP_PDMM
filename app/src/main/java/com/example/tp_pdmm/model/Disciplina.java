@@ -9,11 +9,14 @@ import io.realm.annotations.PrimaryKey;
 public class Disciplina extends RealmObject{
     @PrimaryKey
     private Integer ID;
-    public String nome;
-    public String curso;
-    public Integer anolectivo;
-    public String semestre;
-    public  String[] principaistopicos = new String[20];
+    public String Nome;
+    @PrimaryKey
+    public String Curso;
+    @PrimaryKey
+    public Integer Anolectivo;
+    public String Acronimo;
+    public String Semestre;
+    public  String[] Principaistopicos = new String[20];
     private RealmList<Aula> Aulas;
 
 }
