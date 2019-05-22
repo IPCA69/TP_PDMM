@@ -1,4 +1,4 @@
-package com.example.Atividades;
+package com.example.tp_pdmm.Atividades;
 
 import org.junit.Test;
 

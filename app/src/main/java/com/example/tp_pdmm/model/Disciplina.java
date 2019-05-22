@@ -10,9 +10,7 @@ public class Disciplina extends RealmObject{
     @PrimaryKey
     private Integer ID;
     public String Nome;
-    @PrimaryKey
     public String Curso;
-    @PrimaryKey
     public Integer Anolectivo;
     public String Acronimo;
     public String Semestre;

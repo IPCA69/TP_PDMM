@@ -1,4 +1,4 @@
-package com.example.Atividades;
+package com.example.tp_pdmm.Atividades;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
