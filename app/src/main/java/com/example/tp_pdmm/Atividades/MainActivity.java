@@ -47,7 +47,8 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         Ano myYear = new Ano();
-        EntidadeAno modelYear = new EntidadeAno(myYear);
+        myYear.setDescricao("Hello");
+        EntidadeAno modelYear;
         //noinspection SimplifiableIfStatement
         switch (id) {
             case R.id.action_settings: {
@@ -55,21 +56,23 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
             case R.id.action_Creat: { //Ok
-//                modelYear.Creat();
-                myYear.model.Creat();
+//                my .Creat();
+//                myYear.Model().Creat();
+                modelYear = new EntidadeAno(myYear,this);
+                modelYear.Creat();
                 return true;
             }
             case R.id.action_Delete: {
-                modelYear.Delete();
+                // modelYear.Delete();
                 return true;
             }
             case R.id.action_Update: {
-                modelYear.Update();
+                //modelYear.Update();
                 return true;
             }
             case R.id.action_Read: {
-//                modelYear.Read();
-//                Year[] resultArray = (Ano[]) EntidadeAno.Read().toArray();
+////                modelYear.Read();
+//                Year[] resultArray = (Year[]) modelYear.Read().toArray();
 //                for (Year y : resultArray) {
 //                    Log.d("DataBase", "Found Year: " + y.getDescription());
 //                }

@@ -1,25 +1,30 @@
 package com.example.tp_pdmm.Entidades;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.example.tp_pdmm.model.Ano;
 
 import io.realm.Realm;
-
 import io.realm.RealmObject;
 import io.realm.RealmResults;
 
 public class EntidadeAno extends GestaoDeEntidades {
     private Ano myAno;
 
-    public EntidadeAno(Ano ano) {
+    public EntidadeAno(Ano ano, Context myContext) {
         myAno = ano;
+        this.context = myContext;
     }
 
     @Override
-    public void ExecuteCreat(Realm bgRealm) {
-        Ano myAno = bgRealm.createObject(Ano.class);
-        myAno.setDescricao(myAno.getDescricao());
+    public void ExecuteCreat(Realm myRealm) {
+        Realm realm = Realm.getDefaultInstance();
+        realm.executeTransaction(r -> {
+            Ano creatAno = realm.createObject(Ano.class, myAno.getId());
+            creatAno.setId(myAno.getId());
+            creatAno.setDescricao(myAno.getDescricao());
+        });
     }
 
     @Override

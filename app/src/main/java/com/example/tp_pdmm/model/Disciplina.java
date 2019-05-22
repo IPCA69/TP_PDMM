@@ -1,9 +1,6 @@
 package com.example.tp_pdmm.model;
-import java.sql.Array;
-
-import io.realm.RealmObject;
-import io.realm.RealmResults;
 import io.realm.RealmList;
+import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
 public class Disciplina extends RealmObject{
@@ -14,7 +11,7 @@ public class Disciplina extends RealmObject{
     public Integer Anolectivo;
     public String Acronimo;
     public String Semestre;
-    public  String[] Principaistopicos = new String[20];
+    //    public  String[] Principaistopicos = new String[20];
     private RealmList<Aula> Aulas;
 
 }
