@@ -7,7 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.app1.R;
+import com.example.Atividades.R;
 
 /**
  * A simple {@link Fragment} subclass.
