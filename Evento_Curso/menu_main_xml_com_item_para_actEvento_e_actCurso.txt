@@ -1,0 +1,52 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="100"
+        android:title="@string/action_settings"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_Creat"
+        android:orderInCategory="100"
+        android:title="@string/action_Creat"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_Delete"
+        android:orderInCategory="100"
+        android:title="@string/action_Delete"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_Update"
+        android:orderInCategory="100"
+        android:title="@string/action_Update"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_Read"
+        android:orderInCategory="100"
+        android:title="@string/action_Read"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_ResetDataBase"
+        android:orderInCategory="100"
+        android:title="@string/action_ResetDataBase"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_evento"
+        android:orderInCategory="100"
+        android:title="Evento"
+        app:showAsAction="never"
+        />
+
+    <item
+        android:id="@+id/action_curso"
+        android:orderInCategory="100"
+        android:title="Curso"
+
+        app:showAsAction="never"
+
+        />
+
+
+</menu>
