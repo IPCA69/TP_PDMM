@@ -15,41 +15,19 @@ public abstract class GestaoDeEntidades {
 
     public Context context;
 
-    public abstract void ExecuteCreat(Realm bgRealm);
+    public abstract void ExecuteCreatOrUpdate(Realm bgRealm);
 
     public abstract void ExecuteDelete(Realm realm);
 
-    public abstract RealmObject ExecuteUpdate(Realm realm);
-
-    public void Creat() {
-//        this.realm.executeTransactionAsync(new Realm.Transaction() {
-//            @Override
-//            public void execute(Realm bgRealm) {
-//                ExecuteCreat(bgRealm);
-//            }
-//        }, new Realm.Transaction.OnSuccess() {
-//            @Override
-//            public void onSuccess() {
-//                Log.v("DataBase", "Data Inserted");
-//                Log.d("DataBase", "PATH: " + realm.getPath());
-//            }
-//        }, new Realm.Transaction.OnError() {
-//            @Override
-//            public void onError(Throwable error) {
-//                Log.v("DataBase", error.getMessage());
-//            }
-//        });
-//        this.realm.executeTransaction(new Realm.Transaction() {
-//            @Override
-//            public void execute(Realm realm) {
-//                ExecuteCreat(realm);
-//            }
-//        });
+    public void CreatOrUpdate() {
         realm = getRealm();
-        ExecuteCreat(realm);
-        realm.close();
 
+        realm.executeTransaction(r -> {
+            ExecuteCreatOrUpdate(realm);
+        });
+        realm.close();
     }
+
 
     public void Delete() {
         Realm realm = Realm.getDefaultInstance();
@@ -62,22 +40,6 @@ public abstract class GestaoDeEntidades {
         realm.close();
     }
 
-    public void Update() {
-        Realm realm = Realm.getDefaultInstance();
-
-        realm.executeTransaction(new Realm.Transaction() {
-            @Override
-            public void execute(Realm realm) {
-                RealmObject obj = ExecuteUpdate(realm);
-                if (obj == null) {
-                    Log.d("DataBase", "NO RECORD WAS FOUND TO UPDATE");
-                    return;
-                }
-                realm.insertOrUpdate(obj);
-            }
-        });
-        realm.close();
-    }
 
     public Realm getRealm() {
         if (realm == null || realm.isClosed()) {

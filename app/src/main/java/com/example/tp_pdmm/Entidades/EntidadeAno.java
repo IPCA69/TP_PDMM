@@ -10,21 +10,26 @@ import io.realm.RealmObject;
 import io.realm.RealmResults;
 
 public class EntidadeAno extends GestaoDeEntidades {
-    private Ano myAno;
+    public Ano myAno;
 
-    public EntidadeAno(Ano ano, Context myContext) {
+    public EntidadeAno(Ano ano) {
         myAno = ano;
-        this.context = myContext;
     }
 
     @Override
-    public void ExecuteCreat(Realm myRealm) {
-        Realm realm = Realm.getDefaultInstance();
-        realm.executeTransaction(r -> {
-            Ano creatAno = realm.createObject(Ano.class, myAno.getId());
-            creatAno.setId(myAno.getId());
-            creatAno.setDescricao(myAno.getDescricao());
-        });
+    public void ExecuteCreatOrUpdate(Realm myRealm) {
+
+        //Checks if the object already exists
+        Ano findAno = myRealm.where(Ano.class).equalTo("Id", myAno.getId()).findFirst();
+
+        if (findAno == null) {
+            findAno = new Ano();
+            findAno.setId(findAno.setNextId(myRealm));
+        }
+        findAno.setDescricao(myAno.getDescricao());
+
+        myRealm.insertOrUpdate(findAno);
+
     }
 
     @Override
@@ -37,12 +42,6 @@ public class EntidadeAno extends GestaoDeEntidades {
             result.deleteAllFromRealm();
     }
 
-    @Override
-    public RealmObject ExecuteUpdate(Realm realm) {
-        Ano findAno = realm.where(Ano.class).equalTo("Ano", myAno.getId()).findFirst();
-
-        return findAno == null ? null : findAno;
-    }
 
 }
 

@@ -2,17 +2,19 @@ package com.example.tp_pdmm.model;
 
 import android.util.Log;
 
+import com.example.tp_pdmm.Entidades.EntidadeAno;
+
 import io.realm.Realm;
+import io.realm.RealmModel;
 import io.realm.RealmObject;
+import io.realm.annotations.Ignore;
 import io.realm.annotations.PrimaryKey;
 
 public class Ano extends RealmObject {
-//    @Ignore
-//    private EntidadeAno model;
+    @Ignore
+    private EntidadeAno model;
 
     public Ano() {
-        setId(1);
-        //setNextId();
     }
 
     @PrimaryKey
@@ -36,21 +38,23 @@ public class Ano extends RealmObject {
         Descricao = descricao;
     }
 
-    private void setNextId() {
-        Realm realm = Realm.getDefaultInstance();
+    public Integer setNextId(Realm realm) {
+        Integer number = 1;
         try {
-            Integer number = realm.where(Ano.class).max("Id").intValue();
-            Id = number == null ? 1 : number++;
+            number = realm.where(Ano.class).max("Id").intValue();
         } catch (Exception e) {
             Log.d("Erro on ID", "");
+        } finally {
+            return number == null ? 1 : ++number;
         }
-//        finally {
-//            getRealm().close();
-//        }
 
     }
 
-//    public EntidadeAno Model() {
-//        return new EntidadeAno(this);
-//    }
+    public EntidadeAno Model() {
+        if (model == null)
+            model = new EntidadeAno(this);
+        else
+            model.myAno = this;
+        return model;
+    }
 }
