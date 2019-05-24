@@ -43,6 +43,14 @@ public class EntidadeAno extends GestaoDeEntidades {
     }
 
 
+    public void ExecuteRead(Realm realm){
+        RealmResults<Ano> result = realm.where(Ano.class).findAll();
+        for(Ano ano : result){
+            Log.d("Database",ano.getId()+" "+ano.getDescricao());
+        }
+
+    }
+
 }
 
 

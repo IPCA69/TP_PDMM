@@ -1,8 +1,10 @@
 package com.example.tp_pdmm.Entidades;
 
 import android.content.Context;
+import android.util.Log;
 
 import io.realm.Realm;
+import io.realm.RealmResults;
 
 
 import com.example.tp_pdmm.model.Evento;
@@ -35,7 +37,13 @@ public class EntidadeEvento extends GestaoDeEntidades {
 
     @Override
     public void ExecuteDelete(Realm realm) {
+        RealmResults<Evento> result = realm.where(Evento.class).equalTo("ID", entidade.getID()).findAll();
 
+        if (result.size() == 0) {
+            Log.d("DataBase", "NO DATA FOUND TO DELETE");
+        }else{
+            result.deleteAllFromRealm();
+        }
     }
 }
 

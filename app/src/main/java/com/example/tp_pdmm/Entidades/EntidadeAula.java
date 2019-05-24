@@ -2,10 +2,13 @@
 package com.example.tp_pdmm.Entidades;
 
 import android.content.Context;
+import android.util.Log;
+
 
 import com.example.tp_pdmm.model.Aula;
 
 import io.realm.Realm;
+import io.realm.RealmResults;
 
 public class EntidadeAula extends GestaoDeEntidades {
     public Aula entidade;
@@ -37,7 +40,14 @@ public class EntidadeAula extends GestaoDeEntidades {
 
     @Override
     public void ExecuteDelete(Realm realm) {
+        RealmResults<Aula> result = realm.where(Aula.class).equalTo("ID", entidade.getID()).findAll();
 
+        if (result.size() == 0) {
+
+            Log.d("DataBase", "NO DATA FOUND TO DELETE");
+        } else{
+            result.deleteAllFromRealm();
+    }
     }
 }
 
