@@ -1,11 +1,11 @@
 package com.example.tp_pdmm.model;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.example.tp_pdmm.Entidades.EntidadeAno;
 
 import io.realm.Realm;
-import io.realm.RealmModel;
 import io.realm.RealmObject;
 import io.realm.annotations.Ignore;
 import io.realm.annotations.PrimaryKey;
@@ -50,11 +50,11 @@ public class Ano extends RealmObject {
 
     }
 
-    public EntidadeAno Model() {
+    public EntidadeAno Model(Context context) {
         if (model == null)
-            model = new EntidadeAno(this);
+            model = new EntidadeAno(this, context);
         else
-            model.myAno = this;
+            model.entidade = this;
         return model;
     }
 }

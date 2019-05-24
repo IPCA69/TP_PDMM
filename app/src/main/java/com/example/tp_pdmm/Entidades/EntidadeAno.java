@@ -6,35 +6,35 @@ import android.util.Log;
 import com.example.tp_pdmm.model.Ano;
 
 import io.realm.Realm;
-import io.realm.RealmObject;
 import io.realm.RealmResults;
 
 public class EntidadeAno extends GestaoDeEntidades {
-    public Ano myAno;
+    public Ano entidade;
 
-    public EntidadeAno(Ano ano) {
-        myAno = ano;
+    public EntidadeAno(Ano ano, Context context) {
+        entidade = ano;
+        super.context = context;
     }
 
     @Override
     public void ExecuteCreatOrUpdate(Realm myRealm) {
 
         //Checks if the object already exists
-        Ano findAno = myRealm.where(Ano.class).equalTo("Id", myAno.getId()).findFirst();
+        Ano findEntidade = myRealm.where(Ano.class).equalTo("Id", entidade.getId()).findFirst();
 
-        if (findAno == null) {
-            findAno = new Ano();
-            findAno.setId(findAno.setNextId(myRealm));
+        if (findEntidade == null) {
+            findEntidade = new Ano();
+            findEntidade.setId(findEntidade.setNextId(myRealm));
         }
-        findAno.setDescricao(myAno.getDescricao());
+        findEntidade.setDescricao(entidade.getDescricao());
 
-        myRealm.insertOrUpdate(findAno);
+        myRealm.insertOrUpdate(findEntidade);
 
     }
 
     @Override
     public void ExecuteDelete(Realm realm) {
-        RealmResults<Ano> result = realm.where(Ano.class).equalTo("Ano", myAno.getId()).findAll();
+        RealmResults<Ano> result = realm.where(Ano.class).equalTo("Ano", entidade.getId()).findAll();
 
         if (result.size() == 0)
             Log.d("DataBase", "NO DATA FOUND TO DELETE");

@@ -27,6 +27,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 
 import com.example.fragment.CalendarioFragment;
 import com.example.fragment.TurmasFragment;
+import com.example.tp_pdmm.model.Aula;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -91,14 +92,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         Ano myYear = new Ano();
         myYear.setDescricao("Hello");
-
+        Aula myAula = new Aula();
         switch (id) {
             case R.id.action_settings: {
                 ShowAlertDialog("aa");
                 return true;
             }
             case R.id.action_Creat: { //Ok
-                myYear.Model().CreatOrUpdate();
+                //     myYear.Model(this).CreatOrUpdate();
+                myAula.Model(this).CreatOrUpdate();
                 return true;
             }
             case R.id.action_Delete: {

@@ -30,12 +30,12 @@ public abstract class GestaoDeEntidades {
 
 
     public void Delete() {
-        Realm realm = Realm.getDefaultInstance();
-        realm.executeTransaction(new Realm.Transaction() {
-            @Override
-            public void execute(Realm realm) {
-                ExecuteDelete(realm);
-            }
+        Realm realm = getRealm();
+        realm.executeTransaction(r -> {
+//            @Override
+//            public void execute (Realm realm){
+//                ExecuteDelete(realm);
+//            }
         });
         realm.close();
     }
