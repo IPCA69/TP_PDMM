@@ -28,6 +28,13 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import com.example.fragment.CalendarioFragment;
 import com.example.fragment.TurmasFragment;
 import com.example.tp_pdmm.model.Aula;
+import com.example.tp_pdmm.model.Curso;
+import com.example.tp_pdmm.model.Disciplina;
+import com.example.tp_pdmm.model.Evento;
+import com.example.tp_pdmm.model.Professor;
+import com.example.tp_pdmm.model.TipoDeAula;
+
+import java.security.ProtectionDomain;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -90,17 +97,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        Ano myYear = new Ano();
-        myYear.setDescricao("Hello");
-        Aula myAula = new Aula();
+        Disciplina enti = new Disciplina();
+
         switch (id) {
             case R.id.action_settings: {
                 ShowAlertDialog("aa");
                 return true;
             }
             case R.id.action_Creat: { //Ok
-                //     myYear.Model(this).CreatOrUpdate();
-                myAula.Model(this).CreatOrUpdate();
+                enti.Model(this).CreatOrUpdate();
+                new Professor().Model(this).CreatOrUpdate();
+                new TipoDeAula().Model(this).CreatOrUpdate();
+                new Evento().Model(this).CreatOrUpdate();
                 return true;
             }
             case R.id.action_Delete: {

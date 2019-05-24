@@ -1,16 +1,16 @@
-
 package com.example.tp_pdmm.Entidades;
 
 import android.content.Context;
 
-import com.example.tp_pdmm.model.Aula;
-
 import io.realm.Realm;
 
-public class EntidadeAula extends GestaoDeEntidades {
-    public Aula entidade;
 
-    public EntidadeAula(Aula ent, Context context) {
+import com.example.tp_pdmm.model.Evento;
+
+public class EntidadeEvento extends GestaoDeEntidades {
+    public Evento entidade;
+
+    public EntidadeEvento(Evento ent, Context context) {
         entidade = ent;
         super.context = context;
     }
@@ -19,17 +19,15 @@ public class EntidadeAula extends GestaoDeEntidades {
     public void ExecuteCreatOrUpdate(Realm myRealm) {
 
         //Checks if the object already exists
-        Aula find = myRealm.where(entidade.getClass()).equalTo("ID", entidade.getID()).findFirst();
+        Evento find = myRealm.where(entidade.getClass()).equalTo("ID", entidade.getID()).findFirst();
 
         if (find == null) {
-            find = new Aula();
+            find = new Evento();
             find.setID(find.setNextId(myRealm));
         }
-        find.setDataDeOcorrencia(entidade.getDataDeOcorrencia());
-        find.setHoraInicio(entidade.getHoraInicio());
+
+        find.setDescricao(entidade.getDescricao());
         find.setDuracao(entidade.getDuracao());
-        find.setSala(entidade.getSala());
-        find.setTipo(entidade.getTipo());
 
         myRealm.insertOrUpdate(find);
 
