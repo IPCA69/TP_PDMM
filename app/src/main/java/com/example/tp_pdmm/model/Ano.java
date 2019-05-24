@@ -39,7 +39,7 @@ public class Ano extends RealmObject {
     }
 
     public Integer setNextId(Realm realm) {
-        Integer number = 1;
+        Integer number = 0;
         try {
             number = realm.where(Ano.class).max("Id").intValue();
         } catch (Exception e) {

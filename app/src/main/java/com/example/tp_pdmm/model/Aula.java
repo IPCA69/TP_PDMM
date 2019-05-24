@@ -92,7 +92,7 @@ public class Aula extends RealmObject {
     private EntidadeAula model;
 
     public Integer setNextId(Realm realm) {
-        Integer number = 1;
+        Integer number = 0;
         try {
             number = realm.where(this.getClass()).max("ID").intValue();
         } catch (Exception e) {
