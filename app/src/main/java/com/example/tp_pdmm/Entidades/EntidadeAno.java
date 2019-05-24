@@ -42,7 +42,7 @@ public class EntidadeAno extends GestaoDeEntidades {
             result.deleteAllFromRealm();
     }
 
-
+    @Override
     public void ExecuteRead(Realm realm){
         RealmResults<Ano> result = realm.where(Ano.class).findAll();
         for(Ano ano : result){

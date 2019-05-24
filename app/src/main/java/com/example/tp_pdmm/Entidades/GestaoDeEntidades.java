@@ -19,6 +19,8 @@ public abstract class GestaoDeEntidades {
 
     public abstract void ExecuteDelete(Realm realm);
 
+    public abstract void ExecuteRead(Realm realm);
+
     public void CreatOrUpdate() {
         realm = getRealm();
 
@@ -32,10 +34,18 @@ public abstract class GestaoDeEntidades {
     public void Delete() {
         Realm realm = getRealm();
         realm.executeTransaction(r -> {
-//            @Override
-//            public void execute (Realm realm){
-//                ExecuteDelete(realm);
-//            }
+
+             ExecuteDelete(realm);
+
+        });
+        realm.close();
+    }
+    public void Read() {
+        Realm realm = getRealm();
+        realm.executeTransaction(r -> {
+
+            ExecuteRead(realm);
+
         });
         realm.close();
     }
