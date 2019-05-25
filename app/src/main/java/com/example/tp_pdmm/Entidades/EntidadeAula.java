@@ -49,6 +49,17 @@ public class EntidadeAula extends GestaoDeEntidades {
             result.deleteAllFromRealm();
     }
     }
+
+    @Override
+    public void ExecuteRead(Realm myRealm) {
+        setEntidade(myRealm.where(entidade.getClass()).equalTo("ID", entidade.getID()).findFirst());
+
+
+    }
+
+ private void setEntidade(Aula entidade) {
+        this.entidade = entidade;
+    }
 }
 
 

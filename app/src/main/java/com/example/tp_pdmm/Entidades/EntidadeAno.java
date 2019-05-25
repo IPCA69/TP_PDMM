@@ -20,11 +20,11 @@ public class EntidadeAno extends GestaoDeEntidades {
     public void ExecuteCreatOrUpdate(Realm myRealm) {
 
         //Checks if the object already exists
-        Ano findEntidade = myRealm.where(Ano.class).equalTo("Id", entidade.getId()).findFirst();
+        Ano findEntidade = myRealm.where(Ano.class).equalTo("ID", entidade.getID()).findFirst();
 
         if (findEntidade == null) {
             findEntidade = new Ano();
-            findEntidade.setId(findEntidade.setNextId(myRealm));
+            findEntidade.setID(findEntidade.setNextId(myRealm));
         }
         findEntidade.setDescricao(entidade.getDescricao());
 
@@ -34,7 +34,7 @@ public class EntidadeAno extends GestaoDeEntidades {
 
     @Override
     public void ExecuteDelete(Realm realm) {
-        RealmResults<Ano> result = realm.where(Ano.class).equalTo("Ano", entidade.getId()).findAll();
+        RealmResults<Ano> result = realm.where(Ano.class).equalTo("ID", entidade.getID()).findAll();
 
         if (result.size() == 0)
             Log.d("DataBase", "NO DATA FOUND TO DELETE");
@@ -43,14 +43,13 @@ public class EntidadeAno extends GestaoDeEntidades {
     }
 
     @Override
-    public void ExecuteRead(Realm realm){
-        RealmResults<Ano> result = realm.where(Ano.class).findAll();
-        for(Ano ano : result){
-            Log.d("Database",ano.getId()+" "+ano.getDescricao());
-        }
-
+    public void ExecuteRead(Realm myRealm) {
+        setEntidade(myRealm.where(entidade.getClass()).equalTo("ID", entidade.getID()).findFirst());
     }
 
+  private void setEntidade(Ano entidade) {
+        this.entidade = entidade;
+    }
 }
 
 

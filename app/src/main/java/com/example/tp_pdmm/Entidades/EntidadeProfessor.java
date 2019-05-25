@@ -47,6 +47,17 @@ public class EntidadeProfessor extends GestaoDeEntidades {
             result.deleteAllFromRealm();
         }
     }
+
+    @Override
+    public void ExecuteRead(Realm myRealm) {
+        setEntidade(myRealm.where(entidade.getClass()).equalTo("ID", entidade.getID()).findFirst());
+
+
+    }
+
+    private void setEntidade(Professor entidade) {
+        this.entidade = entidade;
+    }
 }
 
 

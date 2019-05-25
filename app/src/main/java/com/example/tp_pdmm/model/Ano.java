@@ -18,21 +18,22 @@ public class Ano extends RealmObject {
     }
 
     @PrimaryKey
-    private int Id;
+    private int ID;
 
     private String Descricao;
 
-    public int getId() {
-        return Id;
+    public int getID() {
+        return ID;
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
     }
 
     public String getDescricao() {
         return Descricao;
     }
 
-    public void setId(int id) {
-        Id = id;
-    }
 
     public void setDescricao(String descricao) {
         Descricao = descricao;
@@ -41,7 +42,7 @@ public class Ano extends RealmObject {
     public Integer setNextId(Realm realm) {
         Integer number = 0;
         try {
-            number = realm.where(Ano.class).max("Id").intValue();
+            number = realm.where(Ano.class).max("ID").intValue();
         } catch (Exception e) {
             Log.d("Erro on ID", "");
         } finally {

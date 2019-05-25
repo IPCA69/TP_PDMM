@@ -44,9 +44,18 @@ public class EntidadeDisciplina extends GestaoDeEntidades {
 
         if (result.size() == 0) {
             Log.d("DataBase", "NO DATA FOUND TO DELETE");
-        }else{
+        } else {
             result.deleteAllFromRealm();
         }
+    }
+
+    @Override
+    public void ExecuteRead(Realm myRealm) {
+        setEntidade(myRealm.where(entidade.getClass()).equalTo("ID", entidade.getID()).findFirst());
+    }
+
+    private void setEntidade(Disciplina entidade) {
+        this.entidade = entidade;
     }
 }
 

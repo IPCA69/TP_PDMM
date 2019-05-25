@@ -96,11 +96,16 @@ public class Disciplina extends RealmObject {
         }
     }
 
+    public EntidadeDisciplina Model() {
+        return Model(null);
+    }
+
     public EntidadeDisciplina Model(Context context) {
-        if (model == null)
-            model = new EntidadeDisciplina(this, context);
-        else
+        if (model != null || context == null)
             model.entidade = this;
+        else
+            model = new EntidadeDisciplina(this, context);
+
         return model;
     }
 }

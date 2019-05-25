@@ -118,6 +118,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 return true;
             }
             case R.id.action_Read: {
+                enti.Model(this).Read();
+                enti = enti.Model().entidade;
                 return true;
             }
             case R.id.action_ResetDataBase: { //Ok
