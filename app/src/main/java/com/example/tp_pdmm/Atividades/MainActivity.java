@@ -6,23 +6,18 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-
-import io.realm.Realm;
-import io.realm.RealmConfiguration;
-
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-
-
+import com.example.fragment.ProfFragment;
 import com.example.fragment.CalendarioFragment;
 import com.example.fragment.TurmasFragment;
 import com.example.tp_pdmm.Entidades.GestaoDeEntidades;
@@ -32,6 +27,8 @@ import com.example.tp_pdmm.model.Evento;
 import com.example.tp_pdmm.model.Professor;
 import com.example.tp_pdmm.model.TipoDeAula;
 
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -98,9 +95,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
             case R.id.action_Creat: { //Ok
                 enti.Model(this).CreatOrUpdate();
-                new Professor().Model(this).CreatOrUpdate();
+                // new Professor().Model(this).CreatOrUpdate();
                 new TipoDeAula().Model(this).CreatOrUpdate();
                 new Evento().Model(this).CreatOrUpdate();
+                String f = "asdas";
+                Professor s = new Professor();
+                s.setNome(f);
+                s.Model(this).CreatOrUpdate();
                 return true;
             }
             case R.id.action_Delete: {
@@ -139,6 +140,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             fragment = TurmasFragment.class;
             showFragment(fragment);
         } else if (id == R.id.nav_logout) {
+
+        }else if (id == R.id.nav_prf) {
+            fragment = ProfFragment.class;
+            showFragment(fragment);
 
         }
 

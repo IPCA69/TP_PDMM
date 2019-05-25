@@ -11,7 +11,10 @@
             android:id="@+id/nav_trm"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="@string/nav_trm" />
-
+        <item
+            android:id="@+id/nav_prf"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Criar Prf" />
     </group>
 
     <item android:title="Profile">
