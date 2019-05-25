@@ -106,9 +106,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
             case R.id.action_Creat: { //Ok
                 enti.Model(this).CreatOrUpdate();
-                new Professor().Model(this).CreatOrUpdate();
+                // new Professor().Model(this).CreatOrUpdate();
                 new TipoDeAula().Model(this).CreatOrUpdate();
                 new Evento().Model(this).CreatOrUpdate();
+                String f = "asdas";
+                Professor s = new Professor();
+                s.setNome(f);
+                s.Model(this).CreatOrUpdate();
                 return true;
             }
             case R.id.action_Delete: {
