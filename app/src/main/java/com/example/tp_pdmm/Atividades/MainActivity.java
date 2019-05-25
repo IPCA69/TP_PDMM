@@ -2,6 +2,8 @@ package com.example.tp_pdmm.Atividades;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -10,13 +12,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.example.tp_pdmm.Entidades.EntidadeAno;
-import com.example.tp_pdmm.model.Ano;
-
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.design.widget.NavigationView;
@@ -27,14 +25,11 @@ import android.support.v7.app.ActionBarDrawerToggle;
 
 import com.example.fragment.CalendarioFragment;
 import com.example.fragment.TurmasFragment;
-import com.example.tp_pdmm.model.Aula;
-import com.example.tp_pdmm.model.Curso;
 import com.example.tp_pdmm.model.Disciplina;
 import com.example.tp_pdmm.model.Evento;
 import com.example.tp_pdmm.model.Professor;
 import com.example.tp_pdmm.model.TipoDeAula;
 
-import java.security.ProtectionDomain;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -46,13 +41,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        fab.setOnClickListener(view -> OnClickEmail(view));
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -193,5 +182,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .show();
 
+    }
+
+    public void OnClickEmail(View view) {
+//        Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                .setAction("Action", null).show();
+        Intent mailIntent = new Intent(Intent.ACTION_VIEW);
+        Uri data = Uri.parse("mailto:?subject=" + "subject text"+ "&body=" + "body text " + "&to=" + "brunor.1994@hotmail.com.com");
+        mailIntent.setData(data);
+        startActivity(Intent.createChooser(mailIntent, "Send mail..."));
     }
 }
