@@ -1,15 +1,11 @@
 package com.example.tp_pdmm.Entidades;
 
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
-import android.util.Log;
-import android.widget.Toast;
-
-import com.example.tp_pdmm.Atividades.MainActivity;
 
 import io.realm.Realm;
-import io.realm.RealmObject;
+import io.realm.RealmConfiguration;
+
+import io.realm.exceptions.RealmMigrationNeededException;
 
 public abstract class GestaoDeEntidades {
     private Realm realm;
@@ -49,13 +45,10 @@ public abstract class GestaoDeEntidades {
     public void Read() {
         Realm realm = getRealm();
         realm.executeTransaction(r -> {
-
             ExecuteRead(realm);
-
         });
         realm.close();
     }
-
 
     public Realm getRealm() {
         if (realm == null || realm.isClosed()) {
@@ -68,35 +61,18 @@ public abstract class GestaoDeEntidades {
                 } else {
                     throw e;
                 }
+            } catch (RealmMigrationNeededException r) {
+                Realm.deleteRealm(getRealmConfiguration());
+                realm = getRealm();
             }
         }
 
         return realm;
     }
 
-//    protected void SendEmail() {
-//        Log.i("Send email", "");
-//
-//        String[] TO = {"someone@gmail.com"};
-//        String[] CC = {"xyz@gmail.com"};
-//        Intent emailIntent = new Intent(Intent.ACTION_SEND);
-//        emailIntent.setData(Uri.parse("mailto:"));
-//        emailIntent.setType("text/plain");
-//
-//
-//        emailIntent.putExtra(Intent.EXTRA_EMAIL, TO);
-//        emailIntent.putExtra(Intent.EXTRA_CC, CC);
-//        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Your subject");
-//        emailIntent.putExtra(Intent.EXTRA_TEXT, "Email message goes here");
-//
-//        try {
-//            startActivity(Intent.createChooser(emailIntent, "Send mail..."));
-//            finish();
-//            Log.i("Finished sending email...", "");
-//        } catch (android.content.ActivityNotFoundException ex) {
-//            Toast.makeText(MainActivity.this,
-//                    "There is no email client installed.", Toast.LENGTH_SHORT).show();
-//        }
-//    }
+    public static RealmConfiguration getRealmConfiguration() {
+        return new RealmConfiguration.Builder().name("myrealm.realm").build();
+    }
+
 
 }

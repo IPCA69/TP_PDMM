@@ -25,6 +25,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 
 import com.example.fragment.CalendarioFragment;
 import com.example.fragment.TurmasFragment;
+import com.example.tp_pdmm.Entidades.GestaoDeEntidades;
 import com.example.tp_pdmm.Outros.Email;
 import com.example.tp_pdmm.model.Disciplina;
 import com.example.tp_pdmm.model.Evento;
@@ -55,11 +56,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         showFragment(CalendarioFragment.class);
 
+        InitRealm();
+    }
+
+    private void InitRealm() {
         Realm.init(this);
-        RealmConfiguration config = new RealmConfiguration.Builder().name("myrealm.realm").build();
-        Realm.setDefaultConfiguration(config);
-
-
+        Realm.setDefaultConfiguration(GestaoDeEntidades.getRealmConfiguration());
     }
 
     @Override
