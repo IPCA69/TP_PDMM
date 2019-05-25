@@ -77,7 +77,7 @@ public class ProfFragment extends Fragment {
     @OnClick(R.id.saveprof)
     public void onViewClicked() {
         saveData();
-        readData();
+      //  readData();
 
     }
 
