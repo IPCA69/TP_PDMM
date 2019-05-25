@@ -89,6 +89,9 @@ public class Professor extends RealmObject {
         }
     }
 
+    public EntidadeProfessor Model() {
+        return Model(null);
+    }
     public EntidadeProfessor Model(Context context) {
         if (model == null)
             model = new EntidadeProfessor(this, context);

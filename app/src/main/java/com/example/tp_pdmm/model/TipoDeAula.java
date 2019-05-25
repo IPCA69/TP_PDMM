@@ -48,6 +48,11 @@ public class TipoDeAula extends RealmObject {
         }
     }
 
+
+    public EntidadeTipoDeAula Model() {
+        return Model(null);
+    }
+
     public EntidadeTipoDeAula Model(Context context) {
         if (model == null)
             model = new EntidadeTipoDeAula(this, context);

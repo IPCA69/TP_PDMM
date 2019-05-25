@@ -55,7 +55,7 @@ public class EntidadeDisciplina extends GestaoDeEntidades {
     }
 
     private void setEntidade(Disciplina entidade) {
-        this.entidade = entidade;
+        this.entidade = entidade != null ? entidade : new Disciplina();
     }
 }
 

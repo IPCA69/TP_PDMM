@@ -18,4 +18,5 @@
     <string name="action_Read">Read</string>
     <string name="action_ResetDataBase">ResetDataBase</string>
     <string name="Teste">Teste</string>
+    <string name="criar_curso">Criar Curso</string>
 </resources>

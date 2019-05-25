@@ -56,7 +56,7 @@ public class EntidadeProfessor extends GestaoDeEntidades {
     }
 
     private void setEntidade(Professor entidade) {
-        this.entidade = entidade;
+        this.entidade = entidade != null ? entidade : new Professor();
     }
 }
 

@@ -17,11 +17,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import com.example.fragment.CursoFragment;
 import com.example.fragment.ProfFragment;
 import com.example.fragment.CalendarioFragment;
 import com.example.fragment.TurmasFragment;
 import com.example.tp_pdmm.Entidades.GestaoDeEntidades;
 import com.example.tp_pdmm.Outros.Email;
+import com.example.tp_pdmm.model.Curso;
 import com.example.tp_pdmm.model.Disciplina;
 import com.example.tp_pdmm.model.Evento;
 import com.example.tp_pdmm.model.Professor;
@@ -143,6 +145,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         }else if (id == R.id.nav_prf) {
             fragment = ProfFragment.class;
+            showFragment(fragment);
+
+        }
+        else if (id == R.id.nav_curso) {
+            fragment = CursoFragment.class;
             showFragment(fragment);
 
         }

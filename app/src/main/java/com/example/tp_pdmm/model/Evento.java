@@ -61,6 +61,9 @@ public class Evento  extends RealmObject {
         }
     }
 
+    public EntidadeEvento Model() {
+        return Model(null);
+    }
     public EntidadeEvento Model(Context context) {
         if (model == null)
             model = new EntidadeEvento(this, context);

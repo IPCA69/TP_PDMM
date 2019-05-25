@@ -50,6 +50,9 @@ public class Ano extends RealmObject {
         }
 
     }
+    public EntidadeAno Model() {
+        return Model(null);
+    }
 
     public EntidadeAno Model(Context context) {
         if (model == null)

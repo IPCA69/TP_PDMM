@@ -54,7 +54,7 @@ public class EntidadeEvento extends GestaoDeEntidades {
     }
 
     private void setEntidade(Evento entidade) {
-        this.entidade = entidade;
+        this.entidade = entidade != null ? entidade : new Evento();
     }
 }
 

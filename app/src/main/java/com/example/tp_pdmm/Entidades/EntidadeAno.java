@@ -48,7 +48,7 @@ public class EntidadeAno extends GestaoDeEntidades {
     }
 
   private void setEntidade(Ano entidade) {
-        this.entidade = entidade;
+      this.entidade = entidade != null ? entidade : new Ano();
     }
 }
 

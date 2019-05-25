@@ -45,6 +45,11 @@ public class Curso extends RealmObject {
 
     }
 
+    public EntidadeCurso Model() {
+        return Model(null);
+    }
+
+
     public EntidadeCurso Model(Context context) {
         if (model == null)
             model = new EntidadeCurso(this, context);

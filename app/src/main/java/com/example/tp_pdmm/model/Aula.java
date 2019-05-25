@@ -102,6 +102,9 @@ public class Aula extends RealmObject {
         }
 
     }
+    public EntidadeAula Model() {
+        return Model(null);
+    }
 
     public EntidadeAula Model(Context context) {
         if (model == null)

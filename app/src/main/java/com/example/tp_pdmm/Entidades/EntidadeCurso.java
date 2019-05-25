@@ -39,9 +39,9 @@ public class EntidadeCurso extends GestaoDeEntidades {
 
         if (result.size() == 0) {
             Log.d("DataBase", "NO DATA FOUND TO DELETE");
-        }else{
+        } else {
             result.deleteAllFromRealm();
-    }
+        }
     }
 
     @Override
@@ -52,7 +52,7 @@ public class EntidadeCurso extends GestaoDeEntidades {
     }
 
     private void setEntidade(Curso entidade) {
-        this.entidade = entidade;
+        this.entidade = entidade != null ? entidade : new Curso();
     }
 }
 
