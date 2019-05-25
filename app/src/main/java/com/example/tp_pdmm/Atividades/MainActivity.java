@@ -20,6 +20,7 @@ import android.view.View;
 import com.example.fragment.ProfFragment;
 import com.example.fragment.CalendarioFragment;
 import com.example.fragment.TurmasFragment;
+import com.example.tp_pdmm.Outros.Email;
 import com.example.tp_pdmm.model.Disciplina;
 import com.example.tp_pdmm.model.Evento;
 import com.example.tp_pdmm.model.Professor;
@@ -186,11 +187,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     public void OnClickEmail(View view) {
-//        Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                .setAction("Action", null).show();
-        Intent mailIntent = new Intent(Intent.ACTION_VIEW);
-        Uri data = Uri.parse("mailto:?subject=" + "subject text"+ "&body=" + "body text " + "&to=" + "brunor.1994@hotmail.com.com");
-        mailIntent.setData(data);
-        startActivity(Intent.createChooser(mailIntent, "Send mail..."));
+        Email mail = new Email(new String[]{"brunor.1994@hotmail.com"}, "TpPDMM", "Hello World");
+        mail.SendEmail(this);
     }
 }
