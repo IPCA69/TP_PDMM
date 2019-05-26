@@ -17,6 +17,9 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import com.example.fragment.DisciplinaFragment;
+import com.example.fragment.AulaFragment;
+import com.example.fragment.EventoFragment;
 import com.example.fragment.CursoFragment;
 import com.example.fragment.ProfFragment;
 import com.example.fragment.CalendarioFragment;
@@ -24,6 +27,7 @@ import com.example.fragment.TurmasFragment;
 import com.example.tp_pdmm.Entidades.GestaoDeEntidades;
 import com.example.tp_pdmm.Outros.Email;
 import com.example.tp_pdmm.model.Curso;
+import com.example.tp_pdmm.model.Aula;
 import com.example.tp_pdmm.model.Disciplina;
 import com.example.tp_pdmm.model.Evento;
 import com.example.tp_pdmm.model.Professor;
@@ -152,6 +156,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             fragment = CursoFragment.class;
             showFragment(fragment);
 
+        }
+        else if(id==R.id.nav_evento){
+            fragment = EventoFragment.class;
+            showFragment(fragment);
+        }
+        else if(id==R.id.nav_aula){
+            fragment = AulaFragment.class;
+            showFragment(fragment);
+        } else if(id==R.id.nav_disciplina){
+            fragment = DisciplinaFragment.class;
+            showFragment(fragment);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

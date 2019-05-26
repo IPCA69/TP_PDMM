@@ -19,4 +19,5 @@
     <string name="action_ResetDataBase">ResetDataBase</string>
     <string name="Teste">Teste</string>
     <string name="criar_curso">Criar Curso</string>
+    <string name="criar_evento" />
 </resources>

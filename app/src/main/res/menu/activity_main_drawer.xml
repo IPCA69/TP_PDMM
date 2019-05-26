@@ -19,6 +19,22 @@
             android:id="@+id/nav_curso"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="@string/criar_curso" />
+        <item
+            android:id="@+id/nav_evento"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Criar evento" />
+        <item
+            android:id="@+id/nav_aula"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Criar aula" />
+        <item
+            android:id="@+id/nav_disciplina"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Criar disciplina" />
+
+
+
+
     </group>
 
     <item android:title="Profile">

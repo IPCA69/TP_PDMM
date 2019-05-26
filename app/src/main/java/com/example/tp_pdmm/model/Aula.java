@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.example.tp_pdmm.Entidades.EntidadeAula;
 
+import java.sql.Time;
 import java.util.Date;
 
 import io.realm.Realm;
