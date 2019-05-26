@@ -22,9 +22,11 @@ import com.example.fragment.EventoFragment;
 import com.example.fragment.CursoFragment;
 import com.example.fragment.ProfFragment;
 import com.example.fragment.CalendarioFragment;
+import com.example.fragment.TipoDeAulaFragment;
 import com.example.fragment.TurmasFragment;
 import com.example.tp_pdmm.Entidades.Aula;
 import com.example.tp_pdmm.Entidades.GestaoDeEntidades;
+import com.example.tp_pdmm.Entidades.TipoDeAula;
 import com.example.tp_pdmm.Outros.Email;
 import com.example.tp_pdmm.Outros.Enums;
 
@@ -152,6 +154,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             showFragment(fragment);
         } else if (id == R.id.nav_disciplina) {
             fragment = DisciplinaFragment.class;
+            showFragment(fragment);
+        }
+        else if (id == R.id.nav_criartipoaula) {
+            fragment = TipoDeAulaFragment.class;
             showFragment(fragment);
         }
 

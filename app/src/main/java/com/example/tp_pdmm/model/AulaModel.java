@@ -14,7 +14,6 @@ public class AulaModel extends RealmObject {
     @PrimaryKey
     private int ID;
     private Date DataDeOcorrencia;
-    private Date HoraInicio;
     private Integer Duracao;
     private String Sala;
     private String Tipo;
@@ -36,17 +35,7 @@ public class AulaModel extends RealmObject {
     }
 
     String Sumario;
-    //File f = null;
-    //public RealmList<File> Conteudo;
 
-
-    public Date getHoraInicio() {
-        return HoraInicio;
-    }
-
-    public void setHoraInicio(Date horaInicio) {
-        HoraInicio = horaInicio;
-    }
 
     public Integer getDuracao() {
         return Duracao;

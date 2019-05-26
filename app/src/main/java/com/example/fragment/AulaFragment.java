@@ -1,5 +1,7 @@
 package com.example.fragment;
 
+import android.annotation.TargetApi;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,7 +16,9 @@ import com.example.tp_pdmm.Entidades.Aula;
 import com.example.tp_pdmm.model.AulaModel;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
 
 import butterknife.BindView;
@@ -35,6 +39,9 @@ public class AulaFragment extends FragmentGenerico {
     EditText horaincio;
     @BindView(R.id.duracao)
     EditText duracao;
+    @BindView(R.id.sumario)
+    EditText sumario;
+
 
     @BindView(R.id.add)
     Button add;
@@ -99,27 +106,44 @@ public class AulaFragment extends FragmentGenerico {
 
     }
 
+@TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
     private void saveData() {
         Aula s = new Aula(context);
 
         s.entidade.setSala(sala.getText().toString());
         s.entidade.setTipo(tipo.getText().toString());
         s.entidade.setDuracao(Integer.parseInt(duracao.getText().toString()));
-        DateFormat ff = new SimpleDateFormat("yyyy/mm/dd");
+        s.entidade.setSumario(sumario.getText().toString());
 
-        DateFormat fff = new SimpleDateFormat("HH:MM");
+
+        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+
+
+            String dataa = data.getText().toString();
+            String horra = horaincio.getText().toString();
+            String l = dataa + " " + horra ;
+
+
+
+
         try {
 
-            Date f = ff.parse(data.getText().toString());
-            Date horaa = fff.parse(horaincio.getText().toString());
-            s.entidade.setHoraInicio(horaa);
-            s.entidade.setDataDeOcorrencia(f);
-        } catch (Exception e) {
+            Date date = dateFormat.parse(l);
 
+
+
+            s.entidade.setDataDeOcorrencia(date);
+
+
+        }catch (ParseException e){
+
+            e.printStackTrace();
         }
 
 
+
         s.CreatOrUpdate();
+
 
     }
 

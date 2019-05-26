@@ -1,5 +1,7 @@
 package com.example.tp_pdmm.model;
 
+import java.util.Date;
+
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
@@ -7,8 +9,22 @@ public class EventoModel extends RealmObject {
     @PrimaryKey
     private int ID;
     private String Descricao;
-    //DateTimeFormatter DataInicio;
+    private Date DataInicio;
+
+
+
+
     private int Duracao;
+
+    public Date getDataInicio() {
+        return DataInicio;
+    }
+
+    public void setDataInicio(Date dataInicio) {
+        DataInicio = dataInicio;
+    }
+
+
 
     public int getID() {
         return ID;

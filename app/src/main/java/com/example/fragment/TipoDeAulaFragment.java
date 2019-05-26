@@ -10,13 +10,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.tp_pdmm.Atividades.R;
-import com.example.tp_pdmm.Entidades.Evento;
-import com.example.tp_pdmm.model.EventoModel;
-
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import com.example.tp_pdmm.Entidades.TipoDeAula;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -24,16 +18,10 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import io.realm.Realm;
 
-public class EventoFragment extends FragmentGenerico {
+public class TipoDeAulaFragment extends FragmentGenerico {
 
     @BindView(R.id.Descricao)
     EditText Descricao;
-    @BindView(R.id.horainicio)
-    EditText horainicio;
-    @BindView(R.id.duracao)
-    EditText duracao;
-    @BindView(R.id.Datainicio)
-    EditText data;
     @BindView(R.id.add)
     Button add;
     @BindView(R.id.delete)
@@ -49,11 +37,12 @@ public class EventoFragment extends FragmentGenerico {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.criarevento, container, false);
+        View view = inflater.inflate(R.layout.crairtipodeaula, container, false);
 
         unbinder = ButterKnife.bind(this, view);
 
         Log.d(TAG, "onCreate: View Initialization done");
+
 
         return view;
     }
@@ -78,7 +67,7 @@ public class EventoFragment extends FragmentGenerico {
     }
 
     private void readData() {
-        Evento s = new Evento(context);
+        TipoDeAula s = new TipoDeAula(context);
         s.Read();
 
         display.setText("");
@@ -88,44 +77,18 @@ public class EventoFragment extends FragmentGenerico {
     }
 
     private void deleteData() {
-        Evento s = new Evento(context);
+        TipoDeAula s = new TipoDeAula(context);
         s.Delete();
 
     }
 
     private void saveData() {
-        Evento s = new Evento(context);
+        TipoDeAula s = new TipoDeAula(context);
         s.entidade.setDescricao(Descricao.getText().toString());
-        s.entidade.setDuracao(Integer.parseInt(duracao.getText().toString()));
-
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/DD HH:mm:ss");
-
-
-        String dataa = data.getText().toString();
-        String horra = horainicio.getText().toString();
-        String l = dataa + " " + horra;
-
-
-
-
-        try {
-
-            Date date = dateFormat.parse(l);
-
-
-
-            s.entidade.setDataInicio(date);
-
-
-        }catch (ParseException e){
-
-            e.printStackTrace();
-        }
-
-
         s.CreatOrUpdate();
+
 
     }
 
-}
 
+}
