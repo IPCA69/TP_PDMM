@@ -1,8 +1,6 @@
 package com.example.fragment;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,8 +10,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.tp_pdmm.Atividades.R;
-import com.example.tp_pdmm.model.Curso;
-import com.example.tp_pdmm.model.Evento;
+import com.example.tp_pdmm.Entidades.Evento;
+import com.example.tp_pdmm.model.EventoModel;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -21,12 +19,7 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import io.realm.Realm;
 
-public class EventoFragment  extends Fragment {
-    private Context context;
-
-
-    private static final String TAG = "MainActivity";
-
+public class EventoFragment extends FragmentGenerico {
 
     @BindView(R.id.Descricao)
     EditText Descricao;
@@ -51,7 +44,6 @@ public class EventoFragment  extends Fragment {
 
         Log.d(TAG, "onCreate: View Initialization done");
 
-
         return view;
     }
 
@@ -75,39 +67,31 @@ public class EventoFragment  extends Fragment {
     }
 
     private void readData() {
-        Evento s = new Evento();
-        s.Model(context).Read();
-        s = s.Model().entidade;
+        Evento s = new Evento(context);
+        s.Read();
 
         display.setText("");
-        display.append(s.getDescricao() == null ? "VAZIO" : s.getDescricao());
+        display.append(s.entidade.getDescricao() == null ? "VAZIO" : s.entidade.getDescricao());
 
 
     }
 
     private void deleteData() {
-        Evento s = new Evento();
-        s = s.Model().entidade;
-        s.Model(context).Delete();
+        Evento s = new Evento(context);
+        s.Delete();
 
     }
 
     private void saveData() {
-        Evento s = new Evento();
+        Evento s = new Evento(context);
 
-        s.setDescricao(Descricao.getText().toString());
+        s.entidade.setDescricao(Descricao.getText().toString());
 
 
-        s.Model(context).CreatOrUpdate();
+        s.CreatOrUpdate();
 
 
     }
 
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        this.context = context;
-    }
 }
 

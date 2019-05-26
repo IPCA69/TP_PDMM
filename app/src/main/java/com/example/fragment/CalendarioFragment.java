@@ -12,7 +12,7 @@ import com.example.tp_pdmm.Atividades.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CalendarioFragment extends Fragment {
+public class CalendarioFragment extends FragmentGenerico {
 
 
     public CalendarioFragment() {

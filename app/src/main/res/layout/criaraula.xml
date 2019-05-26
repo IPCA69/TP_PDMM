@@ -26,7 +26,7 @@
         android:layout_marginTop="20sp"
         android:id="@+id/data"
         android:layout_below="@id/tipo"
-        android:hint="data da aula"
+        android:hint="data da aulaModel"
         android:inputType="date"
         />
 
@@ -37,7 +37,7 @@
         android:layout_below="@id/data"
 
         android:id="@+id/hora"
-        android:hint="hora da aula"
+        android:hint="hora da aulaModel"
         android:inputType="datetime"
         />
 

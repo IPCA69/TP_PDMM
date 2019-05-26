@@ -20,4 +20,6 @@
     <string name="Teste">Teste</string>
     <string name="criar_curso">Criar Curso</string>
     <string name="criar_evento" />
+    <string name="Anterior">Anterior</string>
+    <string name="seguinte">Seguinte</string>
 </resources>

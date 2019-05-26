@@ -1,31 +1,23 @@
 package com.example.tp_pdmm.model;
 
-import android.content.Context;
-import android.util.Log;
-
-import com.example.tp_pdmm.Entidades.EntidadeAula;
-
-import java.sql.Time;
 import java.util.Date;
 
-import io.realm.Realm;
 import io.realm.RealmObject;
-import io.realm.annotations.Ignore;
 import io.realm.annotations.PrimaryKey;
 
 
-public class Aula extends RealmObject {
+public class AulaModel extends RealmObject {
 
-    public Aula() {
+    public AulaModel() {
     }
 
     @PrimaryKey
-    int ID;
-    Date DataDeOcorrencia;
-    Date HoraInicio;
-    Integer Duracao;
-    String Sala;
-    String Tipo;
+    private int ID;
+    private Date DataDeOcorrencia;
+    private Date HoraInicio;
+    private Integer Duracao;
+    private String Sala;
+    private String Tipo;
 
     public Date getDataDeOcorrencia() {
         return DataDeOcorrencia;
@@ -88,31 +80,5 @@ public class Aula extends RealmObject {
         Sumario = sumario;
     }
 
-    //MODEL
-    @Ignore
-    private EntidadeAula model;
-
-    public Integer setNextId(Realm realm) {
-        Integer number = 0;
-        try {
-            number = realm.where(this.getClass()).max("ID").intValue();
-        } catch (Exception e) {
-            Log.d("Erro on ID", "");
-        } finally {
-            return number == null ? 1 : ++number;
-        }
-
-    }
-    public EntidadeAula Model() {
-        return Model(null);
-    }
-
-    public EntidadeAula Model(Context context) {
-        if (model == null)
-            model = new EntidadeAula(this, context);
-        else
-            model.entidade = this;
-        return model;
-    }
 }
 

@@ -12,7 +12,7 @@ import com.example.tp_pdmm.Atividades.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class TurmasFragment extends Fragment {
+public class TurmasFragment extends FragmentGenerico {
 
 
     public TurmasFragment() {

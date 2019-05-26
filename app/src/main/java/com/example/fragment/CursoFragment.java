@@ -1,8 +1,6 @@
 package com.example.fragment;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,8 +10,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.tp_pdmm.Atividades.R;
-import com.example.tp_pdmm.model.Curso;
-import com.example.tp_pdmm.model.Professor;
+import com.example.tp_pdmm.Entidades.Curso;
+import com.example.tp_pdmm.model.CursoModel;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -21,12 +19,7 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import io.realm.Realm;
 
-public class CursoFragment extends Fragment {
-    private Context context;
-
-
-    private static final String TAG = "MainActivity";
-
+public class CursoFragment extends FragmentGenerico {
 
     @BindView(R.id.Descricao)
     EditText Descricao;
@@ -75,35 +68,28 @@ public class CursoFragment extends Fragment {
     }
 
     private void readData() {
-        Curso s = new Curso();
-        s.Model(context).Read();
-        s = s.Model().entidade;
+        Curso s = new Curso(context);
+        s.Read();
 
         display.setText("");
-        display.append(s.getDescricao() == null ? "VAZIO" : s.getDescricao());
+        display.append(s.entidade.getDescricao() == null ? "VAZIO" : s.entidade.getDescricao());
 
 
     }
 
     private void deleteData() {
-        Curso s = new Curso();
-        s = s.Model().entidade;
-        s.Model(context).Delete();
+        Curso s = new Curso(context);
+        s.Delete();
 
     }
 
     private void saveData() {
-        Curso s = new Curso();
-        s.setDescricao(Descricao.getText().toString());
-        s.Model(context).CreatOrUpdate();
+        Curso s = new Curso(context);
+        s.entidade.setDescricao(Descricao.getText().toString());
+        s.CreatOrUpdate();
 
 
     }
 
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        this.context = context;
-    }
 }

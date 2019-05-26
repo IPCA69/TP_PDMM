@@ -46,12 +46,7 @@ public class Email {
     }
 
     private Uri SetEmail() {
-        StringBuilder emailString = new StringBuilder();
-        emailString.append("mailto:?");
-        emailString.append("subject = " + getAssunto());
-        emailString.append(" & body = " + getMensagem());
-        emailString.append(" & to = " + getAllPara());
-        return Uri.parse(emailString.toString());
+        return Uri.parse("mailto:?subject=" + getAssunto() + "&body=" + getMensagem() + "&to=" + getPara());
     }
 
 

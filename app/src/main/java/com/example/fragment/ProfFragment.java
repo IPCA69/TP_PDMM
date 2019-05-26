@@ -1,48 +1,29 @@
 package com.example.fragment;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import com.example.tp_pdmm.Atividades.R;
-import com.example.tp_pdmm.Entidades.EntidadeProfessor;
-import com.example.tp_pdmm.model.Aula;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
 
-import com.example.tp_pdmm.model.Professor;
+import com.example.tp_pdmm.Entidades.Professor;
+import com.example.tp_pdmm.model.ProfessorModel;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.realm.Realm;
-import io.realm.RealmResults;
 
-public class ProfFragment extends Fragment {
-    private Context context;
-
-
-    private static final String TAG = "MainActivity";
+public class ProfFragment extends FragmentGenerico {
 
     @BindView(R.id.nome)
     EditText nome;
@@ -77,7 +58,7 @@ public class ProfFragment extends Fragment {
     @OnClick(R.id.saveprof)
     public void onViewClicked() {
         saveData();
-      //  readData();
+        //  readData();
 
     }
 
@@ -85,22 +66,15 @@ public class ProfFragment extends Fragment {
 
     }
 
-
-
     private void saveData() {
-        Professor s = new Professor();
-        s.setNome(nome.getText().toString());
-        s.setContactos(Contato.getText().toString());
-        s.setUsername(user.getText().toString());
-        s.setPassword(pass.getText().toString());
-        s.Model(context).CreatOrUpdate();
+        Professor s = new Professor(context);
+        s.entidade.setNome(nome.getText().toString());
+        s.entidade.setContactos(Contato.getText().toString());
+        s.entidade.setUsername(user.getText().toString());
+        s.entidade.setPassword(pass.getText().toString());
+        s.CreatOrUpdate();
 
 
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        this.context = context;
-    }
 }

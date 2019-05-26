@@ -26,7 +26,7 @@
         <item
             android:id="@+id/nav_aula"
             android:icon="@drawable/ic_menu_slideshow"
-            android:title="Criar aula" />
+            android:title="Criar aulaModel" />
         <item
             android:id="@+id/nav_disciplina"
             android:icon="@drawable/ic_menu_slideshow"

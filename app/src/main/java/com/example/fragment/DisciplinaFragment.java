@@ -1,8 +1,6 @@
 package com.example.fragment;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +10,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.tp_pdmm.Atividades.R;
-import com.example.tp_pdmm.model.Disciplina;
+import com.example.tp_pdmm.Entidades.Disciplina;
+import com.example.tp_pdmm.model.DisciplinaModel;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -20,12 +19,7 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import io.realm.Realm;
 
-public class DisciplinaFragment extends Fragment {
-    private Context context;
-
-
-    private static final String TAG = "MainActivity";
-
+public class DisciplinaFragment extends FragmentGenerico {
 
     @BindView(R.id.nome)
     EditText nome;
@@ -83,41 +77,28 @@ public class DisciplinaFragment extends Fragment {
     }
 
     private void readData() {
-       Disciplina s = new Disciplina();
-        s.Model(context).Read();
-        s = s.Model().entidade;
+        Disciplina s = new Disciplina(context);
+        s.Read();
 
         display.setText("");
-        display.append(s.getNome() == null ? "VAZIO" : s.getNome());
-
-
+        display.append(s.entidade.getNome() == null ? "VAZIO" : s.entidade.getNome());
     }
 
     private void deleteData() {
-       Disciplina s = new Disciplina();
-        s = s.Model().entidade;
-        s.Model(context).Delete();
+        Disciplina s = new Disciplina(context);
+        s.Delete();
 
     }
 
     private void saveData() {
-       Disciplina s = new Disciplina();
+        Disciplina s = new Disciplina(context);
 
-    s.setAcronimo(acronimo.getText().toString());
-    s.setAnolectivo(Integer.parseInt(anoletivo.getText().toString()));
-    s.setNome(nome.getText().toString());
-    s.setCurso(curso.getText().toString());
+        s.entidade.setAcronimo(acronimo.getText().toString());
+        s.entidade.setAnolectivo(Integer.parseInt(anoletivo.getText().toString()));
+        s.entidade.setNome(nome.getText().toString());
+        s.entidade.setCurso(curso.getText().toString());
 
-        s.Model(context).CreatOrUpdate();
-
-
-    }
-
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        this.context = context;
+        s.CreatOrUpdate();
     }
 }
 

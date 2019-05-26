@@ -1,6 +1,10 @@
 package com.example.tp_pdmm.Entidades;
 
 import android.content.Context;
+import android.util.Log;
+
+
+import com.example.tp_pdmm.Outros.Enums;
 
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
@@ -10,15 +14,13 @@ import io.realm.exceptions.RealmMigrationNeededException;
 public abstract class GestaoDeEntidades {
     private Realm realm;
 
-
-    public GestaoDeEntidades() {
-    }
-
     public Context context;
 
     public abstract void ExecuteCreatOrUpdate(Realm bgRealm);
 
     public abstract void ExecuteDelete(Realm realm);
+
+    public abstract void ExecuteRead(Realm realm, Integer ID);
 
     public abstract void ExecuteRead(Realm realm);
 
@@ -30,7 +32,6 @@ public abstract class GestaoDeEntidades {
         });
         realm.close();
     }
-
 
     public void Delete() {
         Realm realm = getRealm();
@@ -74,5 +75,37 @@ public abstract class GestaoDeEntidades {
         return new RealmConfiguration.Builder().name("myrealm.realm").build();
     }
 
+    Integer GetNextId(Realm realm, Class classToSearch) {
+        Integer number = 0;
+        try {
+            number = realm.where(classToSearch).max("ID").intValue();
+        } catch (Exception e) {
+            Log.d("Erro on ID", "");
+        } finally {
+            return number == null ? 1 : ++number;
+        }
+
+    }
+
+    public void Navegar(Enums.Navegar move, final int idRef) {
+        Realm realm = getRealm();
+
+        realm.executeTransaction(r -> {
+            int idToSearch = 0;
+            switch (move) {
+                case Anterior: {
+                    idToSearch = idRef - 1;
+                    break;
+                }
+                case Seguinte: {
+                    idToSearch = idRef + 1;
+                    break;
+                }
+            }
+
+            ExecuteRead(realm, idToSearch);
+        });
+        realm.close();
+    }
 
 }

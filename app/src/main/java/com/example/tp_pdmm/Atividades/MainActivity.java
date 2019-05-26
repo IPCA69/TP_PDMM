@@ -2,8 +2,6 @@ package com.example.tp_pdmm.Atividades;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -17,6 +15,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+
 import com.example.fragment.DisciplinaFragment;
 import com.example.fragment.AulaFragment;
 import com.example.fragment.EventoFragment;
@@ -24,17 +23,12 @@ import com.example.fragment.CursoFragment;
 import com.example.fragment.ProfFragment;
 import com.example.fragment.CalendarioFragment;
 import com.example.fragment.TurmasFragment;
+import com.example.tp_pdmm.Entidades.Aula;
 import com.example.tp_pdmm.Entidades.GestaoDeEntidades;
 import com.example.tp_pdmm.Outros.Email;
-import com.example.tp_pdmm.model.Curso;
-import com.example.tp_pdmm.model.Aula;
-import com.example.tp_pdmm.model.Disciplina;
-import com.example.tp_pdmm.model.Evento;
-import com.example.tp_pdmm.model.Professor;
-import com.example.tp_pdmm.model.TipoDeAula;
+import com.example.tp_pdmm.Outros.Enums;
 
 import io.realm.Realm;
-import io.realm.RealmConfiguration;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -91,23 +85,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        Disciplina enti = new Disciplina();
-
+        Aula aula = new Aula(this);
         switch (id) {
             case R.id.action_settings: {
                 ShowAlertDialog("aa");
                 return true;
             }
-            case R.id.action_Creat: { //Ok
-                enti.Model(this).CreatOrUpdate();
-                // new Professor().Model(this).CreatOrUpdate();
-                new TipoDeAula().Model(this).CreatOrUpdate();
-                new Evento().Model(this).CreatOrUpdate();
-                String f = "asdas";
-                Professor s = new Professor();
-                s.setNome(f);
-                s.Model(this).CreatOrUpdate();
+            case R.id.action_CreatOrUpdate: { //Ok
+                aula.CreatOrUpdate();
                 return true;
             }
             case R.id.action_Delete: {
@@ -117,11 +102,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 return true;
             }
             case R.id.action_Read: {
-                enti.Model(this).Read();
-                enti = enti.Model().entidade;
+                aula.Read();
                 return true;
             }
-            case R.id.action_ResetDataBase: { //Ok
+            case R.id.action_Anterior: { //Ok
+                aula.Navegar(Enums.Navegar.Anterior, aula.entidade.getID());
+                return true;
+            }
+            case R.id.action_Seguinte: { //Ok
+                aula.Navegar(Enums.Navegar.Seguinte, aula.entidade.getID());
                 return true;
             }
         }
@@ -147,24 +136,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             showFragment(fragment);
         } else if (id == R.id.nav_logout) {
 
-        }else if (id == R.id.nav_prf) {
+        } else if (id == R.id.nav_prf) {
             fragment = ProfFragment.class;
             showFragment(fragment);
 
-        }
-        else if (id == R.id.nav_curso) {
+        } else if (id == R.id.nav_curso) {
             fragment = CursoFragment.class;
             showFragment(fragment);
 
-        }
-        else if(id==R.id.nav_evento){
+        } else if (id == R.id.nav_evento) {
             fragment = EventoFragment.class;
             showFragment(fragment);
-        }
-        else if(id==R.id.nav_aula){
+        } else if (id == R.id.nav_aula) {
             fragment = AulaFragment.class;
             showFragment(fragment);
-        } else if(id==R.id.nav_disciplina){
+        } else if (id == R.id.nav_disciplina) {
             fragment = DisciplinaFragment.class;
             showFragment(fragment);
         }

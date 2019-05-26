@@ -3,12 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
+
+        android:id="@+id/action_favorite"
+        android:icon="@drawable/ic_launcher_background"
+        android:title="sdv"
+        app:showAsAction="ifRoom" />
+
+    <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
-        android:title="@string/action_settings"
+        android:title="titulo"
         app:showAsAction="never" />
     <item
-        android:id="@+id/action_Creat"
+        android:id="@+id/action_CreatOrUpdate"
         android:orderInCategory="100"
         android:title="@string/action_Creat"
         app:showAsAction="never" />
@@ -28,9 +35,15 @@
         android:title="@string/action_Read"
         app:showAsAction="never" />
     <item
-        android:id="@+id/action_ResetDataBase"
+        android:id="@+id/action_Anterior"
         android:orderInCategory="100"
-        android:title="@string/action_ResetDataBase"
+        android:title="@string/Anterior"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/action_Seguinte"
+        android:orderInCategory="100"
+        android:title="@string/seguinte"
+        app:showAsAction="never" />
+
 
 </menu>

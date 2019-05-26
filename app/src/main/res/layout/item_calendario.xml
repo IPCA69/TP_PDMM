@@ -29,13 +29,26 @@
          android:layout_height="wrap_content"
          android:layout_alignParentTop="true"
          android:layout_marginLeft="@dimen/small_margin"
-         android:layout_marginRight="@dimen/small_margin"
+         android:layout_marginTop="8dp"
          android:layout_toEndOf="@+id/ivcalendario"
          android:layout_toRightOf="@id/ivcalendario"
          android:maxLength="20"
          android:textAppearance="?android:attr/textAppearanceMedium"
          android:textColor="@android:color/black"
          tools:text="Daniel" />
+
+     <TextView
+         android:layout_width="wrap_content"
+         android:layout_height="wrap_content"
+         android:id="@+id/tvOverview"
+         android:layout_below="@id/tvtitle"
+         android:layout_marginLeft="@dimen/small_margin"
+         android:layout_marginTop="@dimen/small_margin"
+         android:layout_toEndOf="@+id/ivcalendario"
+         android:layout_toRightOf="@id/ivcalendario"
+         android:maxLength="190"
+         tools:text="Daniel Overview" />
+
 
  </android.support.design.circularreveal.CircularRevealRelativeLayout>
 
