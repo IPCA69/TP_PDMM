@@ -31,8 +31,7 @@ public class Professor extends GestaoDeEntidades {
             find.setID(GetNextId(myRealm, entidade.getClass()));
         }
         find.setNome(entidade.getNome());
-        find.setUsername(entidade.getUsername());
-        find.setPassword(entidade.getPassword());
+        find.setEmail(entidade.getEmail());
         find.setDisciplinaModels(entidade.getDisciplinaModels());
         find.setContactos(entidade.getContactos());
 

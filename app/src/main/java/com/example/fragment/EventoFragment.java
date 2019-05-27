@@ -74,6 +74,7 @@ public class EventoFragment extends FragmentGenerico {
         display.append(s.entidade.getDescricao() == null ? "VAZIO" : s.entidade.getDescricao());
 
 
+
     }
 
     private void deleteData() {

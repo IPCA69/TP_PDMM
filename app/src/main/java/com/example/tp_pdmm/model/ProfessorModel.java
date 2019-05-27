@@ -7,9 +7,10 @@ import io.realm.annotations.PrimaryKey;
 public class ProfessorModel extends RealmObject {
     @PrimaryKey
     private int ID;
+    private String IdToken;
+    private String PhotoUrl;
     private String Nome;
-    private String Username;
-    private String Password;
+    private String Email;
     private RealmList<DisciplinaModel> disciplinaModels;
     private String Contactos;
 
@@ -17,17 +18,22 @@ public class ProfessorModel extends RealmObject {
         return ID;
     }
 
+    public String getPhotoUrl() { return PhotoUrl; }
+
+    public void setPhotoUrl(String photoUrl) { PhotoUrl = photoUrl; }
+
+    public String getIdToken() { return IdToken; }
+
+    public void setIdToken(String idToken) {IdToken = idToken; }
+
     public String getNome() {
         return Nome;
     }
 
-    public String getUsername() {
-        return Username;
+    public String getEmail() {
+        return Email;
     }
 
-    public String getPassword() {
-        return Password;
-    }
 
     public RealmList<DisciplinaModel> getDisciplinaModels() {
         return disciplinaModels;
@@ -45,12 +51,8 @@ public class ProfessorModel extends RealmObject {
         Nome = nome;
     }
 
-    public void setUsername(String username) {
-        Username = username;
-    }
-
-    public void setPassword(String password) {
-        Password = password;
+    public void setEmail(String email) {
+        Email = email;
     }
 
     public void setDisciplinaModels(RealmList<DisciplinaModel> disciplinaModels) {

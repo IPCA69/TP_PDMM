@@ -1,5 +1,6 @@
 package com.example.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -70,11 +71,16 @@ public class ProfFragment extends FragmentGenerico {
         Professor s = new Professor(context);
         s.entidade.setNome(nome.getText().toString());
         s.entidade.setContactos(Contato.getText().toString());
-        s.entidade.setUsername(user.getText().toString());
-        s.entidade.setPassword(pass.getText().toString());
+        s.entidade.setEmail(user.getText().toString());
         s.CreatOrUpdate();
 
 
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        this.context = context;
     }
 
 }
