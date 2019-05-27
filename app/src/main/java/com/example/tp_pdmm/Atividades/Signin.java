@@ -101,7 +101,8 @@ public class Signin extends AppCompatActivity implements View.OnContextClickList
 
             } else {
                 //Passar para a Main Ativity com os parâmetros
-
+                Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(i);
 
             }
         }
