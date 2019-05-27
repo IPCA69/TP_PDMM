@@ -6,22 +6,18 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
-import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
-import com.example.fragment.ProfFragment;
-import com.example.tp_pdmm.Entidades.Curso;
+import com.example.tp_pdmm.Entidades.Professor;
 import com.example.tp_pdmm.model.ProfessorModel;
 import com.google.android.gms.auth.api.Auth;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
 import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
 
 import butterknife.BindView;
@@ -30,26 +26,18 @@ import butterknife.OnClick;
 import io.realm.Realm;
 import io.realm.RealmResults;
 
-import com.example.tp_pdmm.Entidades.Professor;
-import com.example.fragment.ProfFragment;
-
 
 public class Signin extends AppCompatActivity implements View.OnContextClickListener, GoogleApiClient.OnConnectionFailedListener {
 
     GoogleSignInClient mGoogleSignInClient;
-    @BindView(R.id.input_email)
-    EditText inputEmail;
-    @BindView(R.id.input_password)
-    EditText inputPassword;
-    @BindView(R.id.btn_login)
-    AppCompatButton btnLogin;
-    @BindView(R.id.link_signup)
-    TextView linkSignup;
+
+
+    @BindView(R.id.google_button)
+    SignInButton googleButton;
 
     private GoogleApiClient googleApiClient;
     private static final int RC_SIGN_IN = 9001;
     Realm realm;
-
 
 
     @Override
@@ -66,7 +54,7 @@ public class Signin extends AppCompatActivity implements View.OnContextClickList
                 .requestEmail()
                 .build();
 
-        googleApiClient = new GoogleApiClient.Builder(this).enableAutoManage(this,this).addApi(Auth.GOOGLE_SIGN_IN_API,signInOptions).build();
+        googleApiClient = new GoogleApiClient.Builder(this).enableAutoManage(this, this).addApi(Auth.GOOGLE_SIGN_IN_API, signInOptions).build();
 
     }
 
@@ -80,22 +68,18 @@ public class Signin extends AppCompatActivity implements View.OnContextClickList
 
     }
 
-    @OnClick(R.id.btn_login)
-    public void onViewClicked() {
-    }
 
-
-    private void singin(){
+    private void singin() {
 
         Intent intent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
-        startActivityForResult(intent,RC_SIGN_IN);
+        startActivityForResult(intent, RC_SIGN_IN);
     }
 
-    private void signout(){
+    private void signout() {
 
     }
 
-    private void handleResult(GoogleSignInResult result){
+    private void handleResult(GoogleSignInResult result) {
 
         if (result.isSuccess()) {
             GoogleSignInAccount account = result.getSignInAccount();
@@ -116,7 +100,8 @@ public class Signin extends AppCompatActivity implements View.OnContextClickList
                 s.CreatOrUpdate();
 
             } else {
-                 //Passar para a Main Ativity
+                //Passar para a Main Ativity com os parâmetros
+
 
             }
         }
@@ -127,10 +112,15 @@ public class Signin extends AppCompatActivity implements View.OnContextClickList
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode==RC_SIGN_IN){
+        if (requestCode == RC_SIGN_IN) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             handleResult(result);
 
         }
+    }
+
+    @OnClick(R.id.google_button)
+    public void onViewClicked() {
+        singin();
     }
 }
