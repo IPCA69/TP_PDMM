@@ -87,12 +87,10 @@ public class Signin extends AtividadeGenerica implements View.OnContextClickList
             String email = account.getEmail();
             String img_url = account.getPhotoUrl().toString();
             String Gtoken = account.getIdToken();
+            Professor s = new Professor(this);
 
-            RealmResults<ProfessorModel> DBidtoken = realm.where(ProfessorModel.class).equalTo("IdToken", Gtoken).findAll();
-
-            if (DBidtoken.size() == 0) {
+            if (!s.CheckToken(Gtoken)) {
                 // Criar Registo na BD
-                Professor s = new Professor(this);
                 s.entidade.setNome(name);
                 s.entidade.setPhotoUrl(img_url);
                 s.entidade.setEmail(email);

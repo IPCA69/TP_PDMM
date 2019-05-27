@@ -63,6 +63,28 @@ public class Professor extends GestaoDeEntidades {
     private void setEntidade(ProfessorModel entidade) {
         this.entidade = entidade != null ? entidade : new ProfessorModel();
     }
+
+    public Boolean CheckToken(String token) {
+        Realm realm = getRealm();
+        try {
+            realm.beginTransaction();
+            ProfessorModel DBidtoken = realm.where(ProfessorModel.class).equalTo("IdToken", token).findFirst();
+
+            if (DBidtoken != null) {
+                setEntidade(DBidtoken);
+                return true;
+            }
+
+        } catch (Exception e) {
+            realm.cancelTransaction();
+
+        } finally {
+            realm.commitTransaction();
+            realm.close();
+        }
+        return false;
+    }
+
 }
 
 

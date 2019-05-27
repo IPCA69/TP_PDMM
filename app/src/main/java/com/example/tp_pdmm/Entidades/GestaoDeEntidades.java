@@ -108,4 +108,11 @@ public abstract class GestaoDeEntidades {
         realm.close();
     }
 
+    public Context getContext() {
+        return context;
+    }
+
+    public void setContext(Context context) {
+        this.context = context;
+    }
 }
