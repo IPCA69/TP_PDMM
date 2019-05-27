@@ -41,7 +41,6 @@ public class DisciplinaFragment extends FragmentGenerico {
     @BindView(R.id.text)
     TextView display;
 
-    Realm realm;
     Unbinder unbinder;
 
     @Override

@@ -32,12 +32,12 @@ import com.example.tp_pdmm.Outros.Enums;
 
 import io.realm.Realm;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AtividadeGenerica implements NavigationView.OnNavigationItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-         setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -55,14 +55,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setNavigationItemSelectedListener(this);
 
         showFragment(CalendarioFragment.class);
-
-        InitRealm();
     }
 
-    private void InitRealm() {
-        Realm.init(this);
-        Realm.setDefaultConfiguration(GestaoDeEntidades.getRealmConfiguration());
-    }
 
     @Override
     public void onBackPressed() {
@@ -156,8 +150,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else if (id == R.id.nav_disciplina) {
             fragment = DisciplinaFragment.class;
             showFragment(fragment);
-        }
-        else if (id == R.id.nav_criartipoaula) {
+        } else if (id == R.id.nav_criartipoaula) {
             fragment = TipoDeAulaFragment.class;
             showFragment(fragment);
         }

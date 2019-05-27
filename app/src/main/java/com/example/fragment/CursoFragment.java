@@ -32,7 +32,6 @@ public class CursoFragment extends FragmentGenerico {
     @BindView(R.id.text)
     TextView display;
 
-    Realm realm;
     Unbinder unbinder;
 
     @Override

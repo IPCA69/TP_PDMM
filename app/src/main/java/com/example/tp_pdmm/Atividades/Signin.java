@@ -27,7 +27,7 @@ import io.realm.Realm;
 import io.realm.RealmResults;
 
 
-public class Signin extends AppCompatActivity implements View.OnContextClickListener, GoogleApiClient.OnConnectionFailedListener {
+public class Signin extends AtividadeGenerica implements View.OnContextClickListener, GoogleApiClient.OnConnectionFailedListener {
 
     GoogleSignInClient mGoogleSignInClient;
 
@@ -55,7 +55,6 @@ public class Signin extends AppCompatActivity implements View.OnContextClickList
                 .build();
 
         googleApiClient = new GoogleApiClient.Builder(this).enableAutoManage(this, this).addApi(Auth.GOOGLE_SIGN_IN_API, signInOptions).build();
-
     }
 
     @Override
