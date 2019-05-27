@@ -34,7 +34,7 @@ public class Aula extends GestaoDeEntidades {
             find.setID(GetNextId(myRealm, entidade.getClass()));
         }
         find.setDataDeOcorrencia(entidade.getDataDeOcorrencia());
-        find.setHoraInicio(entidade.getHoraInicio());
+
         find.setDuracao(entidade.getDuracao());
         find.setSala(entidade.getSala());
         find.setTipo(entidade.getTipo());

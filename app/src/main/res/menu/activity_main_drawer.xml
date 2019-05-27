@@ -31,6 +31,10 @@
             android:id="@+id/nav_disciplina"
             android:icon="@drawable/ic_menu_slideshow"
             android:title="Criar disciplina" />
+        <item
+            android:id="@+id/nav_criartipoaula"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Criar tipodeaula" />
 
 
 

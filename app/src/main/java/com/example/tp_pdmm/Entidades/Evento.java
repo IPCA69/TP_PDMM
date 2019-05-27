@@ -34,6 +34,7 @@ public class Evento extends GestaoDeEntidades {
         }
 
         find.setDescricao(entidade.getDescricao());
+        find.setDataInicio(entidade.getDataInicio());
         find.setDuracao(entidade.getDuracao());
 
         myRealm.insertOrUpdate(find);
