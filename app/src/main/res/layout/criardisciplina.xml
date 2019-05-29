@@ -34,7 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20sp"
         android:layout_below="@id/curso"
-
+        android:inputType="number"
         android:id="@+id/semestre"
         android:hint="Semestre"
         />
@@ -46,6 +46,7 @@
         android:layout_below="@id/semestre"
         android:id="@+id/anoletivo"
         android:hint="Ano lectivo"
+        android:inputType="number"
 
         />
 
@@ -53,7 +54,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Delete"
-        android:layout_below="@id/anoletivo"
+        android:layout_below="@id/add"
         android:layout_marginTop="20sp"
         android:id="@+id/delete"
         />
@@ -62,7 +63,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="View"
-        android:layout_below="@id/delete"
+        android:layout_below="@id/text"
         android:layout_marginTop="20sp"
         android:id="@+id/view"
         />
@@ -79,12 +80,11 @@
 
 
     <TextView
+        android:id="@+id/text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/add"
-        android:id="@+id/text"
-        android:layout_marginTop="20sp"
-        />
+        android:layout_below="@id/anoletivo"
+        android:layout_marginTop="31dp" />
 
 
 

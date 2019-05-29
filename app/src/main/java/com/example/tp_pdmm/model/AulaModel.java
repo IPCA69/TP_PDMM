@@ -2,6 +2,7 @@ package com.example.tp_pdmm.model;
 
 import java.util.Date;
 
+import io.realm.Realm;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
@@ -12,7 +13,7 @@ public class AulaModel extends RealmObject {
     }
 
     @PrimaryKey
-    private int ID;
+    private Integer ID;
     private Date DataDeOcorrencia;
     private Integer Duracao;
     private String Sala;
@@ -26,11 +27,13 @@ public class AulaModel extends RealmObject {
         DataDeOcorrencia = dataDeOcorrencia;
     }
 
-    public int getID() {
+    public Integer getID() {
         return ID;
     }
 
-    public void setID(int ID) {
+
+
+    public void setID(Integer ID) {
         this.ID = ID;
     }
 

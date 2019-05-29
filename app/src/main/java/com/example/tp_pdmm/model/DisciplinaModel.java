@@ -1,5 +1,7 @@
 package com.example.tp_pdmm.model;
 
+import com.example.tp_pdmm.Entidades.Aula;
+
 import io.realm.RealmObject;
 import io.realm.RealmList;
 import io.realm.annotations.PrimaryKey;
@@ -14,7 +16,7 @@ public class DisciplinaModel extends RealmObject {
 
     private Integer Anolectivo;
     private String Acronimo;
-    private String Semestre;
+    private Integer Semestre;
     //public  String[] Principaistopicos = new String[20];
     private RealmList<AulaModel> aulaModels;
 
@@ -50,11 +52,11 @@ public class DisciplinaModel extends RealmObject {
         Acronimo = acronimo;
     }
 
-    public String getSemestre() {
+    public Integer getSemestre() {
         return Semestre;
     }
 
-    public void setSemestre(String semestre) {
+    public void setSemestre(Integer semestre) {
         Semestre = semestre;
     }
 
