@@ -38,7 +38,7 @@ public class Aula extends GestaoDeEntidades {
         find.setDuracao(entidade.getDuracao());
         find.setSala(entidade.getSala());
         find.setTipo(entidade.getTipo());
-
+        find.setSumario(entidade.getSumario());
         myRealm.insertOrUpdate(find);
 
     }

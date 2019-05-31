@@ -4,10 +4,12 @@ package com.example.tp_pdmm.Entidades;
 import android.content.Context;
 import android.util.Log;
 
+import com.example.tp_pdmm.model.AulaModel;
 import com.example.tp_pdmm.model.DisciplinaModel;
 import com.example.tp_pdmm.model.EventoModel;
 
 import io.realm.Realm;
+import io.realm.RealmList;
 import io.realm.RealmResults;
 
 public class Disciplina extends GestaoDeEntidades {
@@ -37,7 +39,9 @@ public class Disciplina extends GestaoDeEntidades {
         find.setAnolectivo(entidade.getAnolectivo());
         find.setAcronimo(entidade.getAcronimo());
         find.setSemestre(entidade.getSemestre());
-        find.setAulaModels(entidade.getAulaModels());
+       // RealmList<AulaModel> aulaslist = new RealmList();
+       // aulaslist.addAll(entidade.getAulaModels());
+       find.setAulaModels(find.getAulaModels());
 
         myRealm.insertOrUpdate(find);
 

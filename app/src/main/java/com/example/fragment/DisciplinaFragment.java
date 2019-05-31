@@ -42,8 +42,7 @@ public class DisciplinaFragment extends FragmentGenerico {
     Button delete;
     @BindView(R.id.view)
     Button view;
-    @BindView(R.id.text)
-    TextView display;
+
 
     Unbinder unbinder;
 

@@ -3,6 +3,7 @@ package com.example.tp_pdmm.Entidades;
 import android.content.Context;
 import android.util.Log;
 
+import com.example.tp_pdmm.model.DisciplinaModel;
 import com.example.tp_pdmm.model.ProfessorModel;
 
 import io.realm.Realm;

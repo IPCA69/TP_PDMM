@@ -48,6 +48,7 @@
         android:layout_below="@id/hora"
         android:id="@+id/duracao"
         android:hint="duração"
+        android:inputType="number"
 
         />
     <EditText

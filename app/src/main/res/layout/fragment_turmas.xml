@@ -10,11 +10,19 @@
 
 
     <!-- TODO: Update blank fragment layout -->
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:drawable/btn_dropdown"
+        android:spinnerMode="dropdown"
+        />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="View Aulas"
+        android:layout_below="@id/spinner"
         android:layout_marginTop="60sp"
         android:id="@+id/viewaulas"
         />

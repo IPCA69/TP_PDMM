@@ -18,11 +18,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 
+import com.example.tp_pdmm.Entidades.Disciplina;
 import com.example.tp_pdmm.Entidades.Professor;
+import com.example.tp_pdmm.model.DisciplinaModel;
 import com.example.tp_pdmm.model.ProfessorModel;
 
 import butterknife.OnClick;
 import io.realm.Realm;
+import io.realm.RealmList;
 
 public class ProfFragment extends FragmentGenerico {
 

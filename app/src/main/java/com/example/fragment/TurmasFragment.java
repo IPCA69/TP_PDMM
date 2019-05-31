@@ -9,8 +9,10 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.tp_pdmm.Atividades.R;
@@ -19,6 +21,7 @@ import com.example.tp_pdmm.Entidades.Disciplina;
 import com.example.tp_pdmm.model.AulaModel;
 import com.example.tp_pdmm.model.DisciplinaModel;
 
+import java.io.PipedOutputStream;
 import java.util.ArrayList;
 
 import butterknife.BindDimen;
@@ -28,6 +31,7 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import io.realm.Realm;
 import io.realm.RealmList;
+import io.realm.RealmObject;
 import io.realm.RealmResults;
 
 /**
@@ -39,6 +43,9 @@ public class TurmasFragment extends FragmentGenerico {
   //  TextView display;
     @BindView(R.id.viewaulas)
     Button viewaulas;
+
+    @BindView(R.id.spinner)
+    Spinner spinner;
 
     @BindView(R.id.viewdisciplinas)
     Button viewdisciplinas;
@@ -86,10 +93,8 @@ public void ReadDataaulas(){
         TextView textView= new TextView(context);              //dynamically create textview
         textView.setLayoutParams(new LinearLayout.LayoutParams(             //select linearlayoutparam- set the width & height
                 ViewGroup.LayoutParams.MATCH_PARENT, 48));
-//        textView.setGravity(Gravity.CENTER_VERTICAL);//set the gravity too
- //       textView.setId(l.getID());
         textView.isTextSelectable();
-        textView.setText("ID:"+l.getID()+":"+"Sumario:"+l.getSumario()+","+"Data:"+l.getDataDeOcorrencia());
+        textView.setText("ID:"+l.getID()+";"+"Sumario:"+l.getSumario()+";"+"Data:"+l.getDataDeOcorrencia());
         textView.setOnClickListener(onclicklistener);
 
         layout.addView(textView);
@@ -104,29 +109,41 @@ public void ReadDataaulas(){
                 String o = ((TextView) v).getText().toString();
                 String[] parts = o.split(":");
 
+                String [] parts2 = parts[1].split(";");
+
+
                 Disciplina s = new Disciplina(context);
-                s.entidade.setNome("PT");
-               String ole = parts[1];
-                Aula f = new Aula(context);
-               //AulaModel l = f.entidade.findByID(f.getRealm(),Integer.parseInt(parts[1]));
+                Realm realm = s.getRealm();
 
-               AulaModel oops = s.getRealm().where(AulaModel.class)
-                       .equalTo("ID",Integer.parseInt(parts[1]))
-                       .findFirst();
-               AulaModel k = s.getRealm().copyFromRealm(oops);
-                RealmList<AulaModel> j = new RealmList();
-                  j.add(k);
-                  s.entidade.setAulaModels(j);
-                s.CreatOrUpdate();
+               String ole = parts2[0];
+               Integer kkkk= Integer.parseInt(ole);
+
+                realm.beginTransaction();
 
 
-                ((TextView) v).setText(parts[1]);
+              DisciplinaModel  disc = realm.where(DisciplinaModel.class)
+                                        .equalTo("Nome",spinner.getSelectedItem().toString()).findFirst();
+                if(disc==null){
+                    realm.cancelTransaction();
+                }
+
+            AulaModel  f = realm.where(AulaModel.class)
+                        .equalTo("ID",kkkk).findFirst();
+                if(f==null){
+                    realm.cancelTransaction();
+                }
+                RealmList<AulaModel> ll = disc.getAulaModels();
+                ll.add(f);
+                realm.insertOrUpdate(disc);
+                realm.commitTransaction();
+
+                ((TextView) v).setText("Aula foi adicionada com sucesso");
 
             }
-//       String[] parts = o.split(":");
-//      display.setText(parts[1]);
+
         }
     } ;
+
 
     public void ReadDatadiscilinas(){
         Disciplina s = new Disciplina(context);
@@ -151,6 +168,28 @@ public void ReadDataaulas(){
         }
        // display.setText(builder.toString());
     }
+
+    public void PopulateSpinner(){
+        ArrayList<String> disciplinas = new ArrayList<String>();
+      Disciplina s = new Disciplina(context);
+        Realm o = s.getRealm();
+        RealmResults<DisciplinaModel> results =  o.where(DisciplinaModel.class).findAll();
+        for(DisciplinaModel l : results){
+            if(l.getNome()==null){
+              //  l.setNome("NULO");
+            }else{
+                disciplinas.add(l.getNome());
+            }
+
+
+        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(context,android.R.layout.simple_spinner_dropdown_item,disciplinas);
+
+
+
+        spinner.setAdapter(adapter);
+
+    }
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -159,6 +198,7 @@ public void ReadDataaulas(){
 
         unbinder = ButterKnife.bind(this, view);
 
+        PopulateSpinner();
         Log.d(TAG, "onCreate: View Initialization done");
 
         return view;

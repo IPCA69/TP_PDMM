@@ -1,5 +1,7 @@
 package com.example.tp_pdmm.model;
 
+import com.example.tp_pdmm.Entidades.Disciplina;
+
 import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;

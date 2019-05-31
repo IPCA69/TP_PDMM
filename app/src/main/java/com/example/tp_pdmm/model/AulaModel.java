@@ -18,6 +18,7 @@ public class AulaModel extends RealmObject {
     private Integer Duracao;
     private String Sala;
     private String Tipo;
+    private String Sumario;
 
     public Date getDataDeOcorrencia() {
         return DataDeOcorrencia;
@@ -37,7 +38,7 @@ public class AulaModel extends RealmObject {
         this.ID = ID;
     }
 
-    String Sumario;
+
 
 
     public Integer getDuracao() {
