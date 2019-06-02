@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_lg"
+            android:icon="@drawable/ic_menu_calendario"
+            android:title="@string/nav_lg" />
+        <item
+            android:id="@+id/nav_trm"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="@string/nav_trm" />
+        <item
+            android:id="@+id/nav_prf"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Criar Prf" />
+        <item
+            android:id="@+id/nav_curso"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="@string/criar_curso" />
+        <item
+            android:id="@+id/nav_evento"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Criar evento" />
+        <item
+            android:id="@+id/nav_aula"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Criar aulaModel" />
+        <item
+            android:id="@+id/nav_disciplina"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Criar disciplina" />
+        <item
+            android:id="@+id/nav_criartipoaula"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="Criar tipodeaula" />
+
+
+
+
+    </group>
+
+    <item android:title="Profile">
+        <menu>
+            <item
+                android:id="@+id/nav_logout"
+                android:icon="@drawable/ic_menu_logout"
+                android:title="@string/nav_logout" />
+
+        </menu>
+    </item>
+
+</menu>

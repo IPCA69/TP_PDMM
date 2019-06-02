@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20sp"
+    >
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20sp"
+        android:id="@+id/sala"
+        android:hint="Sala" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20sp"
+        android:id="@+id/tipo"
+        android:layout_below="@id/sala"
+        android:hint="Tipo de Aula" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20sp"
+        android:id="@+id/data"
+        android:layout_below="@id/tipo"
+        android:hint="data da aulaModel"
+        android:inputType="date"
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20sp"
+        android:layout_below="@id/data"
+
+        android:id="@+id/hora"
+        android:hint="hora da aulaModel"
+        android:inputType="datetime"
+        />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20sp"
+        android:layout_below="@id/hora"
+        android:id="@+id/duracao"
+        android:hint="duração"
+        android:inputType="number"
+
+        />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20sp"
+        android:layout_below="@id/duracao"
+        android:id="@+id/sumario"
+        android:hint="Sumário da aula"
+        android:inputType="text"
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Delete"
+        android:layout_below="@id/sumario"
+        android:layout_marginTop="20sp"
+        android:id="@+id/delete"
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="View"
+        android:layout_below="@id/add"
+        android:layout_marginTop="20sp"
+        android:id="@+id/view"
+        />
+
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Save"
+        android:layout_below="@id/delete"
+        android:layout_marginTop="20sp"
+        android:id="@+id/add"
+        />
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/add"
+        android:id="@+id/text"
+        android:layout_marginTop="20sp"
+        />
+
+
+
+
+
+</RelativeLayout>
