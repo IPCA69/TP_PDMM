@@ -1,6 +1,7 @@
 package com.example.chirag.googlesignin.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,7 +12,7 @@ import android.widget.TextView;
 
 import com.example.chirag.googlesignin.R;
 
-import com.example.chirag.googlesignin.model.AnoModel;
+import com.example.chirag.googlesignin.fragment.AulaFragment;
 import com.example.chirag.googlesignin.model.AulaModel;
 import com.squareup.picasso.Picasso;
 
@@ -38,7 +39,7 @@ private Context getContext(){
     @Override
     public ViewHolder onCreateViewHolder( ViewGroup parent, int i) {
 
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_calendario, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_recyclerview, parent, false);
         return new ViewHolder(v);
     }
 
@@ -57,7 +58,7 @@ private Context getContext(){
         return aulaModels.size();
     }
 
-   public class ViewHolder extends RecyclerView.ViewHolder{
+   public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         @BindView(R.id.ivcalendario)
         ImageView ivcalendario;
         @BindView(R.id.tvtitle)
@@ -70,6 +71,17 @@ private Context getContext(){
         ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
+            view.setOnClickListener(this);
         }
-    }
+
+       @Override
+       public void onClick(View view) {
+
+           AulaModel aula = aulaModels.get(getAdapterPosition());
+           Intent intent = new Intent(getContext(), AulaFragment.class);
+           intent.putExtra("Aula",aula);
+           getContext().startActivity(intent);
+
+       }
+   }
 }

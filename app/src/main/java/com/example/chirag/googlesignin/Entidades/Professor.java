@@ -24,7 +24,7 @@ public class Professor extends GestaoDeEntidades {
     public void ExecuteCreatOrUpdate(Realm myRealm) {
 
         //Checks if the object already exists
-        ProfessorModel find = myRealm.where(entidade.getClass()).equalTo("ID", entidade.getID()).findFirst();
+        ProfessorModel find = myRealm.where(entidade.getClass()).equalTo("IdToken", entidade.getIdToken()).findFirst();
 
         if (find == null) {
             find = new ProfessorModel();
@@ -32,6 +32,8 @@ public class Professor extends GestaoDeEntidades {
         }
         find.setNome(entidade.getNome());
         find.setEmail(entidade.getEmail());
+        find.setIdToken(entidade.getIdToken());
+        find.setPhotoUrl(entidade.getPhotoUrl());
         find.setDisciplinaModels(entidade.getDisciplinaModels());
         find.setContactos(entidade.getContactos());
 

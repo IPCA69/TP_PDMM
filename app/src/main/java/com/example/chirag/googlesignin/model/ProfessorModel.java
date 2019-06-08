@@ -17,50 +17,49 @@ public class ProfessorModel extends RealmObject {
     public int getID() {
         return ID;
     }
+    public void setID(int ID) {
+        this.ID = ID;
+    }
+
 
     public String getPhotoUrl() { return PhotoUrl; }
-
     public void setPhotoUrl(String photoUrl) { PhotoUrl = photoUrl; }
 
     public String getIdToken() { return IdToken; }
-
     public void setIdToken(String idToken) {IdToken = idToken; }
 
     public String getNome() {
         return Nome;
     }
+    public void setNome(String nome) {
+        Nome = nome;
+    }
 
     public String getEmail() {
         return Email;
+    }
+    public void setEmail(String email) {
+        Email = email;
+    }
+
+
+    public String getContactos() {
+        return Contactos;
+    }
+    public void setContactos(String contactos) {
+        Contactos = contactos;
     }
 
 
     public RealmList<DisciplinaModel> getDisciplinaModels() {
         return disciplinaModels;
     }
-
-    public String getContactos() {
-        return Contactos;
-    }
-
-    public void setID(int ID) {
-        this.ID = ID;
-    }
-
-    public void setNome(String nome) {
-        Nome = nome;
-    }
-
-    public void setEmail(String email) {
-        Email = email;
-    }
-
     public void setDisciplinaModels(RealmList<DisciplinaModel> disciplinaModels) {
         this.disciplinaModels = disciplinaModels;
     }
 
-    public void setContactos(String contactos) {
-        Contactos = contactos;
-    }
+
+
+
 
 }

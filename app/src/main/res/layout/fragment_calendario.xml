@@ -5,20 +5,18 @@
         android:layout_height="match_parent"
         android:padding="15dp"
 
-    tools:context="com.example.fragment.CalendarioFragment"
+    tools:context="com.example.chirag.googlesignin.fragment.CalendarioFragment"
         android:orientation="vertical">
-
-
-        <!-- TODO: Update blank fragment layout -->
-
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="View Disciplinas"
-            android:layout_marginTop="20sp"
+            android:layout_marginTop="100sp"
             android:id="@+id/viewdisciplinas"
             />
+
+
         <LinearLayout
             android:orientation="vertical"
             android:id="@+id/llayout"

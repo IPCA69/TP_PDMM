@@ -1,4 +1,4 @@
-package com.example.chirag.googlesignin;
+package com.example.chirag.googlesignin.Atividades;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

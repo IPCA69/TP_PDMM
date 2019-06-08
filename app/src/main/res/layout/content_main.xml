@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,14 +10,65 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.tp_pdmm.Atividades.MainActivity"
-    tools:showIn="@layout/app_bar_main">
+    tools:context="com.example.chirag.googlesignin.Atividades.MainActivity"
+    tools:showIn="@layout/app_bar_main"
+    android:orientation="vertical"
+
+    >
 
 <FrameLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/flContent">
+    android:id="@+id/flContent"
+    android:layout_weight="1"
+    >
+
+
+    <FrameLayout
+        android:id="@+id/frcontainer2"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+
+        android:layout_weight="2">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="50dp">
+
+            <TextView
+                android:id="@+id/mvtext"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="maind activity ola"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+
+        </RelativeLayout>
+
+
+    </FrameLayout>
+
+
+    <android.support.v4.view.ViewPager
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/mvtext"
+        android:id="@+id/pager"
+
+        />
+
+    
 
 </FrameLayout>
+
+
 
 </RelativeLayout>

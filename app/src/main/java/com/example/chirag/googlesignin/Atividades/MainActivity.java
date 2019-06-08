@@ -1,4 +1,4 @@
-package com.example.chirag.googlesignin;
+package com.example.chirag.googlesignin.Atividades;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -11,12 +11,15 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -28,6 +31,8 @@ import com.example.chirag.googlesignin.Entidades.Aula;
 import com.example.chirag.googlesignin.Entidades.Professor;
 import com.example.chirag.googlesignin.Outros.Email;
 import com.example.chirag.googlesignin.Outros.Enums;
+import com.example.chirag.googlesignin.R;
+import com.example.chirag.googlesignin.adapters.ViewPagerAdapter;
 import com.example.chirag.googlesignin.fragment.AulaFragment;
 import com.example.chirag.googlesignin.fragment.CalendarioFragment;
 import com.example.chirag.googlesignin.fragment.CursoFragment;
@@ -46,7 +51,7 @@ import com.google.android.gms.tasks.Task;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class Main2Activity extends AtividadeGenerica implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AtividadeGenerica implements NavigationView.OnNavigationItemSelectedListener, CalendarioFragment.OnMessageReadListener {
 
     GoogleSignInClient mGoogleSignInClient;
     Button sign_out;
@@ -56,8 +61,7 @@ public class Main2Activity extends AtividadeGenerica implements NavigationView.O
     ImageView photoIV;
     @BindView(R.id.toolbar)
     Toolbar toolbar;
-    @BindView(R.id.flContent)
-    FrameLayout flContent;
+
     @BindView(R.id.fab)
     FloatingActionButton fab;
     @BindView(R.id.nav_view)
@@ -65,6 +69,22 @@ public class Main2Activity extends AtividadeGenerica implements NavigationView.O
     @BindView(R.id.drawer_layout)
     DrawerLayout drawerLayout;
 
+
+    @BindView(R.id.pager)
+    ViewPager pager;
+
+
+
+    @BindView(R.id.newtoolbar)
+    Toolbar newtoolbar;
+    @BindView(R.id.mvtext)
+    TextView mvtext;
+    @BindView(R.id.frcontainer2)
+    FrameLayout frcontainer2;
+    @BindView(R.id.flContent)
+    FrameLayout flContent;
+
+private ViewPagerAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,12 +119,11 @@ public class Main2Activity extends AtividadeGenerica implements NavigationView.O
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        showFragment(CalendarioFragment.class);
 
         // Build a GoogleSignInClient with the options specified by gso.
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
-        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(Main2Activity.this);
+        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(MainActivity.this);
         if (acct != null) {
             String personName = acct.getDisplayName();
             String personGivenName = acct.getGivenName();
@@ -117,24 +136,27 @@ public class Main2Activity extends AtividadeGenerica implements NavigationView.O
             TextView namenav = (TextView) mHeaderView.findViewById(R.id.nomenavhead);
             TextView emailnav = (TextView) mHeaderView.findViewById(R.id.emailnavhead);
             ImageView imgnav = (ImageView) mHeaderView.findViewById(R.id.imageViewnavhead);
-            namenav.setText("User: "+personGivenName);
-            emailnav.setText("Email: "+personEmail);
+            namenav.setText("User: " + personGivenName);
+            emailnav.setText("Email: " + personEmail);
             Glide.with(this).load(personPhoto).into(imgnav);
 
             Professor s = new Professor(this);
-            boolean exist= s.CheckToken(personId);
-            if(exist){
+            boolean exist = s.CheckToken(personId);
+            if (!exist) {
                 s.entidade.setNome(personName);
                 s.entidade.setEmail(personEmail);
                 s.entidade.setIdToken(personId);
-                s.entidade.setPhotoUrl(personPhoto.toString());
+                if (personPhoto != null) {
+                    s.entidade.setPhotoUrl(personPhoto.toString());
+                }
                 s.CreatOrUpdate();
             }
 
-
-
-
         }
+
+
+
+
 
 
     }
@@ -227,6 +249,7 @@ public class Main2Activity extends AtividadeGenerica implements NavigationView.O
             fragment = EventoFragment.class;
             showFragment(fragment);
         } else if (id == R.id.nav_aula) {
+
             fragment = AulaFragment.class;
             showFragment(fragment);
         } else if (id == R.id.nav_disciplina) {
@@ -237,8 +260,23 @@ public class Main2Activity extends AtividadeGenerica implements NavigationView.O
             showFragment(fragment);
         }
 
+
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
+
+
+
+
+        // // Mudar a ToolBar
+        setSupportActionBar(newtoolbar);
+
+        // // ViewPager Adapter
+        adapter = new ViewPagerAdapter(getSupportFragmentManager());
+        pager.setAdapter((PagerAdapter) adapter);
+
+
+
         return true;
     }
 
@@ -256,6 +294,7 @@ public class Main2Activity extends AtividadeGenerica implements NavigationView.O
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
                 .replace(R.id.flContent, fragment)
+                .addToBackStack(null)
                 .commit();
     }
 
@@ -288,10 +327,31 @@ public class Main2Activity extends AtividadeGenerica implements NavigationView.O
                 .addOnCompleteListener(this, new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        Toast.makeText(Main2Activity.this,"Successfully signed out",Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(Main2Activity.this, MainActivity.class));
+                        Toast.makeText(MainActivity.this, "Successfully signed out", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(MainActivity.this, SignIn.class));
                         finish();
                     }
                 });
+    }
+
+
+    @Override
+    public void OnMessageRead(String message) {
+
+        // Posso mudar aqui no content main layout
+        mvtext.setText(message);
+
+        // Ou Pode-se enviar para outro Fragment, Exemplo:
+        TurmasFragment turmasFragment = new TurmasFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("message", message);
+        turmasFragment.setArguments(bundle);
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.flContent, turmasFragment, null)
+                .addToBackStack(null)
+                .commit();
+
     }
 }

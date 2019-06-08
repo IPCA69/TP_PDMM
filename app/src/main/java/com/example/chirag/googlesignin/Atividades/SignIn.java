@@ -1,4 +1,4 @@
-package com.example.chirag.googlesignin;
+package com.example.chirag.googlesignin.Atividades;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +7,7 @@ import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.chirag.googlesignin.R;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -19,7 +20,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MainActivity extends AppCompatActivity {
+public class SignIn extends AppCompatActivity {
 
     int RC_SIGN_IN = 0;
 
@@ -69,12 +70,12 @@ public class MainActivity extends AppCompatActivity {
         try {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
             // Signed in successfully, show authenticated UI.
-            startActivity(new Intent(MainActivity.this, Main2Activity.class));
+            startActivity(new Intent(SignIn.this, MainActivity.class));
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
             // Please refer to the GoogleSignInStatusCodes class reference for more information.
             Log.w("Google Sign In Error", "signInResult:failed code=" + e.getStatusCode());
-            Toast.makeText(MainActivity.this, "Failed", Toast.LENGTH_LONG).show();
+            Toast.makeText(SignIn.this, "Failed", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -84,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
         // the GoogleSignInAccount will be non-null.
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
 //        if (account != null) {
-//            startActivity(new Intent(MainActivity.this, Main2Activity.class));
+//            startActivity(new Intent(SignIn.this, MainActivity.class));
 //        }
         super.onStart();
     }

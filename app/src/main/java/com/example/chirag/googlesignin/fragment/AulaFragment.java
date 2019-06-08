@@ -3,6 +3,8 @@ package com.example.chirag.googlesignin.fragment;
 import android.annotation.TargetApi;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,13 +13,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.example.chirag.googlesignin.R;
 import com.example.chirag.googlesignin.Entidades.Aula;
+import com.example.chirag.googlesignin.R;
+import com.example.chirag.googlesignin.adapters.GeneralRecyclerViewAdapter;
+import com.example.chirag.googlesignin.model.AulaModel;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -53,6 +58,11 @@ public class AulaFragment extends FragmentGenerico {
     Realm realm;
     Unbinder unbinder;
 
+    List<AulaModel> aulaModels;
+
+//    @BindView(R.id.rvid)
+//    RecyclerView rvid;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -74,6 +84,15 @@ public class AulaFragment extends FragmentGenerico {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+//        // Tentar passar para uma recycler view com as aulas existentes
+//        LinearLayoutManager llm = new LinearLayoutManager(this.getContext());
+//        rvid.setHasFixedSize(true);
+//        rvid.setLayoutManager(llm);
+//        // View v = llm.inflate(R.layout.rec_view, null);
+//        unbinder = ButterKnife.bind(R.layout.rec_view, view);
+//        GeneralRecyclerViewAdapter adapter = new GeneralRecyclerViewAdapter(getContext(),aulaModels);
+//        rvid.setAdapter(adapter);
 
     }
 
@@ -104,7 +123,7 @@ public class AulaFragment extends FragmentGenerico {
 
     }
 
-@TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
+    @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
     private void saveData() {
         Aula s = new Aula(context);
 
@@ -113,38 +132,30 @@ public class AulaFragment extends FragmentGenerico {
         s.entidade.setDuracao(Integer.parseInt(duracao.getText().toString()));
         s.entidade.setSumario(sumario.getText().toString());
 
-
         DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 
-
-            String dataa = data.getText().toString();
-            String horra = horaincio.getText().toString();
-            String l = dataa + " " + horra ;
-
-
-
+        String dataa = data.getText().toString();
+        String horra = horaincio.getText().toString();
+        String l = dataa + " " + horra;
 
         try {
 
             Date date = dateFormat.parse(l);
-
-
-
             s.entidade.setDataDeOcorrencia(date);
 
-
-        }catch (ParseException e){
+        } catch (ParseException e) {
 
             e.printStackTrace();
         }
 
-
-
         s.CreatOrUpdate();
-
-
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+    }
 }
 
 
