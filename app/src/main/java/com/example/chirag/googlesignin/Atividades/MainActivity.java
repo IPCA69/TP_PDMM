@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
@@ -19,7 +20,6 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -33,13 +33,7 @@ import com.example.chirag.googlesignin.Outros.Email;
 import com.example.chirag.googlesignin.Outros.Enums;
 import com.example.chirag.googlesignin.R;
 import com.example.chirag.googlesignin.adapters.ViewPagerAdapter;
-import com.example.chirag.googlesignin.fragment.AulaFragment;
 import com.example.chirag.googlesignin.fragment.CalendarioFragment;
-import com.example.chirag.googlesignin.fragment.CursoFragment;
-import com.example.chirag.googlesignin.fragment.DisciplinaFragment;
-import com.example.chirag.googlesignin.fragment.EventoFragment;
-import com.example.chirag.googlesignin.fragment.ProfFragment;
-import com.example.chirag.googlesignin.fragment.TipoDeAulaFragment;
 import com.example.chirag.googlesignin.fragment.TurmasFragment;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -74,9 +68,8 @@ public class MainActivity extends AtividadeGenerica implements NavigationView.On
     ViewPager pager;
 
 
-
-    @BindView(R.id.newtoolbar)
-    Toolbar newtoolbar;
+//    @BindView(R.id.newtoolbar)
+//    Toolbar newtoolbar;
     @BindView(R.id.mvtext)
     TextView mvtext;
     @BindView(R.id.frcontainer2)
@@ -84,7 +77,11 @@ public class MainActivity extends AtividadeGenerica implements NavigationView.On
     @BindView(R.id.flContent)
     FrameLayout flContent;
 
-private ViewPagerAdapter adapter;
+    @BindView(R.id.tabs)
+    TabLayout tabs;
+
+    private ViewPagerAdapter adapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -153,10 +150,6 @@ private ViewPagerAdapter adapter;
             }
 
         }
-
-
-
-
 
 
     }
@@ -229,53 +222,19 @@ private ViewPagerAdapter adapter;
         Class fragment = null;
 
         if (id == R.id.nav_lg) {
-            fragment = CalendarioFragment.class;
-            showFragment(fragment);
+            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+            drawer.closeDrawer(GravityCompat.START);
 
-        } else if (id == R.id.nav_trm) {
-            fragment = TurmasFragment.class;
-            showFragment(fragment);
-        } else if (id == R.id.nav_logout) {
-            signOut();
-        } else if (id == R.id.nav_prf) {
-            fragment = ProfFragment.class;
-            showFragment(fragment);
+            // // Mudar a ToolBar
+            // setSupportActionBar(newtoolbar);
 
-        } else if (id == R.id.nav_curso) {
-            fragment = CursoFragment.class;
-            showFragment(fragment);
+            // // ViewPager Adapter
+            adapter = new ViewPagerAdapter(getSupportFragmentManager());
+            pager.setAdapter((PagerAdapter) adapter);
 
-        } else if (id == R.id.nav_evento) {
-            fragment = EventoFragment.class;
-            showFragment(fragment);
-        } else if (id == R.id.nav_aula) {
+            tabs.setupWithViewPager(pager);
 
-            fragment = AulaFragment.class;
-            showFragment(fragment);
-        } else if (id == R.id.nav_disciplina) {
-            fragment = DisciplinaFragment.class;
-            showFragment(fragment);
-        } else if (id == R.id.nav_criartipoaula) {
-            fragment = TipoDeAulaFragment.class;
-            showFragment(fragment);
         }
-
-
-
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-
-
-
-
-        // // Mudar a ToolBar
-        setSupportActionBar(newtoolbar);
-
-        // // ViewPager Adapter
-        adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        pager.setAdapter((PagerAdapter) adapter);
-
-
 
         return true;
     }
