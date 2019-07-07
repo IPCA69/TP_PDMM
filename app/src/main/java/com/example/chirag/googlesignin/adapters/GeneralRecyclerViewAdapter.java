@@ -14,9 +14,14 @@ import com.example.chirag.googlesignin.R;
 
 import com.example.chirag.googlesignin.fragment.AulaFragment;
 import com.example.chirag.googlesignin.model.AulaModel;
+import com.example.chirag.googlesignin.model.DisciplinaModel;
 import com.squareup.picasso.Picasso;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.crypto.ExemptionMechanism;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,16 +31,20 @@ public class GeneralRecyclerViewAdapter extends RecyclerView.Adapter<GeneralRecy
 
     List<AulaModel> aulaModels;
     Context context;
+    List<DisciplinaModel> mData;
+    private List<String> list;
 
-    public GeneralRecyclerViewAdapter(Context context, List<AulaModel> aulaModels){
-
+    public GeneralRecyclerViewAdapter(Context context, List<DisciplinaModel> mData) {
         this.aulaModels = aulaModels;
         this.context = context;
+        this.mData = mData;
     }
+
 
 private Context getContext(){
         return context;
 }
+
     @Override
     public ViewHolder onCreateViewHolder( ViewGroup parent, int i) {
 
@@ -46,16 +55,17 @@ private Context getContext(){
     @Override
     public void onBindViewHolder( ViewHolder holder, int i) {
 
-        AulaModel aulaModel = aulaModels.get(i);
-        holder.tvtitle.setText(aulaModel.getSala());
-        holder.tvOverview.setText(aulaModel.getSumario());
+        holder.tvtitle.setText(mData.get(1).getNome());
+        holder.tvOverview.setText(mData.get(1).getNome());
 
-        Picasso.with(getContext()).load(aulaModel.getSala()).into(holder.ivcalendario);
+        Picasso.with(getContext()).load(mData.get(1).getNome()).into(holder.ivcalendario);
     }
 
     @Override
     public int getItemCount() {
-        return aulaModels.size();
+
+        //return mData.size();
+        return 5;
     }
 
    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
@@ -68,10 +78,11 @@ private Context getContext(){
         @BindView(R.id.cvcalendario)
         CardView cvcalendario;
 
-        ViewHolder(View view) {
-            super(view);
-            ButterKnife.bind(this, view);
-            view.setOnClickListener(this);
+        ViewHolder(View itemview) {
+            super(itemview);
+
+            ButterKnife.bind(this, itemview);
+            itemview.setOnClickListener(this);
         }
 
        @Override

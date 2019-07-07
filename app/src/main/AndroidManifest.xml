@@ -13,6 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".Atividades.A_RecView"></activity>
         <activity android:name=".Atividades.SignIn">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,11 +23,9 @@
         </activity>
         <activity android:name=".Atividades.MainActivity" />
 
-
         <meta-data
             android:name="android.support.PARENT_ACTIVITY"
             android:value="com.example.chirag.googlesignin.Atividades.MainActivity" />
-
     </application>
 
 </manifest>

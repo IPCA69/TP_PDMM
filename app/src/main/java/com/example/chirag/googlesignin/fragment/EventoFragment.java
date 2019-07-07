@@ -105,15 +105,9 @@ public class EventoFragment extends FragmentGenerico {
         String horra = horainicio.getText().toString();
         String l = dataa + " " + horra;
 
-
-
-
         try {
 
             Date date = dateFormat.parse(l);
-
-
-
             s.entidade.setDataInicio(date);
 
 
@@ -122,9 +116,7 @@ public class EventoFragment extends FragmentGenerico {
             e.printStackTrace();
         }
 
-
         s.CreatOrUpdate();
-
     }
 
 }

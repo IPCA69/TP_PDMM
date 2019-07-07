@@ -5,6 +5,10 @@
     android:padding="20sp"
     >
 
+
+
+
+
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

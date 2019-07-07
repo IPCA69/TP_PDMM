@@ -78,25 +78,31 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
     @Override
     public CharSequence getPageTitle(int position) {
 
-        position =position+1;
        String nome = null;
 
         switch(position) {
             case 0:
                 nome= "Aula";
+                return nome;
             case 1:
                 nome= "Cal";
+                return nome;
             case 2:
                 nome= "Curso";
+                return nome;
             case 3:
                 nome= "Disc";
+                return nome;
             case 4:
                 nome= "Evento";
+                return nome;
             case 5:
                 nome= "Turma";
+                return nome;
             case 6:
                nome= "TipoAula";
+                return nome;
         }
-        return nome;
+        return null;
     }
 }

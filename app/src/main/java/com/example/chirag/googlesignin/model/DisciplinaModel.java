@@ -15,7 +15,7 @@ public class DisciplinaModel extends RealmObject {
     private Integer Anolectivo;
     private String Acronimo;
     private Integer Semestre;
-    //public  String[] Principaistopicos = new String[20];
+   // public  String[] Principaistopicos = new String[20];
     private RealmList<AulaModel> aulaModels;
 
     public String getNome() {

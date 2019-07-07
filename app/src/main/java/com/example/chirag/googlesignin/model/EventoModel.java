@@ -10,10 +10,6 @@ public class EventoModel extends RealmObject {
     private int ID;
     private String Descricao;
     private Date DataInicio;
-
-
-
-
     private int Duracao;
 
     public Date getDataInicio() {

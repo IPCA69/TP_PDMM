@@ -34,6 +34,9 @@ import com.example.chirag.googlesignin.Outros.Enums;
 import com.example.chirag.googlesignin.R;
 import com.example.chirag.googlesignin.adapters.ViewPagerAdapter;
 import com.example.chirag.googlesignin.fragment.CalendarioFragment;
+import com.example.chirag.googlesignin.fragment.CursoFragment;
+import com.example.chirag.googlesignin.fragment.RecView;
+import com.example.chirag.googlesignin.fragment.RecView2;
 import com.example.chirag.googlesignin.fragment.TurmasFragment;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -152,6 +155,7 @@ public class MainActivity extends AtividadeGenerica implements NavigationView.On
         }
 
 
+
     }
 
     @Override
@@ -234,6 +238,14 @@ public class MainActivity extends AtividadeGenerica implements NavigationView.On
 
             tabs.setupWithViewPager(pager);
 
+        }else if (id == R.id.nav_logout) {
+            signOut();
+        }else if (id == R.id.nav_view) {
+            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+            drawer.closeDrawer(GravityCompat.START);
+
+            fragment = RecView.class;
+            showFragment(fragment);
         }
 
         return true;
@@ -306,11 +318,11 @@ public class MainActivity extends AtividadeGenerica implements NavigationView.On
         bundle.putString("message", message);
         turmasFragment.setArguments(bundle);
 
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.flContent, turmasFragment, null)
-                .addToBackStack(null)
-                .commit();
+//        FragmentManager fragmentManager = getSupportFragmentManager();
+//        fragmentManager.beginTransaction()
+//                .replace(R.id.flContent, turmasFragment, null)
+//                .addToBackStack(null)
+//                .commit();
 
     }
 }
