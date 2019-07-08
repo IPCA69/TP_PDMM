@@ -41,19 +41,21 @@ public class GeneralRecyclerViewAdapter extends RecyclerView.Adapter<GeneralRecy
     }
 
 
-private Context getContext(){
+    private Context getContext() {
         return context;
-}
+    }
 
     @Override
-    public ViewHolder onCreateViewHolder( ViewGroup parent, int i) {
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int i) {
 
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_recyclerview, parent, false);
         return new ViewHolder(v);
     }
 
     @Override
-    public void onBindViewHolder( ViewHolder holder, int i) {
+    public void onBindViewHolder(ViewHolder holder, int i) {
+        if (mData.size() >= i)
+            return;
 
         holder.tvtitle.setText(mData.get(1).getNome());
         holder.tvOverview.setText(mData.get(1).getNome());
@@ -65,10 +67,10 @@ private Context getContext(){
     public int getItemCount() {
 
         //return mData.size();
-        return 5;
+        return mData.size();
     }
 
-   public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         @BindView(R.id.ivcalendario)
         ImageView ivcalendario;
         @BindView(R.id.tvtitle)
@@ -85,14 +87,14 @@ private Context getContext(){
             itemview.setOnClickListener(this);
         }
 
-       @Override
-       public void onClick(View view) {
+        @Override
+        public void onClick(View view) {
 
-           AulaModel aula = aulaModels.get(getAdapterPosition());
-           Intent intent = new Intent(getContext(), AulaFragment.class);
-           intent.putExtra("Aula",aula);
-           getContext().startActivity(intent);
+            AulaModel aula = aulaModels.get(getAdapterPosition());
+            Intent intent = new Intent(getContext(), AulaFragment.class);
+            intent.putExtra("Aula", aula);
+            getContext().startActivity(intent);
 
-       }
-   }
+        }
+    }
 }

@@ -42,6 +42,9 @@ public class TurmasFragment extends FragmentGenerico {
     @BindView(R.id.spinner)
     Spinner spinner;
 
+    @BindView(R.id.spinner2)
+    Spinner spinner2;
+
     @BindView(R.id.viewdisciplinas)
     Button viewdisciplinas;
 
@@ -169,12 +172,35 @@ public class TurmasFragment extends FragmentGenerico {
         // display.setText(builder.toString());
     }
 
-    public void PopulateSpinner() {
-        ArrayList<String> disciplinas = new ArrayList<String>();
+    public void PopulateSpinners() {
+        ArrayList<Integer> ano  = new ArrayList<Integer>();
         Disciplina s = new Disciplina(context);
         Realm o = s.getRealm();
         RealmResults<DisciplinaModel> results = o.where(DisciplinaModel.class).findAll();
         for (DisciplinaModel l : results) {
+            if (l.getAnolectivo() == null) {
+                //  l.setNome("NULO");
+            } else {
+                ano.add(l.getAnolectivo());
+            }
+
+        }
+        ArrayAdapter<Integer> adapter = new ArrayAdapter<Integer>(context, android.R.layout.simple_spinner_dropdown_item, ano);
+
+
+        spinner2.setAdapter(adapter);
+
+        ArrayList<String> disciplinas = new ArrayList<String>();
+       Integer anus= (Integer) spinner2.getSelectedItem();
+       /*
+       if(anus==null){
+           anus=20182019;
+       }
+       */
+        RealmResults<DisciplinaModel> results2 = o.where(DisciplinaModel.class).
+                equalTo("Anolectivo", (Integer) spinner2.getSelectedItem()) //20182019
+                .findAll();
+        for (DisciplinaModel l : results2) {
             if (l.getNome() == null) {
                 //  l.setNome("NULO");
             } else {
@@ -183,10 +209,10 @@ public class TurmasFragment extends FragmentGenerico {
 
 
         }
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_dropdown_item, disciplinas);
+        ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_dropdown_item, disciplinas);
 
 
-        spinner.setAdapter(adapter);
+        spinner.setAdapter(adapter2);
 
     }
 
@@ -198,7 +224,7 @@ public class TurmasFragment extends FragmentGenerico {
 
         unbinder = ButterKnife.bind(this, view);
 
-        PopulateSpinner();
+        PopulateSpinners();
         Log.d(TAG, "onCreate: View Initialization done");
 
 

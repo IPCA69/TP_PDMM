@@ -13,10 +13,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.chirag.googlesignin.Entidades.Disciplina;
+import com.example.chirag.googlesignin.Entidades.Professor;
+import com.example.chirag.googlesignin.Outros.Enums;
 import com.example.chirag.googlesignin.R;
 import com.example.chirag.googlesignin.adapters.GeneralRecyclerViewAdapter;
 import com.example.chirag.googlesignin.model.AulaModel;
 import com.example.chirag.googlesignin.model.DisciplinaModel;
+import com.example.chirag.googlesignin.model.ProfessorModel;
 
 
 import java.util.ArrayList;
@@ -36,9 +40,10 @@ public class RecView extends FragmentGenerico {
 
     List<AulaModel> aulaModels;
     List<DisciplinaModel> listadisciplinas;
-    String[] strings = {"1", "2", "3", "4", "5", "6", "7","1", "2", "3", "4", "5", "6", "7","1", "2", "3", "4", "5", "6", "7","1", "2", "3", "4", "5", "6", "7","1", "2", "3", "4", "5", "6", "7","1", "2", "3", "4", "5", "6", "7","1", "2", "3", "4", "5", "6", "7","1", "2", "3", "4", "5", "6", "7"};
+    String[] strings = {"1", "2", "3", "4", "5", "6", "7", "1", "2", "3", "4", "5", "6", "7", "1", "2", "3", "4", "5", "6", "7", "1", "2", "3", "4", "5", "6", "7", "1", "2", "3", "4", "5", "6", "7", "1", "2", "3", "4", "5", "6", "7", "1", "2", "3", "4", "5", "6", "7", "1", "2", "3", "4", "5", "6", "7"};
 
-    public RecView() {}
+    public RecView() {
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -46,7 +51,11 @@ public class RecView extends FragmentGenerico {
         View view = inflater.inflate(R.layout.rec_view, container, false);
         unbinder = ButterKnife.bind(this, view);
 
-        GeneralRecyclerViewAdapter mAdapter= new GeneralRecyclerViewAdapter(getContext(),listadisciplinas);
+        Professor prof = new Professor(context);
+        prof.Navegar(Enums.Navegar.Este, 6);
+        listadisciplinas = prof.entidade.getDisciplinaModels() == null ? new ArrayList<DisciplinaModel>() : prof.entidade.getDisciplinaModels();
+
+        GeneralRecyclerViewAdapter mAdapter = new GeneralRecyclerViewAdapter(getContext(), listadisciplinas);
 
         rvid.setLayoutManager(new LinearLayoutManager(getActivity()));
         rvid.setAdapter(mAdapter);
@@ -76,7 +85,8 @@ public class RecView extends FragmentGenerico {
      */
     public class SimpleRVAdapter extends RecyclerView.Adapter<RecView2.SimpleViewHolder> {
         private String[] dataSource;
-        public SimpleRVAdapter(String[] dataArgs){
+
+        public SimpleRVAdapter(String[] dataArgs) {
             dataSource = dataArgs;
         }
 
@@ -102,8 +112,9 @@ public class RecView extends FragmentGenerico {
     /**
      * A Simple ViewHolder for the RecyclerView
      */
-    public static class SimpleViewHolder extends RecyclerView.ViewHolder{
+    public static class SimpleViewHolder extends RecyclerView.ViewHolder {
         public TextView textView;
+
         public SimpleViewHolder(View itemView) {
             super(itemView);
             textView = (TextView) itemView;

@@ -28,17 +28,14 @@ public abstract class GestaoDeEntidades {
         realm.executeTransaction(r -> {
             ExecuteCreatOrUpdate(realm);
         });
-        realm.close();
     }
 
     public void Delete() {
         Realm realm = getRealm();
         realm.executeTransaction(r -> {
-
             ExecuteDelete(realm);
-
         });
-        realm.close();
+
     }
 
     public void Read() {
@@ -46,7 +43,6 @@ public abstract class GestaoDeEntidades {
         realm.executeTransaction(r -> {
             ExecuteRead(realm);
         });
-        realm.close();
     }
 
     public Realm getRealm() {
@@ -99,11 +95,14 @@ public abstract class GestaoDeEntidades {
                     idToSearch = idRef + 1;
                     break;
                 }
+                case Este:{
+                    idToSearch = idRef ;
+                    break;
+                }
             }
 
             ExecuteRead(realm, idToSearch);
         });
-        realm.close();
     }
 
     public Context getContext() {
