@@ -48,7 +48,7 @@ import com.google.android.gms.tasks.Task;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AtividadeGenerica implements NavigationView.OnNavigationItemSelectedListener, CalendarioFragment.OnMessageReadListener {
+public class MainActivity extends AtividadeGenerica implements NavigationView.OnNavigationItemSelectedListener {
 
     GoogleSignInClient mGoogleSignInClient;
     Button sign_out;
@@ -305,7 +305,7 @@ public class MainActivity extends AtividadeGenerica implements NavigationView.On
                 });
     }
 
-
+/*
     @Override
     public void OnMessageRead(String message) {
 
@@ -325,4 +325,5 @@ public class MainActivity extends AtividadeGenerica implements NavigationView.On
 //                .commit();
 
     }
+    */
 }
