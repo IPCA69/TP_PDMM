@@ -33,26 +33,24 @@
         android:layout_below="@id/sala"
         android:hint="Tipo de Aula" />
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20sp"
-        android:id="@+id/data"
-        android:layout_below="@id/tipo"
-        android:hint="data da aulaModel"
-        android:inputType="date"
-        />
+        <EditText
+            android:id="@+id/data"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tipo"
+            android:layout_marginTop="20sp"
+            android:hint="Data da aula dd/MM/yyyy"
+            android:inputType="date" />
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20sp"
-        android:layout_below="@id/data"
+        <EditText
+            android:id="@+id/hora"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/data"
 
-        android:id="@+id/hora"
-        android:hint="hora da aulaModel"
-        android:inputType="datetime"
-        />
+            android:layout_marginTop="20sp"
+            android:hint="Hora da aula HH:mm"
+            android:inputType="date|datetime|time" />
 
     <EditText
         android:layout_width="match_parent"

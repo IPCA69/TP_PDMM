@@ -3,8 +3,7 @@ package com.example.chirag.googlesignin.fragment;
 import android.annotation.TargetApi;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.support.annotation.RequiresApi;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,10 +14,8 @@ import android.widget.TextView;
 
 import com.example.chirag.googlesignin.Entidades.Aula;
 import com.example.chirag.googlesignin.R;
-import com.example.chirag.googlesignin.adapters.GeneralRecyclerViewAdapter;
 import com.example.chirag.googlesignin.model.AulaModel;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -29,6 +26,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import io.realm.Realm;
+import io.realm.RealmObject;
+import io.realm.com_example_chirag_googlesignin_model_AulaModelRealmProxy;
 
 public class AulaFragment extends FragmentGenerico {
 
@@ -55,10 +54,9 @@ public class AulaFragment extends FragmentGenerico {
     @BindView(R.id.text)
     TextView display;
 
-    Realm realm;
     Unbinder unbinder;
 
-    List<AulaModel> aulaModels;
+//    List<AulaModel> aulaModels;
 
 //    @BindView(R.id.rvid)
 //    RecyclerView rvid;
@@ -77,11 +75,27 @@ public class AulaFragment extends FragmentGenerico {
 
 
     @OnClick(R.id.add)
-    public void onViewClicked() {
+    public void saveOnClick() {
 
+        Aula s;
         try {
-            saveData();
-        } catch (Exception e) {
+            s = new Aula(context);
+
+            s.entidade.setSala(sala.getText().toString());
+            s.entidade.setTipo(tipo.getText().toString());
+            s.entidade.setDuracao(ConvertStringToInt(duracao.getText().toString()));
+            s.entidade.setSumario(sumario.getText().toString());
+
+            String dateHour = data.getText().toString() + " " + horaincio.getText().toString();
+
+            Date date = new SimpleDateFormat("dd/MM/yyyy hh:mm").parse(dateHour);
+
+            s.entidade.setDataDeOcorrencia(date);
+
+            s.CreatOrUpdate();
+
+        } catch (ParseException e) {
+
             e.printStackTrace();
         }
 
@@ -96,65 +110,50 @@ public class AulaFragment extends FragmentGenerico {
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @OnClick(R.id.view)
-    public void onnClicked() {
-        readData();
+    public void viewOnClick() {
+        try {
+            StringBuilder txt = new StringBuilder();
 
+            Aula s = new Aula(context);
+            List<RealmObject> lstAula = s.ReadAll(AulaModel.class);
+
+            lstAula.forEach((elem) -> {
+                AulaModel aula = ((com_example_chirag_googlesignin_model_AulaModelRealmProxy) elem);
+                txt.append(aula.getSumario() == null ? "VAZIO" : aula.getSumario());
+                txt.append(" ");
+            });
+
+            display.setText(txt.toString());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @OnClick(R.id.delete)
-    public void onClicked() {
-        deleteData();
-    }
-
-    private void readData() {
-        Aula s = new Aula(context);
-        s.Read();
-
-        display.setText("");
-        display.append(s.entidade.getSumario() == null ? "VAZIO" : s.entidade.getSumario());
-
-
-    }
-
-    private void deleteData() {
-        Aula s = new Aula(context);
-        s.Delete();
-
-    }
-
-    @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH)
-    private void saveData() {
-        Aula s = new Aula(context);
-
-        s.entidade.setSala(sala.getText().toString());
-        s.entidade.setTipo(tipo.getText().toString());
-        s.entidade.setDuracao(Integer.parseInt(duracao.getText().toString()));
-        s.entidade.setSumario(sumario.getText().toString());
-
-        DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-
-        String dataa = data.getText().toString();
-        String horra = horaincio.getText().toString();
-        String l = dataa + " " + horra;
-
+    public void deleteOnClick() {
         try {
-
-            Date date = dateFormat.parse(l);
-            s.entidade.setDataDeOcorrencia(date);
-
-        } catch (ParseException e) {
-
+            Aula s = new Aula(context);
+            s.Delete();
+        } catch (Exception e) {
             e.printStackTrace();
         }
+    }
 
-        s.CreatOrUpdate();
+
+    //Check if string is int
+    public static Integer ConvertStringToInt(String str) {
+        try {
+            return Integer.parseInt(str);
+        } catch (NumberFormatException e) {
+            return 0;
+        }
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-
     }
 }
 

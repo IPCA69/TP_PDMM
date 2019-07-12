@@ -5,8 +5,12 @@ import android.util.Log;
 
 import com.example.chirag.googlesignin.Outros.Enums;
 
+import java.util.Collections;
+import java.util.List;
+
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
+import io.realm.RealmObject;
 import io.realm.exceptions.RealmMigrationNeededException;
 
 public abstract class GestaoDeEntidades {
@@ -28,7 +32,6 @@ public abstract class GestaoDeEntidades {
         realm.executeTransaction(r -> {
             ExecuteCreatOrUpdate(realm);
         });
-        realm.close();
     }
 
     public void Delete() {
@@ -38,7 +41,6 @@ public abstract class GestaoDeEntidades {
             ExecuteDelete(realm);
 
         });
-        realm.close();
     }
 
     public void Read() {
@@ -46,7 +48,19 @@ public abstract class GestaoDeEntidades {
         realm.executeTransaction(r -> {
             ExecuteRead(realm);
         });
-        realm.close();
+    }
+
+
+    public List<RealmObject> ReadAll(Class classToSearch) {
+        try {
+            realm = getRealm();
+
+            return realm.where(classToSearch).findAll();
+        } catch (Exception e) {
+            Log.d("Erro on ID", "");
+        } finally {
+        }
+        return Collections.emptyList();
     }
 
     public Realm getRealm() {

@@ -5,7 +5,10 @@ import android.util.Log;
 
 import com.example.chirag.googlesignin.model.ProfessorModel;
 
+import java.util.List;
+
 import io.realm.Realm;
+import io.realm.RealmObject;
 import io.realm.RealmResults;
 
 public class Professor extends GestaoDeEntidades {
