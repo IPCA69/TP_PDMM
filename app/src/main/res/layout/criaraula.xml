@@ -2,114 +2,119 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="20sp"
-    >
+    android:padding="20sp">
+
+    <Button
+        android:id="@+id/btAulaNew"
+        android:layout_width="71dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="72dp"
+        android:text="New" />
 
 
+    <Button
+        android:id="@+id/btAulaEdit"
+        android:layout_width="71dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+
+        android:text="Edit" />
 
     <ScrollView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="371dp"
+        android:layout_height="546dp"
+        android:layout_marginBottom="30dp"
         android:scrollbars="vertical">
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:orientation="vertical">
-
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20sp"
-        android:id="@+id/sala"
-        android:hint="Sala" />
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20sp"
-        android:id="@+id/tipo"
-        android:layout_below="@id/sala"
-        android:hint="Tipo de Aula" />
-
-        <EditText
-            android:id="@+id/data"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tipo"
-            android:layout_marginTop="20sp"
-            android:hint="Data da aula dd/MM/yyyy"
-            android:inputType="date" />
-
-        <EditText
-            android:id="@+id/hora"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/data"
-
-            android:layout_marginTop="20sp"
-            android:hint="Hora da aula HH:mm"
-            android:inputType="date|datetime|time" />
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20sp"
-        android:layout_below="@id/hora"
-        android:id="@+id/duracao"
-        android:hint="duração"
-        android:inputType="number"
-
-        />
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20sp"
-        android:layout_below="@id/duracao"
-        android:id="@+id/sumario"
-        android:hint="Sumário da aula"
-        android:inputType="text"
-        />
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Delete"
-        android:layout_below="@id/sumario"
-        android:layout_marginTop="20sp"
-        android:id="@+id/delete"
-        />
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="View"
-        android:layout_below="@id/add"
-        android:layout_marginTop="20sp"
-        android:id="@+id/view"
-        />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Save"
-        android:layout_below="@id/delete"
-        android:layout_marginTop="20sp"
-        android:id="@+id/add"
-        />
+            <EditText
+                android:id="@+id/sala"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20sp"
+                android:hint="Sala" />
+
+            <EditText
+                android:id="@+id/tipo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/sala"
+                android:layout_marginTop="20sp"
+                android:hint="Tipo de Aula" />
+
+            <EditText
+                android:id="@+id/dateHour"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tipo"
+                android:layout_marginTop="20sp"
+                android:hint="Data e hora da aula"
+                android:cursorVisible="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                />
 
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/add"
-        android:id="@+id/text"
-        android:layout_marginTop="20sp"
-        />
+            <EditText
+                android:id="@+id/duracao"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tipo"
+                android:layout_marginTop="20sp"
+                android:hint="duração"
+                android:inputType="number"
+                />
 
-    </LinearLayout>
+            <EditText
+                android:id="@+id/sumario"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/duracao"
+                android:layout_marginTop="20sp"
+                android:hint="Sumário da aula"
+                android:inputType="text" />
+
+            <Button
+                android:id="@+id/delete"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/sumario"
+                android:layout_marginTop="20sp"
+                android:text="Delete" />
+
+            <Button
+                android:id="@+id/add"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/delete"
+                android:layout_marginTop="20sp"
+                android:text="Save" />
+
+            <Button
+                android:id="@+id/view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/add"
+                android:layout_marginTop="20sp"
+                android:text="View" />
+
+
+            <TextView
+                android:id="@+id/text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/add"
+                android:layout_marginTop="20sp" />
+
+        </LinearLayout>
 
     </ScrollView>
 
