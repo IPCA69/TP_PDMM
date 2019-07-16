@@ -10,11 +10,16 @@ import android.widget.EditText;
 
 import com.example.chirag.googlesignin.R;
 import com.example.chirag.googlesignin.Entidades.Disciplina;
+import com.example.chirag.googlesignin.model.AulaModel;
+import com.example.chirag.googlesignin.model.DisciplinaModel;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import io.realm.RealmObject;
+import io.realm.com_example_chirag_googlesignin_model_AulaModelRealmProxy;
+import io.realm.com_example_chirag_googlesignin_model_DisciplinaModelRealmProxy;
 
 public class DisciplinaFragment extends FragmentGenerico {
 
@@ -29,13 +34,18 @@ public class DisciplinaFragment extends FragmentGenerico {
     @BindView(R.id.anoletivo)
     EditText anoletivo;
 
-    @BindView(R.id.add)
-    Button add;
-    @BindView(R.id.delete)
-    Button delete;
-    @BindView(R.id.view)
-    Button view;
-
+    @BindView(R.id.btSaveDisciplina)
+    Button btSave;
+    @BindView(R.id.btDeleteDisciplina)
+    Button btDelete;
+    @BindView(R.id.btViewDisciplina)
+    Button btView;
+    @BindView(R.id.btImportDisciplina)
+    Button btImport;
+    @BindView(R.id.btNewDisciplina)
+    Button btNew;
+    @BindView(R.id.btEditDisciplina)
+    Button btEdit;
 
     Unbinder unbinder;
 
@@ -53,20 +63,20 @@ public class DisciplinaFragment extends FragmentGenerico {
     }
 
 
-    @OnClick(R.id.add)
+    @OnClick(R.id.btSaveDisciplina)
     public void onViewClicked() {
         saveData();
         //  readData();
 
     }
 
-    @OnClick(R.id.view)
+    @OnClick(R.id.btViewDisciplina)
     public void onnClicked() {
         readData();
 
     }
 
-    @OnClick(R.id.delete)
+    @OnClick(R.id.btDeleteDisciplina)
     public void onClicked() {
         deleteData();
     }
@@ -95,9 +105,64 @@ public class DisciplinaFragment extends FragmentGenerico {
         s.entidade.setCurso(curso.getText().toString());
         s.entidade.setSemestre(Integer.parseInt(semestre.getText().toString()));
         // RealmList<AulaModel> j = new RealmList();
-        //  j.add(f.entidade);
+        //  j.btSave(f.entidade);
         //s.entidade.setAulaModels(j);
         s.CreatOrUpdate();
+    }
+
+    @Override
+    public DisciplinaModel CastRealmObjectToEntity(RealmObject obj) {
+        return ((com_example_chirag_googlesignin_model_DisciplinaModelRealmProxy) obj);
+    }
+
+    @Override
+    public boolean Validate() {
+        return false;
+    }
+
+    @Override
+    public void EntityToDOM() {
+
+    }
+
+    @Override
+    public void CleanView() {
+
+    }
+
+    @Override
+    public void SetEnable(boolean value) {
+
+    }
+
+    @Override
+    public Button getBtDelete() {
+        return btDelete;
+    }
+
+    @Override
+    public Button getBtSave() {
+        return btSave;
+    }
+
+    @Override
+    public Button getBtNew() {
+        return btNew;
+    }
+
+    @Override
+    public Button getBtEdit() {
+        return btEdit;
+    }
+
+    @Override
+    public Button getBtImport() {
+        return btImport;
+    }
+
+    @Override
+    public String getFragmentDesc() {
+        return "Disciplina";
     }
 }
 

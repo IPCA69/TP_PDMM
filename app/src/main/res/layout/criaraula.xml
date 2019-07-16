@@ -5,6 +5,15 @@
     android:padding="20sp">
 
     <Button
+        android:id="@+id/btAulaImport"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="140dp"
+        android:text="Import" />
+
+    <Button
         android:id="@+id/btAulaNew"
         android:layout_width="71dp"
         android:layout_height="wrap_content"
@@ -20,8 +29,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-
         android:text="Edit" />
+
+
 
     <ScrollView
         android:layout_width="371dp"
@@ -83,7 +93,7 @@
                 android:inputType="text" />
 
             <Button
-                android:id="@+id/delete"
+                android:id="@+id/btDeleteAula"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/sumario"
@@ -91,28 +101,21 @@
                 android:text="Delete" />
 
             <Button
-                android:id="@+id/add"
+                android:id="@+id/btSaveAula"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/delete"
+                android:layout_below="@id/btDeleteAula"
                 android:layout_marginTop="20sp"
                 android:text="Save" />
 
             <Button
-                android:id="@+id/view"
+                android:id="@+id/btViewAula"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/add"
+                android:layout_below="@id/btSaveAula"
                 android:layout_marginTop="20sp"
                 android:text="View" />
 
-
-            <TextView
-                android:id="@+id/text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/add"
-                android:layout_marginTop="20sp" />
 
         </LinearLayout>
 

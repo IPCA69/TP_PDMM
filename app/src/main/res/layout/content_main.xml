@@ -1,83 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
+    android:gravity="center"
+    android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.chirag.googlesignin.Atividades.MainActivity"
     tools:showIn="@layout/app_bar_main"
-    android:orientation="vertical"
 
     >
 
     <android.support.design.widget.TabLayout
+        android:id="@+id/tabs"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:id="@+id/tabs"
         android:background="?attr/colorPrimary"
         android:elevation="4dp"
         android:minHeight="?attr/actionBarSize"
-        app:tabMode="scrollable"
         app:tabGravity="fill"
-        app:tabTextColor="#FFF"
+        app:tabMode="scrollable"
         app:tabSelectedTextColor="@color/colorAccent"
+        app:tabTextColor="#FFF"
 
         />
 
-
-<FrameLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/flContent"
-    android:layout_weight="1"
-    android:layout_below="@+id/tabs"
-    >
 
     <FrameLayout
-        android:id="@+id/frcontainer2"
+        android:id="@+id/flContent"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
+        android:layout_below="@+id/tabs"
+        android:layout_weight="1">
 
-        android:layout_weight="2">
-
-
-        <RelativeLayout
+        <FrameLayout
+            android:id="@+id/frcontainer2"
             android:layout_width="match_parent"
-            android:layout_height="15dp"
-            android:layout_marginTop="5dp">
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
 
-            <TextView
-                android:id="@+id/mvtext"
+            android:layout_weight="2">
+
+
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="MaAct"
-                android:textSize="10sp" />
-        </RelativeLayout>
+                android:layout_height="15dp"
+                android:layout_marginTop="5dp" />
 
 
+        </FrameLayout>
+
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <TextView
+            android:id="@+id/anoletivo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="50dp"
+            android:text="Ano Letivo"
+            android:textAlignment="center"
+            android:textSize="50dp"
+            android:textStyle="normal" />
+
+        <TextView
+            android:id="@+id/yearDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/anoletivo"
+            android:layout_gravity="center"
+            android:textAlignment="center"
+            android:textSize="50dp"
+            android:textStyle="normal" />
     </FrameLayout>
-
-
-    <android.support.v4.view.ViewPager
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/mvtext"
-        android:id="@+id/pager"
-        />
-
-
-
-
-</FrameLayout>
-
 
 
 </RelativeLayout>

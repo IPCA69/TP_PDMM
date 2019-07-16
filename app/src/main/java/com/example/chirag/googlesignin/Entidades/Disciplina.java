@@ -7,6 +7,7 @@ import android.util.Log;
 import com.example.chirag.googlesignin.model.DisciplinaModel;
 
 import io.realm.Realm;
+import io.realm.RealmQuery;
 import io.realm.RealmResults;
 
 public class Disciplina extends GestaoDeEntidades {
@@ -22,10 +23,15 @@ public class Disciplina extends GestaoDeEntidades {
     }
 
     @Override
+    public RealmQuery<? extends DisciplinaModel> BaseQuery(Realm realm) {
+        return realm.where(entidade.getClass()).equalTo("Year", entidade.getYear());
+    }
+
+    @Override
     public void ExecuteCreatOrUpdate(Realm myRealm) {
 
         //Checks if the object already exists
-        DisciplinaModel find = myRealm.where(entidade.getClass()).equalTo("ID", entidade.getID()).findFirst();
+        DisciplinaModel find = BaseQuery(myRealm).equalTo("ID", entidade.getID()).findFirst();
 
         if (find == null) {
             find = new DisciplinaModel();
@@ -36,17 +42,18 @@ public class Disciplina extends GestaoDeEntidades {
         find.setAnolectivo(entidade.getAnolectivo());
         find.setAcronimo(entidade.getAcronimo());
         find.setSemestre(entidade.getSemestre());
-       // RealmList<AulaModel> aulaslist = new RealmList();
-       // aulaslist.addAll(entidade.getAulaModels());
-       find.setAulaModels(find.getAulaModels());
-
+        // RealmList<AulaModel> aulaslist = new RealmList();
+        // aulaslist.addAll(entidade.getAulaModels());
+        find.setAulaModels(find.getAulaModels());
+        find.setYear(entidade.getYear());
         myRealm.insertOrUpdate(find);
+        entidade = find;
 
     }
 
     @Override
     public void ExecuteDelete(Realm realm) {
-        RealmResults<DisciplinaModel> result = realm.where(DisciplinaModel.class).equalTo("ID", entidade.getID()).findAll();
+        RealmResults<? extends DisciplinaModel> result = BaseQuery(realm).equalTo("ID", entidade.getID()).findAll();
 
         if (result.size() == 0) {
             Log.d("DataBase", "NO DATA FOUND TO DELETE");
@@ -62,7 +69,7 @@ public class Disciplina extends GestaoDeEntidades {
 
     @Override
     public void ExecuteRead(Realm myRealm, Integer ID) {
-        setEntidade(myRealm.where(entidade.getClass()).equalTo("ID", ID == null ? entidade.getID() : ID).findFirst());
+        setEntidade(BaseQuery(myRealm).equalTo("ID", ID == null ? entidade.getID() : ID).findFirst());
     }
 
     private void setEntidade(DisciplinaModel entidade) {

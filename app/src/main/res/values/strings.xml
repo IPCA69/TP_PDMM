@@ -33,6 +33,9 @@
     </string>
     <string name="crud">CRUD</string>
     <string name="str_navegate">Navegate</string>
+    <string name="gestao">Gestão</string>
+    <string name="start">Inicio</string>
+    <string name="descricao">Descrição</string>
 
     <string-array name="teste">
         <item>danirl</item>

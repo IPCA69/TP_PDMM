@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import com.example.chirag.googlesignin.R;
 import com.example.chirag.googlesignin.Entidades.Evento;
+import com.example.chirag.googlesignin.model.DisciplinaModel;
+import com.example.chirag.googlesignin.model.EventoModel;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -22,6 +24,9 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import io.realm.Realm;
+import io.realm.RealmObject;
+import io.realm.com_example_chirag_googlesignin_model_DisciplinaModelRealmProxy;
+import io.realm.com_example_chirag_googlesignin_model_EventoModelRealmProxy;
 
 public class EventoFragment extends FragmentGenerico {
 
@@ -33,16 +38,20 @@ public class EventoFragment extends FragmentGenerico {
     EditText duracao;
     @BindView(R.id.Datainicio)
     EditText data;
-    @BindView(R.id.add)
-    Button add;
-    @BindView(R.id.delete)
-    Button delete;
-    @BindView(R.id.view)
-    Button view;
-    @BindView(R.id.text)
-    TextView display;
 
-    Realm realm;
+    @BindView(R.id.btSaveEvento)
+    Button btSave;
+    @BindView(R.id.btDeleteEvento)
+    Button btDelete;
+    @BindView(R.id.btViewEvento)
+    Button btView;
+    @BindView(R.id.btImportEvento)
+    Button btImport;
+    @BindView(R.id.btNewEvento)
+    Button btNew;
+    @BindView(R.id.btEditEvento)
+    Button btEdit;
+
     Unbinder unbinder;
 
     @Override
@@ -58,20 +67,20 @@ public class EventoFragment extends FragmentGenerico {
     }
 
 
-    @OnClick(R.id.add)
+    @OnClick(R.id.btSaveEvento)
     public void onViewClicked() {
         saveData();
         //  readData();
 
     }
 
-    @OnClick(R.id.view)
+    @OnClick(R.id.btViewEvento)
     public void onnClicked() {
         readData();
 
     }
 
-    @OnClick(R.id.delete)
+    @OnClick(R.id.btDeleteEvento)
     public void onClicked() {
         deleteData();
     }
@@ -79,10 +88,6 @@ public class EventoFragment extends FragmentGenerico {
     private void readData() {
         Evento s = new Evento(context);
         s.Read();
-
-        display.setText("");
-        display.append(s.entidade.getDescricao() == null ? "VAZIO" : s.entidade.getDescricao());
-
 
 
     }
@@ -111,7 +116,7 @@ public class EventoFragment extends FragmentGenerico {
             s.entidade.setDataInicio(date);
 
 
-        }catch (ParseException e){
+        } catch (ParseException e) {
 
             e.printStackTrace();
         }
@@ -119,5 +124,59 @@ public class EventoFragment extends FragmentGenerico {
         s.CreatOrUpdate();
     }
 
+    @Override
+    public EventoModel CastRealmObjectToEntity(RealmObject obj) {
+        return ((com_example_chirag_googlesignin_model_EventoModelRealmProxy) obj);
+    }
+
+    @Override
+    public boolean Validate() {
+        return false;
+    }
+
+    @Override
+    public void EntityToDOM() {
+
+    }
+
+    @Override
+    public void CleanView() {
+
+    }
+
+    @Override
+    public void SetEnable(boolean value) {
+
+    }
+
+    @Override
+    public Button getBtDelete() {
+        return btDelete;
+    }
+
+    @Override
+    public Button getBtSave() {
+        return btSave;
+    }
+
+    @Override
+    public Button getBtNew() {
+        return btNew;
+    }
+
+    @Override
+    public Button getBtEdit() {
+        return btEdit;
+    }
+
+    @Override
+    public Button getBtImport() {
+        return btImport;
+    }
+
+    @Override
+    public String getFragmentDesc() {
+        return "Evento";
+    }
 }
 

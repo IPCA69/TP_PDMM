@@ -18,6 +18,17 @@ public class DisciplinaModel extends RealmObject {
    // public  String[] Principaistopicos = new String[20];
     private RealmList<AulaModel> aulaModels;
 
+    public int getYear() {
+        return Year;
+    }
+
+    public void setYear(int year) {
+        Year = year;
+    }
+
+    private int Year;
+
+
     public String getNome() {
         return Nome;
     }

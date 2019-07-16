@@ -11,6 +11,7 @@ import java.util.List;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import io.realm.RealmObject;
+import io.realm.RealmQuery;
 import io.realm.exceptions.RealmMigrationNeededException;
 
 public abstract class GestaoDeEntidades {
@@ -25,6 +26,8 @@ public abstract class GestaoDeEntidades {
     public abstract void ExecuteRead(Realm realm, Integer ID);
 
     public abstract void ExecuteRead(Realm realm);
+
+    public abstract RealmQuery BaseQuery(Realm realm);
 
     public void CreatOrUpdate() {
         realm = getRealm();
@@ -50,12 +53,23 @@ public abstract class GestaoDeEntidades {
         });
     }
 
-
     public List<RealmObject> ReadAll(Class classToSearch) {
         try {
             realm = getRealm();
 
             return realm.where(classToSearch).findAll();
+        } catch (Exception e) {
+            Log.d("Erro on ID", "");
+        } finally {
+        }
+        return Collections.emptyList();
+    }
+
+    public List<RealmObject> ReadAllByYear() {
+        try {
+            realm = getRealm();
+
+            return BaseQuery(realm).findAll();
         } catch (Exception e) {
             Log.d("Erro on ID", "");
         } finally {

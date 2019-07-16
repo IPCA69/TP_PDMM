@@ -12,12 +12,17 @@ import android.widget.TextView;
 
 import com.example.chirag.googlesignin.R;
 import com.example.chirag.googlesignin.Entidades.Professor;
+import com.example.chirag.googlesignin.model.EventoModel;
+import com.example.chirag.googlesignin.model.ProfessorModel;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import io.realm.Realm;
+import io.realm.RealmObject;
+import io.realm.com_example_chirag_googlesignin_model_EventoModelRealmProxy;
+import io.realm.com_example_chirag_googlesignin_model_ProfessorModelRealmProxy;
 
 public class ProfFragment extends FragmentGenerico {
 
@@ -29,12 +34,20 @@ public class ProfFragment extends FragmentGenerico {
     EditText pass;
     @BindView(R.id.Contato)
     EditText Contato;
-    @BindView(R.id.saveprof)
-    Button saveprof;
-    @BindView(R.id.display)
-    TextView display;
 
-    Realm realm;
+    @BindView(R.id.btSaveProfessor)
+    Button btSave;
+    @BindView(R.id.btDeleteProfessor)
+    Button btDelete;
+    @BindView(R.id.btViewProfessor)
+    Button btView;
+    @BindView(R.id.btImportProfessor)
+    Button btImport;
+    @BindView(R.id.btNewProfessor)
+    Button btNew;
+    @BindView(R.id.btEditProfessor)
+    Button btEdit;
+
     Unbinder unbinder;
 
     @Override
@@ -51,7 +64,7 @@ public class ProfFragment extends FragmentGenerico {
     }
 
 
-    @OnClick(R.id.saveprof)
+    @OnClick(R.id.btSaveProfessor)
     public void onViewClicked() {
         saveData();
         //  readData();
@@ -68,8 +81,6 @@ public class ProfFragment extends FragmentGenerico {
         s.entidade.setContactos(Contato.getText().toString());
         s.entidade.setEmail(user.getText().toString());
         s.CreatOrUpdate();
-
-
     }
 
     @Override
@@ -78,4 +89,59 @@ public class ProfFragment extends FragmentGenerico {
         this.context = context;
     }
 
+    @Override
+    public ProfessorModel CastRealmObjectToEntity(RealmObject obj) {
+        return ((com_example_chirag_googlesignin_model_ProfessorModelRealmProxy) obj);
+    }
+
+
+    @Override
+    public boolean Validate() {
+        return false;
+    }
+
+    @Override
+    public void EntityToDOM() {
+
+    }
+
+    @Override
+    public void CleanView() {
+
+    }
+
+    @Override
+    public void SetEnable(boolean value) {
+
+    }
+
+    @Override
+    public Button getBtDelete() {
+        return btDelete;
+    }
+
+    @Override
+    public Button getBtSave() {
+        return btSave;
+    }
+
+    @Override
+    public Button getBtNew() {
+        return btNew;
+    }
+
+    @Override
+    public Button getBtEdit() {
+        return btEdit;
+    }
+
+    @Override
+    public Button getBtImport() {
+        return btImport;
+    }
+
+    @Override
+    public String getFragmentDesc() {
+        return "Professor";
+    }
 }

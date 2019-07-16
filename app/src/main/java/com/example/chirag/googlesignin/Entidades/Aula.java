@@ -7,6 +7,7 @@ import android.util.Log;
 import com.example.chirag.googlesignin.model.AulaModel;
 
 import io.realm.Realm;
+import io.realm.RealmQuery;
 import io.realm.RealmResults;
 
 public class Aula extends GestaoDeEntidades {
@@ -22,10 +23,15 @@ public class Aula extends GestaoDeEntidades {
     }
 
     @Override
+    public RealmQuery<? extends AulaModel> BaseQuery(Realm realm) {
+        return realm.where(entidade.getClass()).equalTo("Year", entidade.getYear());
+    }
+
+    @Override
     public void ExecuteCreatOrUpdate(Realm myRealm) {
 
         //Checks if the object already exists
-        AulaModel find = myRealm.where(entidade.getClass()).equalTo("ID", entidade.getID()).findFirst();
+        AulaModel find = BaseQuery(myRealm).equalTo("ID", entidade.getID()).findFirst();
 
         if (find == null) {
             find = new AulaModel();
@@ -37,16 +43,17 @@ public class Aula extends GestaoDeEntidades {
         find.setSala(entidade.getSala());
         find.setTipo(entidade.getTipo());
         find.setSumario(entidade.getSumario());
+        find.setYear(entidade.getYear());
         myRealm.insertOrUpdate(find);
+        entidade = find;
 
     }
 
     @Override
     public void ExecuteDelete(Realm realm) {
-        RealmResults<AulaModel> result = realm.where(AulaModel.class).equalTo("ID", entidade.getID()).findAll();
+        RealmResults<? extends AulaModel> result = BaseQuery(realm).equalTo("ID", entidade.getID()).findAll();
 
         if (result.size() == 0) {
-
             Log.d("DataBase", "NO DATA FOUND TO DELETE");
         } else {
             result.deleteAllFromRealm();
@@ -60,7 +67,7 @@ public class Aula extends GestaoDeEntidades {
 
     @Override
     public void ExecuteRead(Realm myRealm, Integer ID) {
-        setEntidade(myRealm.where(entidade.getClass()).equalTo("ID", ID == null ? entidade.getID() : ID).findFirst());
+        setEntidade(BaseQuery(myRealm).equalTo("ID", ID == null ? entidade.getID() : ID).findFirst());
     }
 
     private void setEntidade(AulaModel entidade) {

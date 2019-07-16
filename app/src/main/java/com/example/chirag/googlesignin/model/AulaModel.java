@@ -21,6 +21,16 @@ public class AulaModel extends RealmObject implements Serializable {
     private String Tipo;
     private String Sumario;
 
+    public int getYear() {
+        return Year;
+    }
+
+    public void setYear(int year) {
+        Year = year;
+    }
+
+    private int Year;
+
 
 
     public Integer getID() {

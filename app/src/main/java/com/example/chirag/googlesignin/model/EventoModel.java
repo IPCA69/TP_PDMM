@@ -12,6 +12,16 @@ public class EventoModel extends RealmObject {
     private Date DataInicio;
     private int Duracao;
 
+    public int getYear() {
+        return Year;
+    }
+
+    public void setYear(int year) {
+        Year = year;
+    }
+
+    private int Year;
+
     public Date getDataInicio() {
         return DataInicio;
     }

@@ -1,15 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:padding="20dp">
 
-    <Spinner
-        android:id="@+id/spinnerDialog"
-        android:layout_width="395dp"
+    <TextView
+        android:id="@+id/firstSpinnerDialogDesc"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="-16dp"
-        tools:layout_editor_absoluteY="-9dp" />
-</android.support.constraint.ConstraintLayout>
+        android:layout_marginTop="20sp"
+        android:visibility="invisible"
+        />
+
+    <Spinner
+        android:id="@+id/firstSpinnerDialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/firstSpinnerDialogDesc"
+        android:layout_marginTop="15dp" />
+
+    <TextView
+        android:id="@+id/secondSpinnerDialogDesc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20sp"
+        android:layout_below="@id/firstSpinnerDialog"
+        android:visibility="invisible"
+         />
+    <Spinner
+        android:id="@+id/secondSpinnerDialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/secondSpinnerDialog"
+        android:layout_marginTop="15dp"
+        android:visibility="invisible"/>
+
+
+</LinearLayout>
+
