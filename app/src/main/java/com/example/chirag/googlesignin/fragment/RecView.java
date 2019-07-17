@@ -64,61 +64,10 @@ public class RecView extends FragmentGenerico {
         Log.d(TAG, "onCreate: View Initialization done");
         return view;
 
-//        RecyclerView rv = new RecyclerView(getContext());
-//        rv.setLayoutManager(new LinearLayoutManager(getContext()));
-//        rv.setAdapter(new RecView.SimpleRVAdapter(strings));
-//        return rv;
+
 
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
 
-        listadisciplinas = new ArrayList<>();
-        // PORQUE NAO DÀ !!!!!!!!!!!!!!!!!! ???????????????????????
-        // listadisciplinas.add(new DisciplinaModel(2,"sdf","dfh",2019,"fh",2));
-    }
-
-    /**
-     * A Simple Adapter for the RecyclerView
-     */
-    public class SimpleRVAdapter extends RecyclerView.Adapter<RecView2.SimpleViewHolder> {
-        private String[] dataSource;
-
-        public SimpleRVAdapter(String[] dataArgs) {
-            dataSource = dataArgs;
-        }
-
-        @Override
-        public RecView2.SimpleViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = new TextView(parent.getContext());
-            RecView2.SimpleViewHolder viewHolder = new RecView2.SimpleViewHolder(view);
-            return viewHolder;
-        }
-
-        @Override
-        public void onBindViewHolder(RecView2.SimpleViewHolder holder, int position) {
-            holder.textView.setText(dataSource[position]);
-        }
-
-        @Override
-        public int getItemCount() {
-            return dataSource.length;
-        }
-    }
-
-
-    /**
-     * A Simple ViewHolder for the RecyclerView
-     */
-    public static class SimpleViewHolder extends RecyclerView.ViewHolder {
-        public TextView textView;
-
-        public SimpleViewHolder(View itemView) {
-            super(itemView);
-            textView = (TextView) itemView;
-        }
-    }
 
 }

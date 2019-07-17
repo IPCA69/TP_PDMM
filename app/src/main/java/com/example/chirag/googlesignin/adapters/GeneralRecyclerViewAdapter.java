@@ -67,7 +67,7 @@ public class GeneralRecyclerViewAdapter extends RecyclerView.Adapter<GeneralRecy
     public int getItemCount() {
 
         //return mData.size();
-        return mData.size();
+        return 1;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
