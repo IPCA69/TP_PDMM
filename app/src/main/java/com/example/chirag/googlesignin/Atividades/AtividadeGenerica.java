@@ -19,6 +19,16 @@ public class AtividadeGenerica extends AppCompatActivity {
 
     private Integer YearId = 0;
 
+    public Integer getProfId() {
+        return ProfId;
+    }
+
+    public void setProfId(Integer profId) {
+        ProfId = profId;
+    }
+
+    private Integer ProfId = 0;
+
     private void InitRealm() {
         Realm.init(this);
         Realm.setDefaultConfiguration(GestaoDeEntidades.getRealmConfiguration());

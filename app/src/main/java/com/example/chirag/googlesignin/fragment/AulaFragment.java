@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.example.chirag.googlesignin.Entidades.Aula;
 import com.example.chirag.googlesignin.R;
+import com.example.chirag.googlesignin.model.AnoModel;
 import com.example.chirag.googlesignin.model.AulaModel;
 import com.example.chirag.googlesignin.Outros.Useful;
 
@@ -35,6 +36,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import io.realm.RealmObject;
+import io.realm.RealmQuery;
 import io.realm.com_example_chirag_googlesignin_model_AulaModelRealmProxy;
 
 public class AulaFragment extends FragmentGenerico {
@@ -76,12 +78,6 @@ public class AulaFragment extends FragmentGenerico {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.criaraula, container, false);
 
-        //Retrives Year
-        Bundle bundle = getArguments();
-        if (bundle != null)
-            Year = bundle.getInt("Year");
-
-
         unbinder = ButterKnife.bind(this, view);
 
         Log.d(TAG, "onCreate: View Initialization done");
@@ -90,7 +86,7 @@ public class AulaFragment extends FragmentGenerico {
         data.setInputType(InputType.TYPE_NULL);
 //        data.setKeyListener(null);
 
-        AfterCreatView();
+        AfterCreatView(getArguments());
 
         return view;
     }
@@ -142,6 +138,7 @@ public class AulaFragment extends FragmentGenerico {
             if (currentEntity != null)
                 s.entidade.setID(currentEntity.getID());
             s.entidade.setYear(Year);
+            s.entidade.setProfId(ProfId);
             s.entidade.setSala(sala.getText().toString());
             s.entidade.setTipo(tipo.getText().toString());
             s.entidade.setDuracao(Useful.ConvertStringToInt(duracao.getText().toString()));
@@ -237,10 +234,7 @@ public class AulaFragment extends FragmentGenerico {
 
     @OnClick(R.id.btAulaNew)
     public void newOnClick() {
-        btEdit.setEnabled(false);
-        btDelete.setEnabled(false);
-        btSave.setEnabled(true);
-        CleanView();
+        OnClickNew();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -466,6 +460,8 @@ public class AulaFragment extends FragmentGenerico {
     public String getFragmentDesc() {
         return "Aula";
     }
+
+
 }
 
 

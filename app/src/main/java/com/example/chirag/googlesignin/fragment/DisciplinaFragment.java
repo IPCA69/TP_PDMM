@@ -49,6 +49,8 @@ public class DisciplinaFragment extends FragmentGenerico {
 
     Unbinder unbinder;
 
+    private DisciplinaModel currentEntity;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -58,7 +60,7 @@ public class DisciplinaFragment extends FragmentGenerico {
 
         Log.d(TAG, "onCreate: View Initialization done");
 
-
+        AfterCreatView(getArguments());
         return view;
     }
 
@@ -122,17 +124,29 @@ public class DisciplinaFragment extends FragmentGenerico {
 
     @Override
     public void EntityToDOM() {
-
+        nome.setText(currentEntity.getNome());
+        acronimo.setText(currentEntity.getAcronimo());
+        curso.setText(currentEntity.getCurso());
+        semestre.setText(currentEntity.getSemestre());
+        anoletivo.setText(currentEntity.getAnolectivo());
     }
 
     @Override
     public void CleanView() {
-
+        nome.setText("");
+        acronimo.setText("");
+        curso.setText("");
+        semestre.setText("");
+        anoletivo.setText("");
     }
 
     @Override
     public void SetEnable(boolean value) {
-
+        nome.setEnabled(value);
+        acronimo.setEnabled(value);
+        curso.setEnabled(value);
+        semestre.setEnabled(value);
+        anoletivo.setEnabled(value);
     }
 
     @Override

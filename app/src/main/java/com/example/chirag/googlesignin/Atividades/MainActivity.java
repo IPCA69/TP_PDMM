@@ -159,6 +159,8 @@ public class MainActivity extends AtividadeGenerica implements NavigationView.On
                     s.entidade.setPhotoUrl(personPhoto.toString());
                 }
                 s.CreatOrUpdate();
+
+                setProfId(s.entidade.getID());
             }
 
         }
@@ -305,7 +307,7 @@ public class MainActivity extends AtividadeGenerica implements NavigationView.On
         // setSupportActionBar(newtoolbar);
 
         // // ViewPager Adapter
-        adapter = new ViewPagerAdapter(getSupportFragmentManager(), getYearId());
+        adapter = new ViewPagerAdapter(getSupportFragmentManager(), getYearId(), getProfId());
         pager.setAdapter(adapter);
 
         tabs.setupWithViewPager(pager);

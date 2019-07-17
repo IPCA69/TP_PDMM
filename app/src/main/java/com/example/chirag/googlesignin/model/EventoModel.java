@@ -22,6 +22,17 @@ public class EventoModel extends RealmObject {
 
     private int Year;
 
+    public int getProfId() {
+        return ProfId;
+    }
+
+    public void setProfId(int profId) {
+        ProfId = profId;
+    }
+
+    private int ProfId;
+
+
     public Date getDataInicio() {
         return DataInicio;
     }

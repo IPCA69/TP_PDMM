@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.view.View;
@@ -16,6 +17,7 @@ import com.example.chirag.googlesignin.Entidades.Aula;
 import com.example.chirag.googlesignin.Outros.Useful;
 import com.example.chirag.googlesignin.R;
 import com.example.chirag.googlesignin.model.AnoModel;
+import com.example.chirag.googlesignin.model.AulaModel;
 
 import java.io.StringReader;
 import java.lang.reflect.Method;
@@ -30,6 +32,7 @@ import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.regex.Pattern;
 
+import io.realm.Realm;
 import io.realm.RealmObject;
 import io.realm.com_example_chirag_googlesignin_model_AnoModelRealmProxy;
 
@@ -37,6 +40,7 @@ public abstract class FragmentGenerico extends Fragment {
     public Context context;
     public static final String TAG = "SignIn";
     public Integer Year = 0;
+    public Integer ProfId = 0;
 
     @Override
     public void onAttach(Context context) {
@@ -69,7 +73,14 @@ public abstract class FragmentGenerico extends Fragment {
     /**
      * After creat btView
      */
-    public void AfterCreatView() {
+    public void AfterCreatView(Bundle bundle) {
+
+        //Get args
+        if (bundle != null) {
+            Year = bundle.getInt("Year");
+            ProfId = bundle.getInt("ProfId");
+        }
+
         getBtEdit().setEnabled(false);
         getBtDelete().setEnabled(false);
     }
@@ -99,6 +110,13 @@ public abstract class FragmentGenerico extends Fragment {
         Toast.makeText(context, getFragmentDesc() + " eliminado/a!", Toast.LENGTH_SHORT).show(); //Show shadow text
     }
 
+    public void OnClickNew() {
+        getBtEdit().setEnabled(false);
+        getBtDelete().setEnabled(false);
+        getBtSave().setEnabled(true);
+        CleanView();
+    }
+
 
     public abstract boolean Validate();
 
@@ -121,6 +139,7 @@ public abstract class FragmentGenerico extends Fragment {
     public abstract Button getBtImport();
 
     public abstract String getFragmentDesc();
+
 }
 
 class Res {

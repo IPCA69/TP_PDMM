@@ -64,7 +64,7 @@ public class CursoFragment extends FragmentGenerico {
 
         Log.d(TAG, "onCreate: View Initialization done");
 
-        AfterCreatView();
+        AfterCreatView(getArguments());
 
         return view;
     }
@@ -81,6 +81,7 @@ public class CursoFragment extends FragmentGenerico {
             if (currentEntity != null)
                 s.entidade.setID(currentEntity.getID());
             s.entidade.setYear(Year);
+            s.entidade.setProfId(ProfId);
             s.entidade.setDescricao(description.getText().toString());
 
             s.CreatOrUpdate();
@@ -116,11 +117,7 @@ public class CursoFragment extends FragmentGenerico {
                 Integer id = Useful.SplitIdFromDescription(mySpinner.getSelectedItem().toString());
 
                 //Find record by id
-                Optional<RealmObject> res = getMany.getLst().stream().filter(elem -> {
-                    CursoModel castedElem = CastRealmObjectToEntity(elem);
-
-                    return castedElem.getID() == id;
-                }).findFirst();
+                Optional<RealmObject> res = getMany.getLst().stream().filter(elem -> CastRealmObjectToEntity(elem).getID() == id).findFirst();
 
                 if (res != null) {
                     currentEntity = CastRealmObjectToEntity(res.get());
@@ -163,10 +160,7 @@ public class CursoFragment extends FragmentGenerico {
 
     @OnClick(R.id.btNewCurso)
     public void newOnClick() {
-        btEdit.setEnabled(false);
-        btDelete.setEnabled(false);
-        btSave.setEnabled(true);
-        CleanView();
+        OnClickNew();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
