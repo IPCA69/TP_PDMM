@@ -2,97 +2,113 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="20sp"
-    >
+    android:padding="20sp">
 
+    <Button
+        android:id="@+id/btImportEvento"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="140dp"
+        android:text="Import" />
+
+    <Button
+        android:id="@+id/btNewEvento"
+        android:layout_width="71dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="72dp"
+        android:text="New" />
+
+
+    <Button
+        android:id="@+id/btEditEvento"
+        android:layout_width="71dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:text="Edit" />
 
 
     <ScrollView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="371dp"
+        android:layout_height="546dp"
+        android:layout_marginBottom="30dp"
         android:scrollbars="vertical">
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40sp"
-        android:id="@+id/Descricao"
-        android:hint="Descrição"
-        />
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40sp"
-        android:id="@+id/Datainicio"
-        android:hint="Data de inicio"
-        android:layout_below="@id/Descricao"
-        android:inputType="date"
-        />
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40sp"
-        android:id="@+id/horainicio"
-        android:hint="hora de inicio"
-        android:layout_below="@id/Datainicio"
-        android:inputType="datetime"
-        />
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40sp"
-        android:id="@+id/duracao"
-        android:hint="Duração"
-        android:layout_below="@id/horainicio"
-        android:inputType="number"
-        />
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Delete"
-        android:layout_below="@id/duracao"
-        android:layout_marginTop="20sp"
-        android:id="@+id/delete"
-        />
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="View"
-        android:layout_below="@id/delete"
-        android:layout_marginTop="20sp"
-        android:id="@+id/view"
-        />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40sp"
+                android:id="@+id/Descricao"
+                android:hint="Descrição"
+                />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40sp"
+                android:id="@+id/Datainicio"
+                android:hint="Data de inicio"
+                android:layout_below="@id/Descricao"
+                android:inputType="date"
+                />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40sp"
+                android:id="@+id/horainicio"
+                android:hint="hora de inicio"
+                android:layout_below="@id/Datainicio"
+                android:inputType="datetime"
+                />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40sp"
+                android:id="@+id/duracao"
+                android:hint="Duração"
+                android:layout_below="@id/horainicio"
+                android:inputType="number"
+                />
 
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Save"
-        android:layout_below="@id/view"
-        android:layout_marginTop="20sp"
-        android:id="@+id/add"
-        />
+
+            <Button
+                android:id="@+id/btDeleteEvento"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/sumario"
+                android:layout_marginTop="20sp"
+                android:text="Delete" />
+
+            <Button
+                android:id="@+id/btSaveEvento"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/btDeleteAula"
+                android:layout_marginTop="20sp"
+                android:text="Save" />
+
+            <Button
+                android:id="@+id/btViewEvento"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/btSaveAula"
+                android:layout_marginTop="20sp"
+                android:text="View" />
 
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/add"
-        android:id="@+id/text"
-        android:layout_marginTop="20sp"
-        />
-
-
-    </LinearLayout>
+        </LinearLayout>
 
     </ScrollView>
+
 
 </RelativeLayout>

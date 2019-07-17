@@ -2,61 +2,104 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="20sp"
-    >
+    android:padding="20sp">
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40sp"
-        android:id="@+id/nome"
-        android:hint="Name"
-        />
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20sp"
-        android:layout_below="@id/nome"
-        android:id="@+id/user"
-        android:hint="User"
-        />
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20sp"
-        android:layout_below="@id/user"
-        android:id="@+id/pass"
-        android:hint="Pass"
-        />
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20sp"
-        android:layout_below="@id/pass"
-        android:id="@+id/Contato"
-        android:hint="Contacto"
-        />
     <Button
-        android:layout_width="match_parent"
+        android:id="@+id/btImportProfessor"
+        android:layout_width="80dp"
         android:layout_height="wrap_content"
-        android:text="Save"
-        android:layout_below="@id/Contato"
-        android:layout_marginTop="20sp"
-        android:id="@+id/saveprof"
-        />
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="140dp"
+        android:text="Import" />
+
+    <Button
+        android:id="@+id/btNewProfessor"
+        android:layout_width="71dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="72dp"
+        android:text="New" />
+
+
+    <Button
+        android:id="@+id/btEditProfessor"
+        android:layout_width="71dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:text="Edit" />
+
 
     <ScrollView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/saveprof"
-        >
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/display"
-            android:layout_marginTop="20sp"
-            />
+        android:layout_width="371dp"
+        android:layout_height="546dp"
+        android:layout_marginBottom="30dp"
+        android:scrollbars="vertical">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <EditText
+                android:id="@+id/nome"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40sp"
+                android:hint="Name" />
+
+            <EditText
+                android:id="@+id/user"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/nome"
+                android:layout_marginTop="20sp"
+                android:hint="User" />
+
+            <EditText
+                android:id="@+id/pass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/user"
+                android:layout_marginTop="20sp"
+                android:hint="Pass" />
+
+            <EditText
+                android:id="@+id/Contato"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/pass"
+                android:layout_marginTop="20sp"
+                android:hint="Contacto" />
+
+            <Button
+                android:id="@+id/btDeleteProfessor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/sumario"
+                android:layout_marginTop="20sp"
+                android:text="Delete" />
+
+            <Button
+                android:id="@+id/btSaveProfessor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/btDeleteAula"
+                android:layout_marginTop="20sp"
+                android:text="Save" />
+
+            <Button
+                android:id="@+id/btViewProfessor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/btSaveAula"
+                android:layout_marginTop="20sp"
+                android:text="View" />
+
+        </LinearLayout>
 
     </ScrollView>
 

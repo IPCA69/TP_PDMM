@@ -6,6 +6,17 @@ public class CursoModel extends RealmObject {
     private int ID;
     private String Descricao;
 
+    public int getYear() {
+        return Year;
+    }
+
+    public void setYear(int year) {
+        Year = year;
+    }
+
+    private int Year;
+
+
     public int getID() {
         return ID;
     }

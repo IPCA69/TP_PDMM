@@ -27,7 +27,9 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import io.realm.Realm;
 import io.realm.RealmList;
+import io.realm.RealmObject;
 import io.realm.RealmResults;
+import io.realm.com_example_chirag_googlesignin_model_CursoModelRealmProxy;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -239,8 +241,63 @@ public class TurmasFragment extends FragmentGenerico {
     }
 
     @Override
+    public RealmObject CastRealmObjectToEntity(RealmObject obj) {
+        return null;
+    }
+
+    @Override
     public void onDestroyView() {
         super.onDestroyView();
 //        null.unbind();
+    }
+
+    @Override
+    public boolean Validate() {
+        return false;
+    }
+
+    @Override
+    public void EntityToDOM() {
+
+    }
+
+    @Override
+    public void CleanView() {
+
+    }
+
+    @Override
+    public void SetEnable(boolean value) {
+
+    }
+
+    @Override
+    public Button getBtDelete() {
+        return null;
+    }
+
+    @Override
+    public Button getBtSave() {
+        return null;
+    }
+
+    @Override
+    public Button getBtNew() {
+        return null;
+    }
+
+    @Override
+    public Button getBtEdit() {
+        return null;
+    }
+
+    @Override
+    public Button getBtImport() {
+        return null;
+    }
+
+    @Override
+    public String getFragmentDesc() {
+        return "Turmas";
     }
 }

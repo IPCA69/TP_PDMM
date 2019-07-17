@@ -6,6 +6,7 @@ import android.util.Log;
 import com.example.chirag.googlesignin.model.AnoModel;
 
 import io.realm.Realm;
+import io.realm.RealmQuery;
 import io.realm.RealmResults;
 
 public class Ano extends GestaoDeEntidades {
@@ -21,10 +22,15 @@ public class Ano extends GestaoDeEntidades {
     }
 
     @Override
+    public RealmQuery<? extends AnoModel> BaseQuery(Realm realm) {
+        return realm.where(AnoModel.class);
+    }
+
+    @Override
     public void ExecuteCreatOrUpdate(Realm myRealm) {
 
         //Checks if the object already exists
-        AnoModel findEntidade = myRealm.where(AnoModel.class).equalTo("ID", entidade.getID()).findFirst();
+        AnoModel findEntidade = BaseQuery(myRealm).equalTo("ID", entidade.getID()).findFirst();
 
         if (findEntidade == null) {
             findEntidade = new AnoModel();
@@ -38,7 +44,7 @@ public class Ano extends GestaoDeEntidades {
 
     @Override
     public void ExecuteDelete(Realm realm) {
-        RealmResults<AnoModel> result = realm.where(AnoModel.class).equalTo("ID", entidade.getID()).findAll();
+        RealmResults<? extends AnoModel> result = BaseQuery(realm).equalTo("ID", entidade.getID()).findAll();
 
         if (result.size() == 0)
             Log.d("DataBase", "NO DATA FOUND TO DELETE");
@@ -53,7 +59,7 @@ public class Ano extends GestaoDeEntidades {
 
     @Override
     public void ExecuteRead(Realm myRealm, Integer ID) {
-        setEntidade(myRealm.where(entidade.getClass()).equalTo("ID", ID == null ? entidade.getID() : ID).findFirst());
+        setEntidade(BaseQuery(myRealm).equalTo("ID", ID == null ? entidade.getID() : ID).findFirst());
     }
 
     private void setEntidade(AnoModel entidade) {

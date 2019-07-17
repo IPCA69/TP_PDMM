@@ -11,27 +11,35 @@ import android.widget.TextView;
 
 import com.example.chirag.googlesignin.Entidades.TipoDeAula;
 import com.example.chirag.googlesignin.R;
+import com.example.chirag.googlesignin.model.AulaModel;
+import com.example.chirag.googlesignin.model.TipoDeAulaModel;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import io.realm.Realm;
+import io.realm.RealmObject;
+import io.realm.com_example_chirag_googlesignin_model_AulaModelRealmProxy;
+import io.realm.com_example_chirag_googlesignin_model_TipoDeAulaModelRealmProxy;
 
 public class TipoDeAulaFragment extends FragmentGenerico {
 
-    @BindView(R.id.Descricao)
+    @BindView(R.id.descriptionTipoDeAula)
     EditText Descricao;
-    @BindView(R.id.add)
-    Button add;
-    @BindView(R.id.delete)
-    Button delete;
-    @BindView(R.id.view)
-    Button view;
-    @BindView(R.id.text)
-    TextView display;
+    @BindView(R.id.btSaveTipoDeAula)
+    Button btSave;
+    @BindView(R.id.btDeleteTipoDeAula)
+    Button btDelete;
+    @BindView(R.id.btViewTipoDeAula)
+    Button btView;
+    @BindView(R.id.btImportTipoDeAula)
+    Button btImport;
+    @BindView(R.id.btNewTipoDeAula)
+    Button btNew;
+    @BindView(R.id.btEditTipoDeAula)
+    Button btEdit;
 
-    Realm realm;
     Unbinder unbinder;
 
     @Override
@@ -48,20 +56,20 @@ public class TipoDeAulaFragment extends FragmentGenerico {
     }
 
 
-    @OnClick(R.id.add)
+    @OnClick(R.id.btSaveTipoDeAula)
     public void onViewClicked() {
         saveData();
         //  readData();
 
     }
 
-    @OnClick(R.id.view)
+    @OnClick(R.id.btViewTipoDeAula)
     public void onnClicked() {
         readData();
 
     }
 
-    @OnClick(R.id.delete)
+    @OnClick(R.id.btDeleteTipoDeAula)
     public void onClicked() {
         deleteData();
     }
@@ -69,9 +77,6 @@ public class TipoDeAulaFragment extends FragmentGenerico {
     private void readData() {
         TipoDeAula s = new TipoDeAula(context);
         s.Read();
-
-        display.setText("");
-        display.append(s.entidade.getDescricao() == null ? "VAZIO" : s.entidade.getDescricao());
 
 
     }
@@ -90,5 +95,55 @@ public class TipoDeAulaFragment extends FragmentGenerico {
 
     }
 
+    @Override
+    public boolean Validate() {
+        return false;
+    }
 
+    @Override
+    public void EntityToDOM() {
+    }
+
+    @Override
+    public void CleanView() {
+    }
+
+    @Override
+    public void SetEnable(boolean value) {
+    }
+
+    @Override
+    public Button getBtDelete() {
+        return btDelete;
+    }
+
+    @Override
+    public Button getBtSave() {
+        return btSave;
+    }
+
+    @Override
+    public Button getBtNew() {
+        return btNew;
+    }
+
+    @Override
+    public Button getBtEdit() {
+        return btEdit;
+    }
+
+    @Override
+    public Button getBtImport() {
+        return btImport;
+    }
+
+    @Override
+    public String getFragmentDesc() {
+        return "Tipo de Aula";
+    }
+
+    @Override
+    public TipoDeAulaModel CastRealmObjectToEntity(RealmObject obj) {
+        return ((com_example_chirag_googlesignin_model_TipoDeAulaModelRealmProxy) obj);
+    }
 }

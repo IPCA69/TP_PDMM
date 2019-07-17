@@ -4,9 +4,13 @@
     <group android:checkableBehavior="single">
 
         <item
+            android:id="@+id/nav_Main"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="@string/start" />
+        <item
             android:id="@+id/nav_lg"
             android:icon="@drawable/ic_menu_manage"
-            android:title="@string/crud" />
+            android:title="@string/gestao" />
         <item
             android:id="@+id/nav_view"
             android:icon="@drawable/ic_menu_calendario"

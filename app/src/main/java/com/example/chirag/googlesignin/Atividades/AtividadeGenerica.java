@@ -9,6 +9,15 @@ import com.example.chirag.googlesignin.Entidades.GestaoDeEntidades;
 import io.realm.Realm;
 
 public class AtividadeGenerica extends AppCompatActivity {
+    public Integer getYearId() {
+        return YearId;
+    }
+
+    public void setYearId(Integer yearId) {
+        YearId = yearId;
+    }
+
+    private Integer YearId = 0;
 
     private void InitRealm() {
         Realm.init(this);

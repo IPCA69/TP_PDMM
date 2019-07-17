@@ -6,6 +6,7 @@ import android.util.Log;
 import com.example.chirag.googlesignin.model.EventoModel;
 
 import io.realm.Realm;
+import io.realm.RealmQuery;
 import io.realm.RealmResults;
 
 public class Evento extends GestaoDeEntidades {
@@ -21,10 +22,15 @@ public class Evento extends GestaoDeEntidades {
     }
 
     @Override
+    public RealmQuery<? extends EventoModel> BaseQuery(Realm realm) {
+        return realm.where(entidade.getClass()).equalTo("Year", entidade.getYear());
+    }
+
+    @Override
     public void ExecuteCreatOrUpdate(Realm myRealm) {
 
         //Checks if the object already exists
-        EventoModel find = myRealm.where(entidade.getClass()).equalTo("ID", entidade.getID()).findFirst();
+        EventoModel find = BaseQuery(myRealm).equalTo("ID", entidade.getID()).findFirst();
 
         if (find == null) {
             find = new EventoModel();
@@ -34,14 +40,14 @@ public class Evento extends GestaoDeEntidades {
         find.setDescricao(entidade.getDescricao());
         find.setDataInicio(entidade.getDataInicio());
         find.setDuracao(entidade.getDuracao());
-
+        find.setYear(entidade.getYear());
         myRealm.insertOrUpdate(find);
-
+        entidade = find;
     }
 
     @Override
     public void ExecuteDelete(Realm realm) {
-        RealmResults<EventoModel> result = realm.where(EventoModel.class).equalTo("ID", entidade.getID()).findAll();
+        RealmResults<? extends EventoModel> result = BaseQuery(realm).equalTo("ID", entidade.getID()).findAll();
 
         if (result.size() == 0) {
             Log.d("DataBase", "NO DATA FOUND TO DELETE");
@@ -57,7 +63,7 @@ public class Evento extends GestaoDeEntidades {
 
     @Override
     public void ExecuteRead(Realm myRealm, Integer ID) {
-        setEntidade(myRealm.where(entidade.getClass()).equalTo("ID", ID == null ? entidade.getID() : ID).findFirst());
+        setEntidade(BaseQuery(myRealm).equalTo("ID", ID == null ? entidade.getID() : ID).findFirst());
     }
 
     private void setEntidade(EventoModel entidade) {

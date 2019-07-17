@@ -6,6 +6,7 @@ import android.util.Log;
 import com.example.chirag.googlesignin.model.ProfessorModel;
 
 import io.realm.Realm;
+import io.realm.RealmQuery;
 import io.realm.RealmResults;
 
 public class Professor extends GestaoDeEntidades {
@@ -21,10 +22,15 @@ public class Professor extends GestaoDeEntidades {
     }
 
     @Override
+    public RealmQuery<? extends ProfessorModel> BaseQuery(Realm realm) {
+        return realm.where(ProfessorModel.class);
+    }
+
+    @Override
     public void ExecuteCreatOrUpdate(Realm myRealm) {
 
         //Checks if the object already exists
-        ProfessorModel find = myRealm.where(entidade.getClass()).equalTo("IdToken", entidade.getIdToken()).findFirst();
+        ProfessorModel find = BaseQuery(myRealm).equalTo("IdToken", entidade.getIdToken()).findFirst();
 
         if (find == null) {
             find = new ProfessorModel();
@@ -38,12 +44,12 @@ public class Professor extends GestaoDeEntidades {
         find.setContactos(entidade.getContactos());
 
         myRealm.insertOrUpdate(find);
-
+        entidade = find;
     }
 
     @Override
     public void ExecuteDelete(Realm realm) {
-        RealmResults<ProfessorModel> result = realm.where(ProfessorModel.class).equalTo("ID", entidade.getID()).findAll();
+        RealmResults<? extends ProfessorModel> result = BaseQuery(realm).equalTo("ID", entidade.getID()).findAll();
 
         if (result.size() == 0) {
             Log.d("DataBase", "NO DATA FOUND TO DELETE");
@@ -59,7 +65,7 @@ public class Professor extends GestaoDeEntidades {
 
     @Override
     public void ExecuteRead(Realm myRealm, Integer ID) {
-        setEntidade(myRealm.where(entidade.getClass()).equalTo("ID", ID == null ? entidade.getID() : ID).findFirst());
+        setEntidade(BaseQuery(myRealm).equalTo("ID", ID == null ? entidade.getID() : ID).findFirst());
     }
 
     private void setEntidade(ProfessorModel entidade) {
@@ -70,7 +76,7 @@ public class Professor extends GestaoDeEntidades {
         Realm realm = getRealm();
         try {
             realm.beginTransaction();
-            ProfessorModel DBidtoken = realm.where(ProfessorModel.class).equalTo("IdToken", token).findFirst();
+            ProfessorModel DBidtoken = BaseQuery(realm).equalTo("IdToken", token).findFirst();
 
             if (DBidtoken != null) {
                 setEntidade(DBidtoken);
