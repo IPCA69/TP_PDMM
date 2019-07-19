@@ -58,8 +58,8 @@ public class AulaFragment extends FragmentGenerico {
     @BindView(R.id.sumario)
     EditText sumario;
 
-    public  static String l;
-    public  static String ll;
+    public static String l;
+    public static String ll;
     public static Date dd;
     public static Date ddd;
 
@@ -135,7 +135,8 @@ public class AulaFragment extends FragmentGenerico {
 
 
     }
-    public void ff (){
+
+    public void ff() {
         data.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -145,7 +146,7 @@ public class AulaFragment extends FragmentGenerico {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                ddd=Useful.GetDateFromString(s.toString());
+                ddd = Useful.GetDateFromString(s.toString());
 
             }
 
@@ -159,11 +160,12 @@ public class AulaFragment extends FragmentGenerico {
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 //  l= s.toString();
             }
+
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(s.length()!=0){
+                if (s.length() != 0) {
                     Log.d(TAG, "TEXT CHANGED");
-                    ll=s.toString();
+                    ll = s.toString();
                 }
 
             }
@@ -174,10 +176,10 @@ public class AulaFragment extends FragmentGenerico {
             }
 
 
-
         });
 
     }
+
     @OnClick(R.id.btSaveAula)
     public void saveOnClick() {
 
@@ -187,33 +189,32 @@ public class AulaFragment extends FragmentGenerico {
                 return;
 
             s = new Aula(context);
-            if(ddd.equals(dd)){
+            if (ddd.equals(dd)) {
 
-            }else if(ddd!=dd && dd!=null && ddd!=null){
+            } else if (ddd != dd && dd != null && ddd != null) {
 
                 Intent i = new Intent(Intent.ACTION_SEND);
                 i.setType("text/plain");
-                i.putExtra(Intent.EXTRA_EMAIL  , new String[]{"ricardodiaas19@gmail.com"});//devia ser contactos
+                i.putExtra(Intent.EXTRA_EMAIL, new String[]{"ricardodiaas19@gmail.com"});//devia ser contactos
                 i.putExtra(Intent.EXTRA_SUBJECT, "subject of email");
-                i.putExtra(Intent.EXTRA_TEXT   , "A hora da aula era "+dd+" agora passou a ser "+ ddd);
+                i.putExtra(Intent.EXTRA_TEXT, "A hora da aula era " + dd + " agora passou a ser " + ddd);
                 try {
                     startActivity(Intent.createChooser(i, "Send mail..."));
                 } catch (android.content.ActivityNotFoundException ex) {
                     //      Toast.makeText(, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
                 }
             }
-            if(ll.equals(l)){
-                Log.d(TAG,Useful.GetDateAndHourFromDate(dd));
-                Log.d(TAG,Useful.GetDateAndHourFromDate(ddd));
+            if (ll.equals(l)) {
+                Log.d(TAG, Useful.GetDateAndHourFromDate(dd));
+                Log.d(TAG, Useful.GetDateAndHourFromDate(ddd));
                 Log.d(TAG, "SAME Sala");
-            }
-            else if(ll!=l && l!=null && ll!=null){
+            } else if (ll != l && l != null && ll != null) {
 
                 Intent i = new Intent(Intent.ACTION_SEND);
                 i.setType("text/plain");
-                i.putExtra(Intent.EXTRA_EMAIL  , new String[]{"ricardodiaas19@gmail.com"});
+                i.putExtra(Intent.EXTRA_EMAIL, new String[]{"ricardodiaas19@gmail.com"});
                 i.putExtra(Intent.EXTRA_SUBJECT, "subject of email");
-                i.putExtra(Intent.EXTRA_TEXT   , "A sala era "+l+" agora passou a ser "+ ll);
+                i.putExtra(Intent.EXTRA_TEXT, "A sala era " + l + " agora passou a ser " + ll);
                 try {
                     startActivity(Intent.createChooser(i, "Send mail..."));
                 } catch (android.content.ActivityNotFoundException ex) {
@@ -389,7 +390,7 @@ public class AulaFragment extends FragmentGenerico {
 
                 AulaModel aula = CastRealmObjectToEntity(lstAula.get(0));
                 currentEntity = aula;
-                l=aula.getSala();
+                l = aula.getSala();
 
                 dd = aula.getDataDeOcorrencia();
 
@@ -428,6 +429,7 @@ public class AulaFragment extends FragmentGenerico {
     @RequiresApi(api = Build.VERSION_CODES.N)
     public Res GetAll(Integer year, Integer id) {
         Aula s = new Aula(context);
+        s.entidade.setProfId(ProfId);
         s.entidade.setYear(year == null ? Year : year);
         List<RealmObject> lstAula = s.ReadAllByYear();
         ArrayList<String> txt = new ArrayList<String>();
@@ -511,7 +513,7 @@ public class AulaFragment extends FragmentGenerico {
         sala.setText(currentEntity.getSala());
         tipo.setText(currentEntity.getTipo());
         duracao.setText(currentEntity.getDuracao().toString());
-        dd=currentEntity.getDataDeOcorrencia();
+        dd = currentEntity.getDataDeOcorrencia();
 
         SetEnable(false);
 

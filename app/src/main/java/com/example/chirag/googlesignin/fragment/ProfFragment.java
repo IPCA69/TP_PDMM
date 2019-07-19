@@ -78,7 +78,7 @@ public class ProfFragment extends FragmentGenerico {
     private void saveData() {
         Professor s = new Professor(context);
         s.entidade.setNome(nome.getText().toString());
-        s.entidade.setContactos(Contato.getText().toString());
+//        s.entidade.setContactos(Contato.getText().toString());
         s.entidade.setEmail(user.getText().toString());
         s.CreatOrUpdate();
     }

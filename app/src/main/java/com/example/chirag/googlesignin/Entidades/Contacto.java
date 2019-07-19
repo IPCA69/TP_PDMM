@@ -11,13 +11,14 @@ import io.realm.RealmModel;
 import io.realm.RealmQuery;
 import io.realm.RealmResults;
 
-public class Contacto extends GestaoDeEntidades{
+public class Contacto extends GestaoDeEntidades {
 
-public ContactoModel entidade;
+    public ContactoModel entidade;
 
     public Contacto(Context context) {
-        this(context,null);
+        this(context, null);
     }
+
     public Contacto(Context context, ContactoModel model) {
         entidade = model == null ? new ContactoModel() : model;
         super.context = context;
@@ -26,7 +27,6 @@ public ContactoModel entidade;
     public RealmQuery<? extends ContactoModel> BaseQuery(Realm realm) {
         return realm.where(entidade.getClass()).equalTo("ProfId", entidade.getProfId()).equalTo("Year", entidade.getYear()).equalTo("ProfId", entidade.getProfId());
     }
-
 
 
     @Override
@@ -63,9 +63,11 @@ public ContactoModel entidade;
     public void ExecuteRead(Realm myRealm) {
         ExecuteRead(myRealm, null);
     }
+
     public void ExecuteRead(Realm myRealm, Integer ID) {
         setEntidade(BaseQuery(myRealm).equalTo("ID", ID == null ? entidade.getID() : ID).findFirst());
     }
+
     private void setEntidade(ContactoModel entidade) {
         this.entidade = entidade != null ? entidade : new ContactoModel();
     }

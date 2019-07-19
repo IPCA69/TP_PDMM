@@ -1,8 +1,12 @@
 package com.example.chirag.googlesignin.model;
 
+import java.io.Serializable;
+
+import io.realm.RealmModel;
+import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
-public class ContactoModel {
+public class ContactoModel extends RealmObject implements Serializable {
     @PrimaryKey
     private Integer ID;
     private String Nome;
@@ -26,7 +30,6 @@ public class ContactoModel {
     public void setProfId(int profId) {
         ProfId = profId;
     }
-
 
 
     public Integer getID() {
