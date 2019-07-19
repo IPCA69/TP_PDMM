@@ -23,7 +23,7 @@ public class Evento extends GestaoDeEntidades {
 
     @Override
     public RealmQuery<? extends EventoModel> BaseQuery(Realm realm) {
-        return realm.where(entidade.getClass()).equalTo("Year", entidade.getYear());
+        return realm.where(entidade.getClass()).equalTo("ProfId", entidade.getProfId()).equalTo("Year", entidade.getYear());
     }
 
     @Override
@@ -41,6 +41,7 @@ public class Evento extends GestaoDeEntidades {
         find.setDataInicio(entidade.getDataInicio());
         find.setDuracao(entidade.getDuracao());
         find.setYear(entidade.getYear());
+        find.setProfId(entidade.getProfId());
         myRealm.insertOrUpdate(find);
         entidade = find;
     }

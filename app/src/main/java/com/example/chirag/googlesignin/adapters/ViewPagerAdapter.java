@@ -19,10 +19,12 @@ import java.time.Year;
 public class ViewPagerAdapter extends FragmentPagerAdapter {
 
     private Integer Year = 0;
+    private Integer ProfId = 0;
 
-    public ViewPagerAdapter(FragmentManager fm, int year) {
+    public ViewPagerAdapter(FragmentManager fm, int year, int profId) {
         super(fm);
         this.Year = year;
+        this.ProfId = profId;
     }
 
     @Override
@@ -30,6 +32,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
 
         Bundle bundle = new Bundle();
         bundle.putInt("Year", this.Year);
+        bundle.putInt("ProfId", this.ProfId);
 
         switch (position) {
             case 0:

@@ -23,7 +23,7 @@ public class Curso extends GestaoDeEntidades {
     }
 
     public RealmQuery<? extends CursoModel> BaseQuery(Realm myRealm) {
-        return myRealm.where(entidade.getClass()).equalTo("Year", entidade.getYear());
+        return myRealm.where(entidade.getClass()).equalTo("ProfId", entidade.getProfId()).equalTo("Year", entidade.getYear()).equalTo("ProfId", entidade.getProfId());
     }
 
 
@@ -39,6 +39,7 @@ public class Curso extends GestaoDeEntidades {
         }
         find.setDescricao(entidade.getDescricao());
         find.setYear(entidade.getYear());
+        find.setProfId(entidade.getProfId());
         myRealm.insertOrUpdate(find);
         entidade = find;
     }

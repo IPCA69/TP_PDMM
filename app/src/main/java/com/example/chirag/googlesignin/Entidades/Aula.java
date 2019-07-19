@@ -24,7 +24,7 @@ public class Aula extends GestaoDeEntidades {
 
     @Override
     public RealmQuery<? extends AulaModel> BaseQuery(Realm realm) {
-        return realm.where(entidade.getClass()).equalTo("Year", entidade.getYear());
+        return realm.where(entidade.getClass()).equalTo("ProfId", entidade.getProfId()).equalTo("Year", entidade.getYear());
     }
 
     @Override
@@ -44,6 +44,8 @@ public class Aula extends GestaoDeEntidades {
         find.setTipo(entidade.getTipo());
         find.setSumario(entidade.getSumario());
         find.setYear(entidade.getYear());
+        find.setProfId(entidade.getProfId());
+
         myRealm.insertOrUpdate(find);
         entidade = find;
 

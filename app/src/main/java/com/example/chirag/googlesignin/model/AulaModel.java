@@ -31,7 +31,15 @@ public class AulaModel extends RealmObject implements Serializable {
 
     private int Year;
 
+    public int getProfId() {
+        return ProfId;
+    }
 
+    public void setProfId(int profId) {
+        ProfId = profId;
+    }
+
+    private int ProfId;
 
     public Integer getID() {
         return ID;
