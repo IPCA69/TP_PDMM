@@ -42,6 +42,7 @@ public abstract class GestaoDeEntidades {
         realm.executeTransaction(r -> {
             ExecuteDelete(realm);
         });
+
     }
 
     public void Read() {
@@ -49,6 +50,7 @@ public abstract class GestaoDeEntidades {
         realm.executeTransaction(r -> {
             ExecuteRead(realm);
         });
+
     }
 
     public List<RealmObject> ReadAll(Class classToSearch) {
@@ -73,6 +75,7 @@ public abstract class GestaoDeEntidades {
         } finally {
         }
         return Collections.emptyList();
+
     }
 
     public Realm getRealm() {

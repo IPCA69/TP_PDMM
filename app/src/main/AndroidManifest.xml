@@ -13,7 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Atividades.A_RecView"></activity>
+        <activity android:name=".Atividades.ActRecView"></activity>
+        <activity android:name=".Atividades.Actcriarano" />
+        <activity android:name=".Atividades.A_RecView" />
         <activity android:name=".Atividades.SignIn">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

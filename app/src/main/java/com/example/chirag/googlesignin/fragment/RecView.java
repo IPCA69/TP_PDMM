@@ -68,39 +68,14 @@ public class RecView extends FragmentGenerico {
 
 
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        listadisciplinas = new ArrayList<>();
+        // listadisciplinas = new ArrayList<>();
         // PORQUE NAO DÀ !!!!!!!!!!!!!!!!!! ???????????????????????
         // listadisciplinas.btSave(new DisciplinaModel(2,"sdf","dfh",2019,"fh",2));
     }
 
 
 
-        @Override
-        public void onBindViewHolder(RecView2.SimpleViewHolder holder, int position) {
-            holder.textView.setText(dataSource[position]);
-        }
 
-        @Override
-        public int getItemCount() {
-            return dataSource.length;
-        }
-    }
-
-
-    /**
-     * A Simple ViewHolder for the RecyclerView
-     */
-    public static class SimpleViewHolder extends RecyclerView.ViewHolder{
-        public TextView textView;
-        public SimpleViewHolder(View itemView) {
-            super(itemView);
-            textView = (TextView) itemView;
-        }
-    }
 
 
     @Override
