@@ -14,10 +14,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.chirag.googlesignin.Entidades.Disciplina;
+import com.example.chirag.googlesignin.Entidades.Professor;
+import com.example.chirag.googlesignin.Outros.Enums;
 import com.example.chirag.googlesignin.R;
 import com.example.chirag.googlesignin.adapters.GeneralRecyclerViewAdapter;
 import com.example.chirag.googlesignin.model.AulaModel;
 import com.example.chirag.googlesignin.model.DisciplinaModel;
+import com.example.chirag.googlesignin.model.ProfessorModel;
 
 
 import java.util.ArrayList;
@@ -38,9 +42,10 @@ public class RecView extends FragmentGenerico {
 
     List<AulaModel> aulaModels;
     List<DisciplinaModel> listadisciplinas;
-    String[] strings = {"1", "2", "3", "4", "5", "6", "7","1", "2", "3", "4", "5", "6", "7","1", "2", "3", "4", "5", "6", "7","1", "2", "3", "4", "5", "6", "7","1", "2", "3", "4", "5", "6", "7","1", "2", "3", "4", "5", "6", "7","1", "2", "3", "4", "5", "6", "7","1", "2", "3", "4", "5", "6", "7"};
+    String[] strings = {"1", "2", "3", "4", "5", "6", "7", "1", "2", "3", "4", "5", "6", "7", "1", "2", "3", "4", "5", "6", "7", "1", "2", "3", "4", "5", "6", "7", "1", "2", "3", "4", "5", "6", "7", "1", "2", "3", "4", "5", "6", "7", "1", "2", "3", "4", "5", "6", "7", "1", "2", "3", "4", "5", "6", "7"};
 
-    public RecView() {}
+    public RecView() {
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -48,7 +53,11 @@ public class RecView extends FragmentGenerico {
         View view = inflater.inflate(R.layout.rec_view, container, false);
         unbinder = ButterKnife.bind(this, view);
 
-        GeneralRecyclerViewAdapter mAdapter= new GeneralRecyclerViewAdapter(getContext(),listadisciplinas);
+        Professor prof = new Professor(context);
+        prof.Navegar(Enums.Navegar.Este, 6);
+        listadisciplinas = prof.entidade.getDisciplinaModels() == null ? new ArrayList<DisciplinaModel>() : prof.entidade.getDisciplinaModels();
+
+        GeneralRecyclerViewAdapter mAdapter = new GeneralRecyclerViewAdapter(getContext(), listadisciplinas);
 
         rvid.setLayoutManager(new LinearLayoutManager(getActivity()));
         rvid.setAdapter(mAdapter);
@@ -57,60 +66,16 @@ public class RecView extends FragmentGenerico {
         Log.d(TAG, "onCreate: View Initialization done");
         return view;
 
-//        RecyclerView rv = new RecyclerView(getContext());
-//        rv.setLayoutManager(new LinearLayoutManager(getContext()));
-//        rv.setAdapter(new RecView.SimpleRVAdapter(strings));
-//        return rv;
 
-    }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        listadisciplinas = new ArrayList<>();
+        // listadisciplinas = new ArrayList<>();
         // PORQUE NAO DÀ !!!!!!!!!!!!!!!!!! ???????????????????????
         // listadisciplinas.btSave(new DisciplinaModel(2,"sdf","dfh",2019,"fh",2));
     }
 
-    /**
-     * A Simple Adapter for the RecyclerView
-     */
-    public class SimpleRVAdapter extends RecyclerView.Adapter<RecView2.SimpleViewHolder> {
-        private String[] dataSource;
-        public SimpleRVAdapter(String[] dataArgs){
-            dataSource = dataArgs;
-        }
-
-        @Override
-        public RecView2.SimpleViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = new TextView(parent.getContext());
-            RecView2.SimpleViewHolder viewHolder = new RecView2.SimpleViewHolder(view);
-            return viewHolder;
-        }
-
-        @Override
-        public void onBindViewHolder(RecView2.SimpleViewHolder holder, int position) {
-            holder.textView.setText(dataSource[position]);
-        }
-
-        @Override
-        public int getItemCount() {
-            return dataSource.length;
-        }
-    }
 
 
-    /**
-     * A Simple ViewHolder for the RecyclerView
-     */
-    public static class SimpleViewHolder extends RecyclerView.ViewHolder{
-        public TextView textView;
-        public SimpleViewHolder(View itemView) {
-            super(itemView);
-            textView = (TextView) itemView;
-        }
-    }
+
 
 
     @Override

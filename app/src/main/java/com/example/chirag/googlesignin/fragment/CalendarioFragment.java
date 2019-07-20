@@ -25,12 +25,10 @@ import io.realm.com_example_chirag_googlesignin_model_AulaModelRealmProxy;
 
 public class CalendarioFragment extends FragmentGenerico {
 
-
     @BindView(R.id.calender)
     CalendarView calender;
     @BindView(R.id.date_view)
     TextView date_view;
-
     Unbinder unbinder;
 
 
@@ -42,54 +40,36 @@ public class CalendarioFragment extends FragmentGenerico {
     }
 
 
-    /*
-        @OnClick(R.id.viewdisciplinas)
-        public void onClicked() {
-            ReadDatadiscilinas();
-            messageReadListener.OnMessageRead("daniel");
 
-        }
+public void Calendardate(){
+    calender
+            .setOnDateChangeListener(
+                    new CalendarView
+                            .OnDateChangeListener() {
+                        @Override
+                        // In this Listener have one method
+                        // and in this method we will
+                        // get the value of DAYS, MONTH, YEARS
+                        public void onSelectedDayChange(
+                                @NonNull  CalendarView view,
+                                int year,
+                                int month,
+                                int dayOfMonth)
+                        {
 
-    */
-/*
-    public void ReadDatadiscilinas() {
-        Disciplina s = new Disciplina(context);
-        Realm o = s.getRealm();
-@ -85,14 +85,43 @@ public class CalendarioFragment extends FragmentGenerico {
-        }
-        // display.setText(builder.toString());
-    }
+                            // Store the value of date with
+                            // format in String type Variable
+                            // Add 1 in month because month
+                            // index is start with 0
+                            String Date
+                                    = dayOfMonth + "-"
+                                    + (month + 1) + "-" + year;
 
-*/
-    public void Calendardate() {
-        calender
-                .setOnDateChangeListener(
-                        new CalendarView
-                                .OnDateChangeListener() {
-                            @Override
-                            // In this Listener have one method
-                            // and in this method we will
-                            // get the value of DAYS, MONTH, YEARS
-                            public void onSelectedDayChange(
-                                    @NonNull CalendarView view,
-                                    int year,
-                                    int month,
-                                    int dayOfMonth) {
-
-                                // Store the value of date with
-                                // format in String type Variable
-                                // Add 1 in month because month
-                                // index is start with 0
-                                String Date
-                                        = dayOfMonth + "-"
-                                        + (month + 1) + "-" + year;
-
-                                // set this date in TextView for Display
-                                date_view.setText(Date);
-                            }
-                        });
-    }
-
+                            // set this date in TextView for Display
+                            date_view.setText(Date);
+                        }
+                    });
+}
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

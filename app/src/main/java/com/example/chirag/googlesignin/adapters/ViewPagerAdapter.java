@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 
 import com.example.chirag.googlesignin.fragment.AulaFragment;
 import com.example.chirag.googlesignin.fragment.CalendarioFragment;
+import com.example.chirag.googlesignin.fragment.ContactoFragment;
 import com.example.chirag.googlesignin.fragment.CursoFragment;
 import com.example.chirag.googlesignin.fragment.DisciplinaFragment;
 import com.example.chirag.googlesignin.fragment.EventoFragment;
@@ -70,6 +71,12 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
                 position = position + 1;
                 tipoDeAulaFragment.setArguments(bundle);
                 return tipoDeAulaFragment;
+            case 7:
+                ContactoFragment ContactoFragment = new ContactoFragment();
+                position = position + 1;
+                ContactoFragment.setArguments(bundle);
+                return ContactoFragment;
+
         }
 
 
@@ -78,7 +85,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return 7;
+        return 8;
     }
 
 
@@ -110,6 +117,9 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
             case 6:
                 nome = "TipoAula";
                 return nome;
+            case 7:
+                nome="Contacto";
+                        return nome;
         }
         return null;
     }

@@ -12,7 +12,19 @@ public class ProfessorModel extends RealmObject {
     private String Nome;
     private String Email;
     private RealmList<DisciplinaModel> disciplinaModels;
-    private String Contactos;
+    private RealmList<ContactoModel> Contactos;
+
+
+    public RealmList<ContactoModel> getContactos() {
+        return Contactos;
+    }
+
+    public void setContactos(RealmList<ContactoModel> contactos) {
+        Contactos = contactos;
+    }
+
+
+
 
     public int getID() {
         return ID;
@@ -43,12 +55,7 @@ public class ProfessorModel extends RealmObject {
     }
 
 
-    public String getContactos() {
-        return Contactos;
-    }
-    public void setContactos(String contactos) {
-        Contactos = contactos;
-    }
+
 
 
     public RealmList<DisciplinaModel> getDisciplinaModels() {

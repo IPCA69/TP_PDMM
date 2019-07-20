@@ -199,32 +199,21 @@ public class MainActivity extends AtividadeGenerica implements NavigationView.On
                 ChangeYear();
                 return true;
             }
-//            case R.id.action_settings: {
-//                ShowAlertDialog("aa");
-//                return true;
-//            }
-//            case R.id.action_CreatOrUpdate: { //Ok
-//                aula.CreatOrUpdate();
-//                return true;
-//            }
-//            case R.id.action_Delete: {
-//                return true;
-//            }
-//            case R.id.action_Update: {
-//                return true;
-//            }
-//            case R.id.action_Read: {
-//                aula.Read();
-//                return true;
-//            }
-//            case R.id.action_Anterior: { //Ok
-//                aula.Navegar(Enums.Navegar.Anterior, aula.entidade.getID());
-//                return true;
-//            }
-//            case R.id.action_Seguinte: { //Ok
-//                aula.Navegar(Enums.Navegar.Seguinte, aula.entidade.getID());
-//                return true;
-//            }
+            case R.id.createYear: {
+
+
+                Intent intent = new Intent(this,CriarAnoAct.class);
+                startActivity(intent);
+
+//                Class fragment = null;
+//                DrawerLayout drawer = findViewById(R.id.drawer_layout);
+//                drawer.closeDrawer(GravityCompat.START);
+//                fragment = CriarAno.class;
+//                showFragment(fragment);
+
+                return true;
+            }
+
 
         }
 
@@ -271,13 +260,15 @@ public class MainActivity extends AtividadeGenerica implements NavigationView.On
                 }
                 case R.id.nav_view: //Navegate
                 {
-                    Class fragment = null;
 
-                    DrawerLayout drawer = findViewById(R.id.drawer_layout);
-                    drawer.closeDrawer(GravityCompat.START);
+                    Intent intent = new Intent(this,ActRecView.class);
+                    startActivity(intent);
 
-                    fragment = RecView.class;
-                    showFragment(fragment);
+//                    Class fragment = null;
+//                    DrawerLayout drawer = findViewById(R.id.drawer_layout);
+//                    drawer.closeDrawer(GravityCompat.START);
+//                    fragment = RecView.class;
+//                    showFragment(fragment);
                     break;
                 }
                 default: {
@@ -326,8 +317,8 @@ public class MainActivity extends AtividadeGenerica implements NavigationView.On
             e.printStackTrace();
         }
 
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction()
+        FragmentManager fm = getSupportFragmentManager();
+        fm.beginTransaction()
                 .replace(R.id.flContent, fragment)
                 .addToBackStack(null)
                 .commit();

@@ -3,11 +3,14 @@ package com.example.chirag.googlesignin.fragment;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.icu.util.Calendar;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
+import android.text.Editable;
 import android.text.InputType;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,7 +29,10 @@ import com.example.chirag.googlesignin.model.AnoModel;
 import com.example.chirag.googlesignin.model.AulaModel;
 import com.example.chirag.googlesignin.Outros.Useful;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -52,6 +58,10 @@ public class AulaFragment extends FragmentGenerico {
     @BindView(R.id.sumario)
     EditText sumario;
 
+    public static String l;
+    public static String ll;
+    public static Date dd;
+    public static Date ddd;
 
     @BindView(R.id.btSaveAula)
     Button btSave;
@@ -85,7 +95,7 @@ public class AulaFragment extends FragmentGenerico {
         //Prevents the open of the keyboard
         data.setInputType(InputType.TYPE_NULL);
 //        data.setKeyListener(null);
-
+        ff();
         AfterCreatView(getArguments());
 
         return view;
@@ -126,6 +136,50 @@ public class AulaFragment extends FragmentGenerico {
 
     }
 
+    public void ff() {
+        data.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                ddd = Useful.GetDateFromString(s.toString());
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+        sala.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                //  l= s.toString();
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() != 0) {
+                    Log.d(TAG, "TEXT CHANGED");
+                    ll = s.toString();
+                }
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+
+
+        });
+
+    }
+
     @OnClick(R.id.btSaveAula)
     public void saveOnClick() {
 
@@ -135,6 +189,39 @@ public class AulaFragment extends FragmentGenerico {
                 return;
 
             s = new Aula(context);
+            if (ddd.equals(dd)) {
+
+            } else if (ddd != dd && dd != null && ddd != null) {
+
+                Intent i = new Intent(Intent.ACTION_SEND);
+                i.setType("text/plain");
+                i.putExtra(Intent.EXTRA_EMAIL, new String[]{"ricardodiaas19@gmail.com"});//devia ser contactos
+                i.putExtra(Intent.EXTRA_SUBJECT, "subject of email");
+                i.putExtra(Intent.EXTRA_TEXT, "A hora da aula era " + dd + " agora passou a ser " + ddd);
+                try {
+                    startActivity(Intent.createChooser(i, "Send mail..."));
+                } catch (android.content.ActivityNotFoundException ex) {
+                    //      Toast.makeText(, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
+                }
+            }
+            if (ll.equals(l)) {
+                Log.d(TAG, Useful.GetDateAndHourFromDate(dd));
+                Log.d(TAG, Useful.GetDateAndHourFromDate(ddd));
+                Log.d(TAG, "SAME Sala");
+            } else if (ll != l && l != null && ll != null) {
+
+                Intent i = new Intent(Intent.ACTION_SEND);
+                i.setType("text/plain");
+                i.putExtra(Intent.EXTRA_EMAIL, new String[]{"ricardodiaas19@gmail.com"});
+                i.putExtra(Intent.EXTRA_SUBJECT, "subject of email");
+                i.putExtra(Intent.EXTRA_TEXT, "A sala era " + l + " agora passou a ser " + ll);
+                try {
+                    startActivity(Intent.createChooser(i, "Send mail..."));
+                } catch (android.content.ActivityNotFoundException ex) {
+                    //      Toast.makeText(, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
+                }
+
+            }
             if (currentEntity != null)
                 s.entidade.setID(currentEntity.getID());
             s.entidade.setYear(Year);
@@ -305,6 +392,10 @@ public class AulaFragment extends FragmentGenerico {
 
                 AulaModel aula = CastRealmObjectToEntity(lstAula.get(0));
                 currentEntity = aula;
+                l = aula.getSala();
+
+                dd = aula.getDataDeOcorrencia();
+
                 EntityToDOM();
 
                 //Clean combo
@@ -424,6 +515,7 @@ public class AulaFragment extends FragmentGenerico {
         sala.setText(currentEntity.getSala());
         tipo.setText(currentEntity.getTipo());
         duracao.setText(currentEntity.getDuracao().toString());
+        dd = currentEntity.getDataDeOcorrencia();
 
         SetEnable(false);
 

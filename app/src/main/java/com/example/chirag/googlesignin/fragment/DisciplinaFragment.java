@@ -78,14 +78,17 @@ public class DisciplinaFragment extends FragmentGenerico {
 
     }
 
+    private void readData() {
+
+    }
+
+
     @OnClick(R.id.btDeleteDisciplina)
     public void onClicked() {
         deleteData();
     }
 
-    private void readData() {
 
-    }
 
     private void deleteData() {
         Disciplina s = new Disciplina(context);
