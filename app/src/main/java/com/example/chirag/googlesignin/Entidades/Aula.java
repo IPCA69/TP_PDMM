@@ -75,6 +75,8 @@ public class Aula extends GestaoDeEntidades {
     private void setEntidade(AulaModel entidade) {
         this.entidade = entidade != null ? entidade : new AulaModel();
     }
+
+
 }
 
 

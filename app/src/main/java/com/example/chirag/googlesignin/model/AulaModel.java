@@ -1,5 +1,7 @@
 package com.example.chirag.googlesignin.model;
 
+import com.bumptech.glide.util.ExceptionCatchingInputStream;
+
 import java.io.Serializable;
 import java.util.Date;
 
@@ -44,6 +46,7 @@ public class AulaModel extends RealmObject implements Serializable {
     public Integer getID() {
         return ID;
     }
+
     public void setID(Integer ID) {
         this.ID = ID;
     }
@@ -51,6 +54,7 @@ public class AulaModel extends RealmObject implements Serializable {
     public Date getDataDeOcorrencia() {
         return DataDeOcorrencia;
     }
+
     public void setDataDeOcorrencia(Date dataDeOcorrencia) {
         DataDeOcorrencia = dataDeOcorrencia;
     }
@@ -58,6 +62,7 @@ public class AulaModel extends RealmObject implements Serializable {
     public Integer getDuracao() {
         return Duracao;
     }
+
     public void setDuracao(Integer duracao) {
         Duracao = duracao;
     }
@@ -66,6 +71,7 @@ public class AulaModel extends RealmObject implements Serializable {
     public String getSala() {
         return Sala;
     }
+
     public void setSala(String sala) {
         Sala = sala;
     }
@@ -74,6 +80,7 @@ public class AulaModel extends RealmObject implements Serializable {
     public String getTipo() {
         return Tipo;
     }
+
     public void setTipo(String tipo) {
         Tipo = tipo;
     }
@@ -82,9 +89,21 @@ public class AulaModel extends RealmObject implements Serializable {
     public String getSumario() {
         return Sumario;
     }
+
     public void setSumario(String sumario) {
         Sumario = sumario;
     }
 
+
+    @Override
+    public String toString() {
+        try {
+            return this.getProfId() + " " + this.getYear() + " " + this.getID() + " " + this.getDataDeOcorrencia() + " " + this.getDuracao() + " " + this.getSala() + " " + this.getTipo();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return super.toString();
+
+    }
 }
 

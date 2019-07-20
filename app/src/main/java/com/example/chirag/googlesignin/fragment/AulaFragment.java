@@ -196,6 +196,8 @@ public class AulaFragment extends FragmentGenerico {
                 if (res != null) {
                     currentEntity = CastRealmObjectToEntity(res.get());
 
+//                    Useful.CreatFile(context, "Teste", "xsl", currentEntity.toString().getBytes());
+
                     OnOkView();
                 }
 
@@ -338,6 +340,7 @@ public class AulaFragment extends FragmentGenerico {
     @RequiresApi(api = Build.VERSION_CODES.N)
     public Res GetAll(Integer year, Integer id) {
         Aula s = new Aula(context);
+        s.entidade.setProfId(ProfId);
         s.entidade.setYear(year == null ? Year : year);
         List<RealmObject> lstAula = s.ReadAllByYear();
         ArrayList<String> txt = new ArrayList<String>();

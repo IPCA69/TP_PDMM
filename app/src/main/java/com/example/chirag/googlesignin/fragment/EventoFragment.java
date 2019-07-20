@@ -272,6 +272,7 @@ public class EventoFragment extends FragmentGenerico {
     @RequiresApi(api = Build.VERSION_CODES.N)
     public Res GetAll(Integer year, Integer id) {
         Evento s = new Evento(context);
+        s.entidade.setProfId(ProfId);
         s.entidade.setYear(year == null ? Year : year);
         List<RealmObject> lst = s.ReadAllByYear();
         ArrayList<String> txt = new ArrayList<String>();

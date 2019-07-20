@@ -269,6 +269,7 @@ public class TipoDeAulaFragment extends FragmentGenerico {
     @RequiresApi(api = Build.VERSION_CODES.N)
     public Res GetAll(Integer year, Integer id) {
         TipoDeAula s = new TipoDeAula(context);
+        s.entidade.setProfId(ProfId);
         s.entidade.setYear(year == null ? Year : year);
         List<RealmObject> lst = s.ReadAllByYear();
         ArrayList<String> txt = new ArrayList<String>();

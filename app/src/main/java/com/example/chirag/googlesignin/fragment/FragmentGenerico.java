@@ -90,6 +90,7 @@ public abstract class FragmentGenerico extends Fragment {
      */
     public void AfterSave() {
         SetEnable(false);
+        getBtSave().setEnabled(false);
     }
 
     /**
