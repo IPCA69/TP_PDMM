@@ -41,9 +41,6 @@ public class Disciplina extends GestaoDeEntidades {
         find.setCurso(entidade.getCurso());
         find.setAcronimo(entidade.getAcronimo());
         find.setSemestre(entidade.getSemestre());
-        // RealmList<AulaModel> aulaslist = new RealmList();
-        // aulaslist.addAll(entidade.getAulaModels());
-        find.setAulaModels(find.getAulaModels());
         find.setYear(entidade.getYear());
         find.setProfId(entidade.getProfId());
         myRealm.insertOrUpdate(find);

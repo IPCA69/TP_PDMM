@@ -277,6 +277,7 @@ public class EventoFragment extends FragmentGenerico {
                 }
 
                 currentEntity = CastRealmObjectToEntity(selectedLst.get(0));
+                currentEntity.setID(null);
 
                 EntityToDOM();
 

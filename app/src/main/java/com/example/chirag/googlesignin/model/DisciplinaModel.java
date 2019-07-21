@@ -16,8 +16,6 @@ public class DisciplinaModel extends RealmObject {
 
     private Integer Semestre;
 
-    private RealmList<AulaModel> aulaModels;
-
     public int getYear() {
         return Year;
     }
@@ -68,14 +66,6 @@ public class DisciplinaModel extends RealmObject {
 
     public void setSemestre(Integer semestre) {
         Semestre = semestre;
-    }
-
-    public RealmList<AulaModel> getAulaModels() {
-        return aulaModels;
-    }
-
-    public void setAulaModels(RealmList<AulaModel> aulaModels) {
-        this.aulaModels = aulaModels;
     }
 
     public Integer getID() {

@@ -136,6 +136,7 @@ public class ContactoFragment extends FragmentGenerico {
 
                     if (res != null) {
                         currentEntity = CastRealmObjectToEntity(res.get());
+                        currentEntity.setID(null);
 
                         OnOkView();
                     }

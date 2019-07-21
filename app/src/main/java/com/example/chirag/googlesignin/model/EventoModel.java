@@ -42,12 +42,11 @@ public class EventoModel extends RealmObject {
     }
 
 
-
     public int getID() {
         return ID;
     }
 
-    public void setID(int ID) {
+    public void setID(Integer ID) {
         this.ID = ID;
     }
 

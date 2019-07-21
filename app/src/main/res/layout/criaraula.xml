@@ -48,7 +48,7 @@
                 android:id="@+id/sala"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20sp"
+                android:layout_marginTop="5dp"
                 android:hint="Sala" />
 
             <TextView
@@ -56,7 +56,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/sala"
-                android:layout_marginTop="20sp"
+                android:layout_marginTop="5dp"
                 android:text="Tipo de Aula" />
 
             <Spinner
@@ -64,7 +64,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/txtTipodeAula"
-                android:layout_marginTop="20sp"
+                android:layout_marginTop="5dp"
                 android:hint="Tipo de Aula" />
 
             <EditText
@@ -72,7 +72,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/spTipo"
-                android:layout_marginTop="20sp"
+                android:layout_marginTop="5dp"
                 android:cursorVisible="false"
                 android:focusable="false"
                 android:focusableInTouchMode="false"
@@ -84,7 +84,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/dateHour"
-                android:layout_marginTop="20sp"
+                android:layout_marginTop="5dp"
                 android:hint="duração"
                 android:inputType="number" />
 
@@ -93,7 +93,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/duracao"
-                android:layout_marginTop="20sp"
+                android:layout_marginTop="5dp"
                 android:hint="Sumário da aula"
                 android:inputType="text" />
 
@@ -102,23 +102,39 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/sumario"
-                android:layout_marginTop="20sp"
+                android:layout_marginTop="5dp"
                 android:text="Turma" />
 
             <Spinner
                 android:id="@+id/spTurma"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/txtTipodeTurma"
-                android:layout_marginTop="20sp"
+                android:layout_below="@id/txtDisciplina"
+                android:layout_marginTop="5dp"
+                android:hint="Turma" />
+
+            <TextView
+                android:id="@+id/txtDisciplina"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/sumario"
+                android:layout_marginTop="5dp"
+                android:text="Disciplina" />
+
+            <Spinner
+                android:id="@+id/spDisciplina"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txtDisciplina"
+                android:layout_marginTop="5dp"
                 android:hint="Turma" />
 
             <Button
                 android:id="@+id/btDeleteAula"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/spTurma"
-                android:layout_marginTop="20sp"
+                android:layout_below="@id/spDisciplina"
+                android:layout_marginTop="5dp"
                 android:text="Delete" />
 
             <Button
@@ -126,7 +142,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/btDeleteAula"
-                android:layout_marginTop="20sp"
+                android:layout_marginTop="5dp"
                 android:text="Save" />
 
             <Button
@@ -134,7 +150,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/btSaveAula"
-                android:layout_marginTop="20sp"
+                android:layout_marginTop="5dp"
                 android:text="View" />
 
 

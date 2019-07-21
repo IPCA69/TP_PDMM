@@ -286,6 +286,7 @@ public class DisciplinaFragment extends FragmentGenerico {
                 }
 
                 currentEntity = CastRealmObjectToEntity(selectedLst.get(0));
+                currentEntity.setID(null);
 
                 EntityToDOM();
 
