@@ -100,6 +100,9 @@ public class ContactoFragment extends FragmentGenerico {
             currentEntity = s.entidade;
 
             AfterSave();
+            CleanView();
+
+
 
         } catch (Exception e) {
 
@@ -107,6 +110,8 @@ public class ContactoFragment extends FragmentGenerico {
         }
 
     }
+
+
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @OnClick(R.id.btViewContacto)
@@ -317,7 +322,11 @@ public class ContactoFragment extends FragmentGenerico {
 
     @Override
     public void CleanView() {
+
         descricao.setText("");
+        nome.setText("");
+        email.setText("");
+        Toast.makeText(getContext(),"Saved",Toast.LENGTH_SHORT).show();
     }
 
     @Override

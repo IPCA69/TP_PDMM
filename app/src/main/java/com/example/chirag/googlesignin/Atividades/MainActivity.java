@@ -37,7 +37,6 @@ import com.example.chirag.googlesignin.Outros.Email;
 import com.example.chirag.googlesignin.Outros.Excel;
 import com.example.chirag.googlesignin.R;
 import com.example.chirag.googlesignin.adapters.ViewPagerAdapter;
-import com.example.chirag.googlesignin.fragment.RecView;
 import com.example.chirag.googlesignin.model.AnoModel;
 import com.example.chirag.googlesignin.Outros.Useful;
 import com.example.chirag.googlesignin.model.AulaModel;
@@ -154,8 +153,9 @@ public class MainActivity extends AtividadeGenerica implements NavigationView.On
             Glide.with(this).load(personPhoto).into(imgnav);
 
             Professor s = new Professor(this);
-            boolean exist = s.CheckToken(personId);
-            if (!exist) {
+            Integer exist = s.CheckToken(personId);
+
+            if (exist == null) {
                 s.entidade.setNome(personName);
                 s.entidade.setEmail(personEmail);
                 s.entidade.setIdToken(personId);
@@ -163,10 +163,9 @@ public class MainActivity extends AtividadeGenerica implements NavigationView.On
                     s.entidade.setPhotoUrl(personPhoto.toString());
                 }
                 s.CreatOrUpdate();
-
                 setProfId(s.entidade.getID());
             }
-
+            setProfId(exist);
         }
 
         SetYear();

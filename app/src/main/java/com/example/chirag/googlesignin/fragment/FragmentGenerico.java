@@ -56,6 +56,7 @@ public abstract class FragmentGenerico extends Fragment {
         ArrayList<String> txt = new ArrayList<String>();
 
         lstAno.forEach((elem) -> {
+
             AnoModel ano = ((com_example_chirag_googlesignin_model_AnoModelRealmProxy) elem);
 
             if (ano.getDescricao() != null)

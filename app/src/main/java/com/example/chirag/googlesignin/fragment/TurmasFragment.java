@@ -1,6 +1,7 @@
 package com.example.chirag.googlesignin.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -13,7 +14,10 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.example.chirag.googlesignin.Atividades.CriarAnoAct;
+import com.example.chirag.googlesignin.Atividades.listcontact;
 import com.example.chirag.googlesignin.Entidades.Aula;
+import com.example.chirag.googlesignin.Entidades.Contacto;
 import com.example.chirag.googlesignin.Entidades.Disciplina;
 import com.example.chirag.googlesignin.R;
 import com.example.chirag.googlesignin.model.AulaModel;
@@ -29,12 +33,31 @@ import io.realm.Realm;
 import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.RealmResults;
-import io.realm.com_example_chirag_googlesignin_model_CursoModelRealmProxy;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class TurmasFragment extends FragmentGenerico {
+
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_turmas, container, false);
+
+        try {
+            unbinder = ButterKnife.bind(this, view);
+
+            Log.d(TAG, "onCreate: View Initialization done");
+
+            AfterCreatView(getArguments());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return view;
+    }
 
     //  @BindView(R.id.text)
     //  TextView display;
@@ -68,19 +91,20 @@ public class TurmasFragment extends FragmentGenerico {
         ReadDataaulas();
     }
 
-    @OnClick(R.id.viewdisciplinas)
+
+    @OnClick(R.id.associatecontact)
     public void onnClickedd() {
-        ReadDatadiscilinas();
+
+        Bundle bundle = new Bundle();
+        bundle.putInt("Year", this.Year);
+        bundle.putInt("ProfId", this.ProfId);
+
+        Intent intent = new Intent(context, listcontact.class);
+        intent.putExtras(bundle);
+        startActivity(intent);
+
     }
 
-//    @OnClick(R.id.text)
-//    public void oClickedd() {
-//     String o = display.getText().toString();
-//       String[] parts = o.split(":");
-//      display.setText(parts[1]);
-//
-//
-//    }
 
     public void ReadDataaulas() {
         Aula s = new Aula(context);
@@ -219,27 +243,7 @@ public class TurmasFragment extends FragmentGenerico {
 
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_turmas, container, false);
 
-        unbinder = ButterKnife.bind(this, view);
-
-        PopulateSpinners();
-        Log.d(TAG, "onCreate: View Initialization done");
-
-
-        // Receber os dados de outros Fragments
-        Bundle bundle = getArguments();
-        String message = bundle.getString("message");
-        fromcal.setText(message);
-
-
-        return view;
-
-    }
 
     @Override
     public RealmObject CastRealmObjectToEntity(RealmObject obj) {

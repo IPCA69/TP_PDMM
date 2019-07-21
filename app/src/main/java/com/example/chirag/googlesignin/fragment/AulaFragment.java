@@ -509,6 +509,7 @@ public class AulaFragment extends FragmentGenerico {
         data.setEnabled(value);
         duracao.setEnabled(value);
         sumario.setEnabled(value);
+
     }
 
     /**
@@ -577,6 +578,7 @@ public class AulaFragment extends FragmentGenerico {
 
     @Override
     public Button getBtSave() {
+
         return btSave;
     }
 
