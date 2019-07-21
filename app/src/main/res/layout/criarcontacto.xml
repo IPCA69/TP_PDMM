@@ -52,12 +52,13 @@
                 android:layout_marginTop="20sp"
                 android:hint="nome de contacto" />
 
-            <EditText
+            <Spinner
                 android:id="@+id/descricao"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/nome"
                 android:layout_marginTop="20sp"
-                android:hint="tipo de contacto" />
+                android:hint="Tipo de contacto" />
 
             <EditText
                 android:id="@+id/email"

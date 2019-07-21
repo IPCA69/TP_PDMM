@@ -19,7 +19,6 @@ import android.widget.Toast;
 import com.example.chirag.googlesignin.Entidades.Contacto;
 import com.example.chirag.googlesignin.Outros.Useful;
 import com.example.chirag.googlesignin.R;
-import com.example.chirag.googlesignin.model.AulaModel;
 import com.example.chirag.googlesignin.model.ContactoModel;
 
 import java.util.ArrayList;
@@ -75,12 +74,10 @@ public class ContactoFragment extends FragmentGenerico {
 
         return view;
     }
-
     @OnClick(R.id.descricao)
     public void save() {
 
     }
-
     @OnClick(R.id.btSaveContacto)
     public void saveOnClick() {
 
@@ -106,12 +103,14 @@ public class ContactoFragment extends FragmentGenerico {
             CleanView();
 
 
+
         } catch (Exception e) {
 
             e.printStackTrace();
         }
 
     }
+
 
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -247,7 +246,7 @@ public class ContactoFragment extends FragmentGenerico {
                     return;
                 }
 
-                currentEntity = CopyEntity(CastRealmObjectToEntity(selectedLst.get(0)));
+                currentEntity = CastRealmObjectToEntity(selectedLst.get(0));
 
                 EntityToDOM();
 
@@ -315,17 +314,6 @@ public class ContactoFragment extends FragmentGenerico {
         return true;
     }
 
-    public ContactoModel CopyEntity(ContactoModel oldEntity) {
-        ContactoModel newModel = new ContactoModel();
-        newModel.setProfId(ProfId);
-        newModel.setYear(Year);
-        newModel.setDescricao(oldEntity.getDescricao());
-        newModel.setEmail(oldEntity.getEmail());
-        newModel.setNome(oldEntity.getNome());
-
-        return newModel;
-    }
-
     @Override
     public void EntityToDOM() {
         descricao.setText(currentEntity.getDescricao());
@@ -339,7 +327,7 @@ public class ContactoFragment extends FragmentGenerico {
         descricao.setText("");
         nome.setText("");
         email.setText("");
-        Toast.makeText(getContext(), "Saved", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(),"Saved",Toast.LENGTH_SHORT).show();
     }
 
     @Override
