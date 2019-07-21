@@ -35,14 +35,14 @@ import io.realm.com_example_chirag_googlesignin_model_ContactoModelRealmProxy;
 
 public class ContactoFragment extends FragmentGenerico {
 
-    @BindView(R.id.descricao)
-    EditText descricao;
+
     @BindView(R.id.nome)
     EditText nome;
     @BindView(R.id.email)
     EditText email;
 
-
+    @BindView(R.id.descricao)
+    Button descricao;
     @BindView(R.id.btSaveContacto)
     Button btSave;
     @BindView(R.id.btDeleteContacto)
@@ -74,7 +74,10 @@ public class ContactoFragment extends FragmentGenerico {
 
         return view;
     }
+    @OnClick(R.id.descricao)
+    public void save() {
 
+    }
     @OnClick(R.id.btSaveContacto)
     public void saveOnClick() {
 
