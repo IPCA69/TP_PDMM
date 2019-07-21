@@ -1,6 +1,7 @@
 package com.example.chirag.googlesignin.Entidades;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 
 import com.example.chirag.googlesignin.model.ProfessorModel;
@@ -72,16 +73,16 @@ public class Professor extends GestaoDeEntidades {
         this.entidade = entidade != null ? entidade : new ProfessorModel();
     }
 
-    public Boolean CheckToken(String token) {
+    public Integer CheckToken(String token) {
         Realm realm = getRealm();
         try {
             realm.beginTransaction();
             ProfessorModel DBidtoken = BaseQuery(realm).equalTo("IdToken", token).findFirst();
 
             if (DBidtoken != null) {
-                setEntidade(DBidtoken);
-                return true;
+                return DBidtoken.getID();
             }
+            return null;
 
         } catch (Exception e) {
             realm.cancelTransaction();
@@ -90,7 +91,7 @@ public class Professor extends GestaoDeEntidades {
             realm.commitTransaction();
             realm.close();
         }
-        return false;
+        return null;
     }
 
 }

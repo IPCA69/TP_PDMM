@@ -153,8 +153,9 @@ public class MainActivity extends AtividadeGenerica implements NavigationView.On
             Glide.with(this).load(personPhoto).into(imgnav);
 
             Professor s = new Professor(this);
-            boolean exist = s.CheckToken(personId);
-            if (!exist) {
+            Integer exist = s.CheckToken(personId);
+
+            if (exist == null) {
                 s.entidade.setNome(personName);
                 s.entidade.setEmail(personEmail);
                 s.entidade.setIdToken(personId);
@@ -162,10 +163,9 @@ public class MainActivity extends AtividadeGenerica implements NavigationView.On
                     s.entidade.setPhotoUrl(personPhoto.toString());
                 }
                 s.CreatOrUpdate();
-
                 setProfId(s.entidade.getID());
             }
-
+            setProfId(exist);
         }
 
         SetYear();

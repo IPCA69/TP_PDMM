@@ -23,7 +23,7 @@ import io.realm.RealmObject;
 import io.realm.com_example_chirag_googlesignin_model_AnoModelRealmProxy;
 import io.realm.com_example_chirag_googlesignin_model_ContactoModelRealmProxy;
 
-public class listcontact extends AppCompatActivity {
+public class listcontact extends AtividadeGenerica {
 
     LinearLayout parent;
     Button btn_save;
@@ -33,7 +33,13 @@ public class listcontact extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listcontact);
+        Bundle bundle = getIntent().getExtras();
 
+        //Get args
+        if (bundle != null) {
+            this.setYearId(bundle.getInt("Year"));
+            this.setProfId(bundle.getInt("ProfId"));
+        }
 
         parent = (LinearLayout) findViewById(R.id.ll_parent);
         btn_save = (Button) findViewById(R.id.btn_save);
@@ -41,6 +47,8 @@ public class listcontact extends AppCompatActivity {
         final ArrayList<String> list_chekboxes = new ArrayList<>();
 
         Contacto c = new Contacto(this);
+        c.entidade.setProfId(this.getProfId());
+        c.entidade.setYear(this.getYearId());
         contactos = c.ReadAllByYear();
         for (RealmObject contact : c.ReadAllByYear()) {
             ContactoModel cont = ((com_example_chirag_googlesignin_model_ContactoModelRealmProxy) contact);

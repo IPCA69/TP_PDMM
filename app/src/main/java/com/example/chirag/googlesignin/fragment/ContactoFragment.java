@@ -321,7 +321,7 @@ public class ContactoFragment extends FragmentGenerico {
     public void CleanView() {
 
         descricao.setText("");
-        descricao.setText("");
+        nome.setText("");
         email.setText("");
         Toast.makeText(getContext(),"Saved",Toast.LENGTH_SHORT).show();
     }

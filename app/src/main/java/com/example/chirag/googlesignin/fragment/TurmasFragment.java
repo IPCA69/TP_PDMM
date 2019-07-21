@@ -39,6 +39,26 @@ import io.realm.RealmResults;
  */
 public class TurmasFragment extends FragmentGenerico {
 
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View view = inflater.inflate(R.layout.fragment_turmas, container, false);
+
+        try {
+            unbinder = ButterKnife.bind(this, view);
+
+            Log.d(TAG, "onCreate: View Initialization done");
+
+            AfterCreatView(getArguments());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return view;
+    }
+
     //  @BindView(R.id.text)
     //  TextView display;
     @BindView(R.id.viewaulas)
@@ -72,21 +92,19 @@ public class TurmasFragment extends FragmentGenerico {
     }
 
 
-
-
     @OnClick(R.id.associatecontact)
     public void onnClickedd() {
 
+        Bundle bundle = new Bundle();
+        bundle.putInt("Year", this.Year);
+        bundle.putInt("ProfId", this.ProfId);
 
-        Intent intent = new Intent(getContext(), listcontact.class);
+        Intent intent = new Intent(context, listcontact.class);
+        intent.putExtras(bundle);
         startActivity(intent);
 
     }
-    
 
-                
-                
-                
 
     public void ReadDataaulas() {
         Aula s = new Aula(context);
@@ -225,27 +243,7 @@ public class TurmasFragment extends FragmentGenerico {
 
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_turmas, container, false);
 
-        unbinder = ButterKnife.bind(this, view);
-
-        PopulateSpinners();
-        Log.d(TAG, "onCreate: View Initialization done");
-
-
-        // Receber os dados de outros Fragments
-        Bundle bundle = getArguments();
-        String message = bundle.getString("message");
-        fromcal.setText(message);
-
-
-        return view;
-
-    }
 
     @Override
     public RealmObject CastRealmObjectToEntity(RealmObject obj) {

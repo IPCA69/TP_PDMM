@@ -25,7 +25,7 @@ public class Contacto extends GestaoDeEntidades {
     }
 
     public RealmQuery<? extends ContactoModel> BaseQuery(Realm realm) {
-        return realm.where(entidade.getClass()).equalTo("ProfId", entidade.getProfId()).equalTo("Year", entidade.getYear()).equalTo("ProfId", entidade.getProfId());
+        return realm.where(entidade.getClass()).equalTo("ProfId", entidade.getProfId()).equalTo("Year", entidade.getYear());
     }
 
 
