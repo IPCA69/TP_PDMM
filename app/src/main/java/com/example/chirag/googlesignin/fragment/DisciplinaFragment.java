@@ -33,6 +33,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
+import io.realm.RealmModel;
 import io.realm.RealmObject;
 import io.realm.com_example_chirag_googlesignin_model_CursoModelRealmProxy;
 import io.realm.com_example_chirag_googlesignin_model_DisciplinaModelRealmProxy;
@@ -285,8 +286,7 @@ public class DisciplinaFragment extends FragmentGenerico {
                     return;
                 }
 
-                currentEntity = CastRealmObjectToEntity(selectedLst.get(0));
-                currentEntity.setID(null);
+                currentEntity = CopyEntity(CastRealmObjectToEntity(selectedLst.get(0)));
 
                 EntityToDOM();
 
@@ -366,12 +366,25 @@ public class DisciplinaFragment extends FragmentGenerico {
         semestre.setText(currentEntity.getSemestre().toString());
     }
 
+    public DisciplinaModel CopyEntity(DisciplinaModel oldEntity) {
+        DisciplinaModel newModel = new DisciplinaModel();
+        newModel.setProfId(ProfId);
+        newModel.setYear(Year);
+        newModel.setSemestre(oldEntity.getSemestre());
+        newModel.setAcronimo(oldEntity.getAcronimo());
+        newModel.setNome(oldEntity.getNome());
+        newModel.setCurso(oldEntity.getCurso());
+
+        return newModel;
+    }
+
     @Override
     public void CleanView() {
         nome.setText("");
         acronimo.setText("");
         curso.setSelection(0);
         semestre.setText("");
+
     }
 
     @Override

@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.example.chirag.googlesignin.Outros.Useful;
 import com.example.chirag.googlesignin.R;
 import com.example.chirag.googlesignin.Entidades.Evento;
+import com.example.chirag.googlesignin.model.DisciplinaModel;
 import com.example.chirag.googlesignin.model.EventoModel;
 
 import java.util.ArrayList;
@@ -276,8 +277,7 @@ public class EventoFragment extends FragmentGenerico {
                     return;
                 }
 
-                currentEntity = CastRealmObjectToEntity(selectedLst.get(0));
-                currentEntity.setID(null);
+                currentEntity = CopyEntity(CastRealmObjectToEntity(selectedLst.get(0)));
 
                 EntityToDOM();
 
@@ -347,6 +347,17 @@ public class EventoFragment extends FragmentGenerico {
         }
 
         return true;
+    }
+
+    public EventoModel CopyEntity(EventoModel oldEntity) {
+        EventoModel newModel = new EventoModel();
+        newModel.setProfId(ProfId);
+        newModel.setYear(Year);
+        newModel.setDataInicio(oldEntity.getDataInicio());
+        newModel.setDuracao(oldEntity.getDuracao());
+        newModel.setDescricao(oldEntity.getDescricao());
+
+        return newModel;
     }
 
     @Override

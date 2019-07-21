@@ -28,6 +28,7 @@ import com.example.chirag.googlesignin.Entidades.TipoDeAula;
 import com.example.chirag.googlesignin.R;
 import com.example.chirag.googlesignin.model.AulaModel;
 import com.example.chirag.googlesignin.Outros.Useful;
+import com.example.chirag.googlesignin.model.DisciplinaModel;
 import com.example.chirag.googlesignin.model.TipoDeAulaModel;
 
 import java.util.ArrayList;
@@ -452,11 +453,10 @@ public class AulaFragment extends FragmentGenerico {
                     return;
                 }
 
-                AulaModel aula = CastRealmObjectToEntity(lstAula.get(0));
-                currentEntity = aula;
-                l = aula.getSala();
+                currentEntity = CopyEntity(CastRealmObjectToEntity(lstAula.get(0)));
+                l = currentEntity.getSala();
 
-                dd = aula.getDataDeOcorrencia();
+                dd = currentEntity.getDataDeOcorrencia();
 
                 EntityToDOM();
 
@@ -582,6 +582,21 @@ public class AulaFragment extends FragmentGenerico {
 
         SetEnable(false);
 
+    }
+
+    public AulaModel CopyEntity(AulaModel oldEntity) {
+        AulaModel newModel = new AulaModel();
+        newModel.setProfId(ProfId);
+        newModel.setYear(Year);
+        newModel.setTipo(oldEntity.getTipo());
+        newModel.setTurma(oldEntity.getTurma());
+        newModel.setDataDeOcorrencia(oldEntity.getDataDeOcorrencia());
+        newModel.setDisciplinaId(oldEntity.getDisciplinaId());
+        newModel.setDuracao(oldEntity.getDuracao());
+        newModel.setSala(oldEntity.getSala());
+        newModel.setSumario(oldEntity.getSumario());
+
+        return newModel;
     }
 
     @Override
