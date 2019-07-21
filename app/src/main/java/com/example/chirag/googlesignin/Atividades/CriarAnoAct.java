@@ -9,15 +9,11 @@ import android.widget.Toast;
 import com.example.chirag.googlesignin.Entidades.Ano;
 import com.example.chirag.googlesignin.R;
 
-import butterknife.BindView;
-
 public class CriarAnoAct extends AppCompatActivity {
 
     EditText EAno;
     Button btSave;
     Button btDelete;
-    Button btView;
-    Button btImport;
     Button btNew;
     Button btEdit;
 
@@ -25,8 +21,8 @@ public class CriarAnoAct extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_criar_ano);
-        btSave = (Button)findViewById(R.id.btSaveTipoDeAno);
-        EAno = (EditText)findViewById(R.id.descriptionTipoDeAno);
+        btSave = (Button)findViewById(R.id.btSaveAno);
+        EAno = (EditText)findViewById(R.id.descriptionAno);
 
         btSave.setOnClickListener(v -> saved());
     }

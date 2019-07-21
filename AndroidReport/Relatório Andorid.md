@@ -398,21 +398,18 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
                 nome= "Aula";
                 return nome;
             case 1:
-                nome= "Cal";
-                return nome;
-            case 2:
                 nome= "Curso";
                 return nome;
-            case 3:
+            case 2:
                 nome= "Disc";
                 return nome;
-            case 4:
+            case 3:
                 nome= "Evento";
                 return nome;
-            case 5:
+            case 4:
                 nome= "Turma";
                 return nome;
-            case 6:
+            case 5:
                nome= "TipoAula";
                 return nome;
         }
