@@ -181,16 +181,16 @@ public class TurmasFragment extends FragmentGenerico {
     }
 
     public void PopulateSpinners() {
-        ArrayList<Integer> ano  = new ArrayList<Integer>();
+        ArrayList<Integer> ano = new ArrayList<Integer>();
         Disciplina s = new Disciplina(context);
         Realm o = s.getRealm();
         RealmResults<DisciplinaModel> results = o.where(DisciplinaModel.class).findAll();
         for (DisciplinaModel l : results) {
-            if (l.getAnolectivo() == null) {
-                //  l.setNome("NULO");
-            } else {
-                ano.add(l.getAnolectivo());
-            }
+//            if (l.getAnolectivo() == null) {
+//                //  l.setNome("NULO");
+//            } else {
+//                ano.add(l.getAnolectivo());
+//            }
 
         }
         ArrayAdapter<Integer> adapter = new ArrayAdapter<Integer>(context, android.R.layout.simple_spinner_dropdown_item, ano);
@@ -199,24 +199,25 @@ public class TurmasFragment extends FragmentGenerico {
         spinner2.setAdapter(adapter);
 
         ArrayList<String> disciplinas = new ArrayList<String>();
-       Integer anus= (Integer) spinner2.getSelectedItem();
+        Integer anus = (Integer) spinner2.getSelectedItem();
        /*
        if(anus==null){
            anus=20182019;
        }
        */
-        RealmResults<DisciplinaModel> results2 = o.where(DisciplinaModel.class).
-                equalTo("Anolectivo", (Integer) spinner2.getSelectedItem()) //20182019
-                .findAll();
-        for (DisciplinaModel l : results2) {
-            if (l.getNome() == null) {
-                //  l.setNome("NULO");
-            } else {
-                disciplinas.add(l.getNome());
-            }
 
-
-        }
+//        RealmResults<DisciplinaModel> results2 = o.where(DisciplinaModel.getClass()).
+//                equalTo("Year", (Integer) spinner2.getSelectedItem()) //20182019
+//                .findAll();
+//        for (DisciplinaModel l : results2) {
+//            if (l.getNome() == null) {
+//                //  l.setNome("NULO");
+//            } else {
+//                disciplinas.add(l.getNome());
+//            }
+//
+//
+//        }
         ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_dropdown_item, disciplinas);
 
 

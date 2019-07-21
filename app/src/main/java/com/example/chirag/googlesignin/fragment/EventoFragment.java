@@ -1,6 +1,9 @@
 package com.example.chirag.googlesignin.fragment;
 
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
+import android.icu.util.Calendar;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
@@ -37,11 +40,9 @@ public class EventoFragment extends FragmentGenerico {
 
     @BindView(R.id.Descricao)
     EditText descricao;
-    @BindView(R.id.horainicio)
-    EditText horainicio;
     @BindView(R.id.duracao)
     EditText duracao;
-    @BindView(R.id.Datainicio)
+    @BindView(R.id.dateHourEvt)
     EditText data;
 
     @BindView(R.id.btSaveEvento)
@@ -65,13 +66,52 @@ public class EventoFragment extends FragmentGenerico {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.criarevento, container, false);
 
-        unbinder = ButterKnife.bind(this, view);
+        try {
+            unbinder = ButterKnife.bind(this, view);
 
-        Log.d(TAG, "onCreate: View Initialization done");
+            Log.d(TAG, "onCreate: View Initialization done");
 
-        AfterCreatView(getArguments());
+            AfterCreatView(getArguments());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         return view;
+    }
+
+    private DatePickerDialog datePicker;
+    private TimePickerDialog timePicker;
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    @OnClick(R.id.dateHourEvt)
+    public void dataOnClick() {
+        Calendar myCalendar = Calendar.getInstance();
+        int year = myCalendar.get(Calendar.YEAR);
+        int month = myCalendar.get(Calendar.MONTH);
+        int day = myCalendar.get(Calendar.DAY_OF_MONTH);
+        int hour = myCalendar.get(Calendar.HOUR_OF_DAY);
+        int minutes = myCalendar.get(Calendar.MINUTE);
+
+        datePicker = new DatePickerDialog(context,
+                (view, year1, monthOfYear, dayOfMonth) -> {
+                    Toast.makeText(context, dayOfMonth + "/" + (monthOfYear + 1) + "/" + year1, Toast.LENGTH_SHORT).show(); //Show shadow text
+
+                    data.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year1);
+                    // time picker dialog
+                    timePicker = new TimePickerDialog(context,
+                            (tp, sHour, sMinute) -> {
+                                Toast.makeText(context, sHour + ":" + sMinute, Toast.LENGTH_SHORT).show(); //Show shadow text
+                                String txtData = data.getText().toString();
+
+                                data.setText(txtData.isEmpty() ? (sHour + ":" + sMinute) : (txtData + " " + sHour + ":" + sMinute));
+
+                            }, hour, minutes, true);
+                    timePicker.show();
+
+                }, year, month, day);
+        datePicker.show();
+
+
     }
 
     @OnClick(R.id.btSaveEvento)
@@ -88,10 +128,10 @@ public class EventoFragment extends FragmentGenerico {
             s.entidade.setYear(Year);
             s.entidade.setProfId(ProfId);
 
-//            s.entidade.setDataInicio();
             s.entidade.setDescricao(descricao.getText().toString());
             s.entidade.setDuracao(Useful.ConvertStringToInt(duracao.getText().toString()));
 
+            s.entidade.setDataInicio(Useful.GetDateFromString(data.getText().toString()));
             s.CreatOrUpdate();
 
             currentEntity = s.entidade;
@@ -122,17 +162,18 @@ public class EventoFragment extends FragmentGenerico {
             mySpinner.setAdapter(adapter);
 
             dialogbuilder.setPositiveButton("Ok", (dialog, which) -> {
-                Integer id = Useful.SplitIdFromDescription(mySpinner.getSelectedItem().toString());
+                if (mySpinner.getSelectedItem() != null) {
+                    Integer id = Useful.SplitIdFromDescription(mySpinner.getSelectedItem().toString());
 
-                //Find record by id
-                Optional<RealmObject> res = getMany.getLst().stream().filter(elem -> CastRealmObjectToEntity(elem).getID() == id).findFirst();
+                    //Find record by id
+                    Optional<RealmObject> res = getMany.getLst().stream().filter(elem -> CastRealmObjectToEntity(elem).getID() == id).findFirst();
 
-                if (res != null) {
-                    currentEntity = CastRealmObjectToEntity(res.get());
+                    if (res != null) {
+                        currentEntity = CastRealmObjectToEntity(res.get());
 
-                    OnOkView();
+                        OnOkView();
+                    }
                 }
-
                 dialog.dismiss();
             });
 
@@ -310,7 +351,7 @@ public class EventoFragment extends FragmentGenerico {
     @Override
     public void EntityToDOM() {
         descricao.setText(currentEntity.getDescricao());
-        horainicio.setText(Useful.GetDateAndHourFromDate(currentEntity.getDataInicio()));
+        data.setText(Useful.GetDateAndHourFromDate(currentEntity.getDataInicio()));
         duracao.setText(currentEntity.getDuracao());
         data.setText(Useful.GetDateAndHourFromDate(currentEntity.getDataInicio()));
     }
@@ -318,7 +359,6 @@ public class EventoFragment extends FragmentGenerico {
     @Override
     public void CleanView() {
         descricao.setText("");
-        horainicio.setText("");
         duracao.setText("");
         data.setText("");
 
@@ -327,7 +367,6 @@ public class EventoFragment extends FragmentGenerico {
     @Override
     public void SetEnable(boolean value) {
         descricao.setEnabled(value);
-        horainicio.setEnabled(value);
         duracao.setEnabled(value);
         data.setEnabled(value);
 

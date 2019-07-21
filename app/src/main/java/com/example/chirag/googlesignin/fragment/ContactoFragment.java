@@ -78,7 +78,7 @@ public class ContactoFragment extends FragmentGenerico {
     @OnClick(R.id.btSaveContacto)
     public void saveOnClick() {
 
-      Contacto s;
+        Contacto s;
         try {
             if (!Validate())
                 return;
@@ -127,15 +127,17 @@ public class ContactoFragment extends FragmentGenerico {
             mySpinner.setAdapter(adapter);
 
             dialogbuilder.setPositiveButton("Ok", (dialog, which) -> {
-                Integer id = Useful.SplitIdFromDescription(mySpinner.getSelectedItem().toString());
+                if (mySpinner.getSelectedItem() != null) {
+                    Integer id = Useful.SplitIdFromDescription(mySpinner.getSelectedItem().toString());
 
-                //Find record by id
-                Optional<RealmObject> res = getMany.getLst().stream().filter(elem -> CastRealmObjectToEntity(elem).getID() == id).findFirst();
+                    //Find record by id
+                    Optional<RealmObject> res = getMany.getLst().stream().filter(elem -> CastRealmObjectToEntity(elem).getID() == id).findFirst();
 
-                if (res != null) {
-                    currentEntity = CastRealmObjectToEntity(res.get());
+                    if (res != null) {
+                        currentEntity = CastRealmObjectToEntity(res.get());
 
-                    OnOkView();
+                        OnOkView();
+                    }
                 }
 
                 dialog.dismiss();
@@ -287,8 +289,8 @@ public class ContactoFragment extends FragmentGenerico {
         lst.forEach((elem) -> {
             ContactoModel obj = CastRealmObjectToEntity(elem);
 
-            if (obj.getDescricao() != null && obj.getEmail()!= null && obj.getNome()!=null)
-            txt.add(Useful.ConcatIdAndDescription(obj.getID(), obj.getDescricao()));
+            if (obj.getDescricao() != null && obj.getEmail() != null && obj.getNome() != null)
+                txt.add(Useful.ConcatIdAndDescription(obj.getID(), obj.getDescricao()));
             txt.add(Useful.ConcatIdAndDescription(obj.getID(), obj.getEmail()));
             txt.add(Useful.ConcatIdAndDescription(obj.getID(), obj.getNome()));
         });
@@ -312,7 +314,7 @@ public class ContactoFragment extends FragmentGenerico {
     public void EntityToDOM() {
         descricao.setText(currentEntity.getDescricao());
         email.setText(currentEntity.getEmail());
-       nome.setText(currentEntity.getNome());
+        nome.setText(currentEntity.getNome());
     }
 
     @Override

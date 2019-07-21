@@ -10,22 +10,22 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginRight="140dp"
+        android:layout_marginRight="170dp"
         android:text="Import" />
 
     <Button
         android:id="@+id/btNewDisciplina"
-        android:layout_width="71dp"
+        android:layout_width="80dp"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginRight="72dp"
+        android:layout_marginRight="85dp"
         android:text="New" />
 
 
     <Button
         android:id="@+id/btEditDisciplina"
-        android:layout_width="71dp"
+        android:layout_width="80dp"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
@@ -59,7 +59,7 @@
                 android:layout_marginTop="20sp"
                 android:hint="Acronimo" />
 
-            <EditText
+            <Spinner
                 android:id="@+id/curso"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -76,18 +76,6 @@
                 android:layout_marginTop="20sp"
                 android:hint="Semestre"
                 android:inputType="number" />
-
-            <EditText
-                android:id="@+id/anoletivo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/semestre"
-                android:layout_marginTop="20sp"
-                android:hint="Ano lectivo"
-                android:inputType="number"
-
-                />
-
 
             <Button
                 android:id="@+id/btDeleteDisciplina"

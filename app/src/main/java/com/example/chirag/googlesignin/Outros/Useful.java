@@ -89,8 +89,6 @@ public class Useful {
         }
     }
 
-    private static final int REQUEST = 112;
-
     public static void CreatFile(Context context, String fileName, String extension, byte[] data) {
         try {
 
@@ -142,4 +140,6 @@ public class Useful {
             return true;
         }
     }
+
+
 }

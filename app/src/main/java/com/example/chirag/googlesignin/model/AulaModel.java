@@ -20,8 +20,10 @@ public class AulaModel extends RealmObject implements Serializable {
     private Date DataDeOcorrencia;
     private Integer Duracao;
     private String Sala;
-    private String Tipo;
+    private Integer Tipo;
     private String Sumario;
+    private Integer Turma;
+
 
     public int getYear() {
         return Year;
@@ -77,11 +79,11 @@ public class AulaModel extends RealmObject implements Serializable {
     }
 
 
-    public String getTipo() {
+    public Integer getTipo() {
         return Tipo;
     }
 
-    public void setTipo(String tipo) {
+    public void setTipo(Integer tipo) {
         Tipo = tipo;
     }
 
@@ -94,11 +96,19 @@ public class AulaModel extends RealmObject implements Serializable {
         Sumario = sumario;
     }
 
+    public Integer getTurma() {
+        return Turma;
+    }
+
+    public void setTurma(Integer turma) {
+        Turma = turma;
+    }
+
 
     @Override
     public String toString() {
         try {
-            return this.getProfId() + " " + this.getYear() + " " + this.getID() + " " + this.getDataDeOcorrencia() + " " + this.getDuracao() + " " + this.getSala() + " " + this.getTipo();
+            return this.getProfId() + " " + this.getYear() + " " + this.getID() + " " + this.getDataDeOcorrencia() + " " + this.getDuracao() + " " + this.getSala() + " " + this.getTipo() + " " + this.getTurma();
         } catch (Exception e) {
             e.printStackTrace();
         }

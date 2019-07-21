@@ -39,7 +39,6 @@ public class Disciplina extends GestaoDeEntidades {
         }
         find.setNome(entidade.getNome());
         find.setCurso(entidade.getCurso());
-        find.setAnolectivo(entidade.getAnolectivo());
         find.setAcronimo(entidade.getAcronimo());
         find.setSemestre(entidade.getSemestre());
         // RealmList<AulaModel> aulaslist = new RealmList();

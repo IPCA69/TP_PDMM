@@ -51,31 +51,26 @@
                 android:id="@+id/Descricao"
                 android:hint="Descrição"
                 />
+
             <EditText
+                android:id="@+id/dateHourEvt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="40sp"
-                android:id="@+id/Datainicio"
-                android:hint="Data de inicio"
-                android:layout_below="@id/Descricao"
-                android:inputType="date"
-                />
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="40sp"
-                android:id="@+id/horainicio"
-                android:hint="hora de inicio"
-                android:layout_below="@id/Datainicio"
-                android:inputType="datetime"
-                />
+                android:layout_below="@id/spTipo"
+                android:layout_marginTop="20sp"
+                android:cursorVisible="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:hint="Data e hora da aula" />
+
+
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40sp"
                 android:id="@+id/duracao"
                 android:hint="Duração"
-                android:layout_below="@id/horainicio"
+                android:layout_below="@id/dateHourEvt"
                 android:inputType="number"
                 />
 
