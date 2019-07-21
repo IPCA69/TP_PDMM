@@ -17,11 +17,7 @@ import com.example.chirag.googlesignin.model.AulaModel;
 import com.example.chirag.googlesignin.model.DisciplinaModel;
 import com.squareup.picasso.Picasso;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.List;
-
-import javax.crypto.ExemptionMechanism;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -34,8 +30,7 @@ public class GeneralRecyclerViewAdapter extends RecyclerView.Adapter<GeneralRecy
     List<DisciplinaModel> mData;
     private List<String> list;
 
-    public GeneralRecyclerViewAdapter(Context context, List<DisciplinaModel> mData) {
-        this.aulaModels = aulaModels;
+    public GeneralRecyclerViewAdapter(Context context, List mData) {
         this.context = context;
         this.mData = mData;
     }
@@ -57,17 +52,15 @@ public class GeneralRecyclerViewAdapter extends RecyclerView.Adapter<GeneralRecy
         if (mData.size() >= i)
             return;
 
-        holder.tvtitle.setText(mData.get(1).getNome());
-        holder.tvOverview.setText(mData.get(1).getNome());
-
-        Picasso.with(getContext()).load(mData.get(1).getNome()).into(holder.ivcalendario);
+        holder.tvtitle.setText(mData.get(i).getNome());
+        holder.tvOverview.setText(mData.get(i).getNome());
+        Picasso.with(getContext()).load(mData.get(i).getNome()).into(holder.ivcalendario);
     }
 
     @Override
     public int getItemCount() {
 
-        //return mData.size();
-        return 1;
+        return mData.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

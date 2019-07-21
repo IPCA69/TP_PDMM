@@ -24,12 +24,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.chirag.googlesignin.Entidades.Aula;
-import com.example.chirag.googlesignin.Entidades.Disciplina;
 import com.example.chirag.googlesignin.Entidades.TipoDeAula;
 import com.example.chirag.googlesignin.R;
 import com.example.chirag.googlesignin.model.AulaModel;
 import com.example.chirag.googlesignin.Outros.Useful;
-import com.example.chirag.googlesignin.model.DisciplinaModel;
 import com.example.chirag.googlesignin.model.TipoDeAulaModel;
 
 import java.util.ArrayList;
@@ -44,7 +42,6 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import io.realm.RealmObject;
 import io.realm.com_example_chirag_googlesignin_model_AulaModelRealmProxy;
-import io.realm.com_example_chirag_googlesignin_model_DisciplinaModelRealmProxy;
 import io.realm.com_example_chirag_googlesignin_model_TipoDeAulaModelRealmProxy;
 
 public class AulaFragment extends FragmentGenerico {
@@ -61,9 +58,6 @@ public class AulaFragment extends FragmentGenerico {
     EditText sumario;
     @BindView(R.id.spTurma)
     Spinner turma;
-
-    @BindView(R.id.spDisciplina)
-    Spinner disciplina;
 
     public static String l;
     public static String ll;
@@ -105,7 +99,7 @@ public class AulaFragment extends FragmentGenerico {
             AfterCreatView(getArguments());
 
 
-            UpdateSpinners();
+            SetTipoDeAulaData();
             ff();
         } catch (Exception e) {
             e.printStackTrace();
@@ -144,41 +138,6 @@ public class AulaFragment extends FragmentGenerico {
         for (int i = 0; i < data.size(); i++) {
             if (Useful.SplitIdFromDescription(data.get(i)) == id) {
                 tipoDeAula.setSelection(i);
-                return;
-            }
-        }
-        tipoDeAula.setSelection(0);
-    }
-
-    private ArrayList<String> GetDisciplinasData() {
-        ArrayList<String> txt = new ArrayList<>();
-        txt.add("");
-        Disciplina disci = new Disciplina(context);
-        disci.entidade.setProfId(ProfId);
-        disci.entidade.setYear(Year);
-
-        for (RealmObject c : disci.ReadAllByYear()) {
-            DisciplinaModel dm = ((com_example_chirag_googlesignin_model_DisciplinaModelRealmProxy) c);
-
-            txt.add(Useful.ConcatIdAndDescription(dm.getID(), dm.getAcronimo()));
-        }
-
-        return txt;
-    }
-
-    private void SetDisciplinasData() {
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, GetDisciplinasData());
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        disciplina.setAdapter(adapter);
-    }
-
-    private void SetDisciplinasItem(int id) {
-        ArrayList<String> data = GetTipoDeAulaData();
-        SetDisciplinasData();
-        data.add("");
-        for (int i = 0; i < data.size(); i++) {
-            if (Useful.SplitIdFromDescription(data.get(i)) == id) {
-                disciplina.setSelection(i);
                 return;
             }
         }
@@ -426,8 +385,7 @@ public class AulaFragment extends FragmentGenerico {
     public void newOnClick() {
         OnClickNew();
 
-        UpdateSpinners();
-
+        SetTipoDeAulaData();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -496,7 +454,6 @@ public class AulaFragment extends FragmentGenerico {
 
                 AulaModel aula = CastRealmObjectToEntity(lstAula.get(0));
                 currentEntity = aula;
-                currentEntity.setID(null);
                 l = aula.getSala();
 
                 dd = aula.getDataDeOcorrencia();
@@ -553,11 +510,6 @@ public class AulaFragment extends FragmentGenerico {
         return new Res(txt, lstAula);
     }
 
-    private void UpdateSpinners() {
-        SetDisciplinasData();
-        SetTipoDeAulaData();
-    }
-
 
     /**
      * Manages the enables of all fields
@@ -568,7 +520,6 @@ public class AulaFragment extends FragmentGenerico {
     public void SetEnable(boolean value) {
         sala.setEnabled(value);
         tipoDeAula.setEnabled(value);
-        disciplina.setEnabled(value);
         data.setEnabled(value);
         duracao.setEnabled(value);
         sumario.setEnabled(value);
@@ -581,7 +532,6 @@ public class AulaFragment extends FragmentGenerico {
     public void CleanView() {
         sala.setText("");
         tipoDeAula.setSelection(0);
-        disciplina.setSelection(0);
         data.setText("");
         duracao.setText("");
         sumario.setText("");
@@ -626,7 +576,6 @@ public class AulaFragment extends FragmentGenerico {
         data.setText(Useful.GetDateAndHourFromDate(currentEntity.getDataDeOcorrencia()));
         sala.setText(currentEntity.getSala());
         SetTipoDeAulaItem(currentEntity.getTipo());
-        SetDisciplinasItem(currentEntity.getDisciplinaId());
 
         duracao.setText(currentEntity.getDuracao().toString());
         dd = currentEntity.getDataDeOcorrencia();
