@@ -25,6 +25,7 @@ import android.widget.Toast;
 
 import com.example.chirag.googlesignin.Entidades.Aula;
 import com.example.chirag.googlesignin.Entidades.TipoDeAula;
+import com.example.chirag.googlesignin.Outros.Email;
 import com.example.chirag.googlesignin.R;
 import com.example.chirag.googlesignin.model.AulaModel;
 import com.example.chirag.googlesignin.Outros.Useful;
@@ -60,9 +61,9 @@ public class AulaFragment extends FragmentGenerico {
     Spinner turma;
 
     public static String l;
-    public static String ll;
+    public static String novasala;
     public static Date dd;
-    public static Date ddd;
+    public static Date novadata;
 
     @BindView(R.id.btSaveAula)
     Button btSave;
@@ -82,6 +83,7 @@ public class AulaFragment extends FragmentGenerico {
 
     private AulaModel currentEntity;
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -100,7 +102,7 @@ public class AulaFragment extends FragmentGenerico {
 
 
             SetTipoDeAulaData();
-            ff();
+            changeDataSala();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -195,7 +197,7 @@ public class AulaFragment extends FragmentGenerico {
 
     }
 
-    public void ff() {
+    public void changeDataSala() {
         data.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -205,7 +207,7 @@ public class AulaFragment extends FragmentGenerico {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                ddd = Useful.GetDateFromString(s.toString());
+                novadata = Useful.GetDateFromString(s.toString());
 
             }
 
@@ -224,7 +226,7 @@ public class AulaFragment extends FragmentGenerico {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.length() != 0) {
                     Log.d(TAG, "TEXT CHANGED");
-                    ll = s.toString();
+                    novasala = s.toString();
                 }
 
             }
@@ -248,37 +250,21 @@ public class AulaFragment extends FragmentGenerico {
                 return;
 
             s = new Aula(context);
-            if (ddd.equals(dd)) {
+            if (novadata.equals(currentEntity.getDataDeOcorrencia())) {
 
-            } else if (ddd != dd && dd != null && ddd != null) {
+            } else if (novadata != currentEntity.getDataDeOcorrencia() && currentEntity.getDataDeOcorrencia() != null && novadata != null) {
+                Email mail = new Email(new String[]{"ricardodiaas19@gmail.com"},"subject of email","A hora da aula era " + currentEntity.getDataDeOcorrencia() + " agora passou a ser " + novadata);
+                mail.SendEmail(context);
 
-                Intent i = new Intent(Intent.ACTION_SEND);
-                i.setType("text/plain");
-                i.putExtra(Intent.EXTRA_EMAIL, new String[]{"ricardodiaas19@gmail.com"});//devia ser contactos
-                i.putExtra(Intent.EXTRA_SUBJECT, "subject of email");
-                i.putExtra(Intent.EXTRA_TEXT, "A hora da aula era " + dd + " agora passou a ser " + ddd);
-                try {
-                    startActivity(Intent.createChooser(i, "Send mail..."));
-                } catch (android.content.ActivityNotFoundException ex) {
-                    //      Toast.makeText(, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
-                }
             }
-            if (ll.equals(l)) {
+            if (novasala.equals(currentEntity.getSala())) {
                 Log.d(TAG, Useful.GetDateAndHourFromDate(dd));
-                Log.d(TAG, Useful.GetDateAndHourFromDate(ddd));
+                Log.d(TAG, Useful.GetDateAndHourFromDate(novadata));
                 Log.d(TAG, "SAME Sala");
-            } else if (ll != l && l != null && ll != null) {
+            } else if (novasala != currentEntity.getSala() && currentEntity.getSala() != null && novasala != null) {
+                Email mail = new Email(new String[]{"ricardodiaas19@gmail.com"},"subject of email","A sala da aula era " + currentEntity.getSala() + " agora passou a ser " + novasala);
+                mail.SendEmail(context);
 
-                Intent i = new Intent(Intent.ACTION_SEND);
-                i.setType("text/plain");
-                i.putExtra(Intent.EXTRA_EMAIL, new String[]{"ricardodiaas19@gmail.com"});
-                i.putExtra(Intent.EXTRA_SUBJECT, "subject of email");
-                i.putExtra(Intent.EXTRA_TEXT, "A sala era " + l + " agora passou a ser " + ll);
-                try {
-                    startActivity(Intent.createChooser(i, "Send mail..."));
-                } catch (android.content.ActivityNotFoundException ex) {
-                    //      Toast.makeText(, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
-                }
 
             }
             if (currentEntity != null)
