@@ -42,7 +42,8 @@ public class ContactoFragment extends FragmentGenerico {
     EditText email;
 
     @BindView(R.id.descricao)
-    Button descricao;
+    Spinner descricao;
+
     @BindView(R.id.btSaveContacto)
     Button btSave;
     @BindView(R.id.btDeleteContacto)
@@ -71,13 +72,10 @@ public class ContactoFragment extends FragmentGenerico {
         Log.d(TAG, "onCreate: View Initialization done");
 
         AfterCreatView(getArguments());
-
+        Settipodecontacto();
         return view;
     }
-    @OnClick(R.id.descricao)
-    public void save() {
 
-    }
     @OnClick(R.id.btSaveContacto)
     public void saveOnClick() {
 
@@ -92,7 +90,7 @@ public class ContactoFragment extends FragmentGenerico {
             s.entidade.setYear(Year);
             s.entidade.setProfId(ProfId);
 
-            s.entidade.setDescricao(descricao.getText().toString());
+            s.entidade.setDescricao(descricao.getSelectedItem().toString());
             s.entidade.setEmail(email.getText().toString());
             s.entidade.setNome(nome.getText().toString());
             s.CreatOrUpdate();
@@ -246,7 +244,7 @@ public class ContactoFragment extends FragmentGenerico {
                 }
 
                 currentEntity = CastRealmObjectToEntity(selectedLst.get(0));
-
+//currentEntity.setID(null);
                 EntityToDOM();
 
                 //Clean combo
@@ -283,6 +281,7 @@ public class ContactoFragment extends FragmentGenerico {
     public Res GetAll(Integer year, Integer id) {
         Contacto s = new Contacto(context);
         s.entidade.setYear(year == null ? Year : year);
+        s.entidade.setProfId(ProfId);
         List<RealmObject> lst = s.ReadAllByYear();
         ArrayList<String> txt = new ArrayList<String>();
 
@@ -292,9 +291,6 @@ public class ContactoFragment extends FragmentGenerico {
         lst.forEach((elem) -> {
             ContactoModel obj = CastRealmObjectToEntity(elem);
 
-            if (obj.getDescricao() != null && obj.getEmail() != null && obj.getNome() != null)
-                txt.add(Useful.ConcatIdAndDescription(obj.getID(), obj.getDescricao()));
-            txt.add(Useful.ConcatIdAndDescription(obj.getID(), obj.getEmail()));
             txt.add(Useful.ConcatIdAndDescription(obj.getID(), obj.getNome()));
         });
         return new Res(txt, lst);
@@ -315,15 +311,21 @@ public class ContactoFragment extends FragmentGenerico {
 
     @Override
     public void EntityToDOM() {
-        descricao.setText(currentEntity.getDescricao());
+
+        Settipodecontacto();
         email.setText(currentEntity.getEmail());
         nome.setText(currentEntity.getNome());
     }
 
+    private void Settipodecontacto() {
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, new String[]{"Aluno","Delegado"});
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        descricao.setAdapter(adapter);
+    }
     @Override
     public void CleanView() {
 
-        descricao.setText("");
+        descricao.setSelection(0);
         nome.setText("");
         email.setText("");
         Toast.makeText(getContext(),"Saved",Toast.LENGTH_SHORT).show();
