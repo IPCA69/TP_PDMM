@@ -116,6 +116,7 @@ public abstract class FragmentGenerico extends Fragment {
         getBtDelete().setEnabled(false);
         getBtSave().setEnabled(true);
         CleanView();
+        SetEnable(true);
     }
 
 

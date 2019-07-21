@@ -45,4 +45,5 @@
         <item>wf4fw</item>
     </string-array>
     <string name="title_activity_main3">Main3Activity</string>
+    <string name="exportar_disciplinas">Exportar Disciplinas</string>
 </resources>

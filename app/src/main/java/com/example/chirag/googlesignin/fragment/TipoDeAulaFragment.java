@@ -64,11 +64,16 @@ public class TipoDeAulaFragment extends FragmentGenerico {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.crairtipodeaula, container, false);
 
-        unbinder = ButterKnife.bind(this, view);
+        try {
+            unbinder = ButterKnife.bind(this, view);
 
-        Log.d(TAG, "onCreate: View Initialization done");
+            Log.d(TAG, "onCreate: View Initialization done");
 
-        AfterCreatView(getArguments());
+            AfterCreatView(getArguments());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         return view;
     }
@@ -119,17 +124,19 @@ public class TipoDeAulaFragment extends FragmentGenerico {
             mySpinner.setAdapter(adapter);
 
             dialogbuilder.setPositiveButton("Ok", (dialog, which) -> {
-                Integer id = Useful.SplitIdFromDescription(mySpinner.getSelectedItem().toString());
+                if (mySpinner.getSelectedItem() != null) {
+                    Integer id = Useful.SplitIdFromDescription(mySpinner.getSelectedItem().toString());
 
-                //Find record by id
-                Optional<RealmObject> res = getMany.getLst().stream().filter(elem -> CastRealmObjectToEntity(elem).getID() == id).findFirst();
 
-                if (res != null) {
-                    currentEntity = CastRealmObjectToEntity(res.get());
+                    //Find record by id
+                    Optional<RealmObject> res = getMany.getLst().stream().filter(elem -> CastRealmObjectToEntity(elem).getID() == id).findFirst();
 
-                    OnOkView();
+                    if (res != null) {
+                        currentEntity = CastRealmObjectToEntity(res.get());
+
+                        OnOkView();
+                    }
                 }
-
                 dialog.dismiss();
             });
 

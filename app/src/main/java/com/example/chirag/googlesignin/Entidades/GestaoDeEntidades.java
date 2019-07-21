@@ -99,7 +99,7 @@ public abstract class GestaoDeEntidades {
     }
 
     public static RealmConfiguration getRealmConfiguration() {
-        return new RealmConfiguration.Builder().name("myrealm1.realm").build();
+        return new RealmConfiguration.Builder().name("myrealm2.realm").build();
     }
 
     Integer GetNextId(Realm realm, Class classToSearch) {
@@ -128,8 +128,8 @@ public abstract class GestaoDeEntidades {
                     idToSearch = idRef + 1;
                     break;
                 }
-                case Este:{
-                    idToSearch = idRef ;
+                case Este: {
+                    idToSearch = idRef;
                     break;
                 }
             }

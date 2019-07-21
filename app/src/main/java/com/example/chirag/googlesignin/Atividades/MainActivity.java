@@ -31,13 +31,16 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.chirag.googlesignin.Entidades.Ano;
 import com.example.chirag.googlesignin.Entidades.Aula;
+import com.example.chirag.googlesignin.Entidades.Disciplina;
 import com.example.chirag.googlesignin.Entidades.Professor;
 import com.example.chirag.googlesignin.Outros.Email;
+import com.example.chirag.googlesignin.Outros.Excel;
 import com.example.chirag.googlesignin.R;
 import com.example.chirag.googlesignin.adapters.ViewPagerAdapter;
 import com.example.chirag.googlesignin.fragment.RecView;
 import com.example.chirag.googlesignin.model.AnoModel;
 import com.example.chirag.googlesignin.Outros.Useful;
+import com.example.chirag.googlesignin.model.AulaModel;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -45,6 +48,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
+import java.time.Year;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -202,7 +206,7 @@ public class MainActivity extends AtividadeGenerica implements NavigationView.On
             case R.id.createYear: {
 
 
-                Intent intent = new Intent(this,CriarAnoAct.class);
+                Intent intent = new Intent(this, CriarAnoAct.class);
                 startActivity(intent);
 
 //                Class fragment = null;
@@ -213,8 +217,46 @@ public class MainActivity extends AtividadeGenerica implements NavigationView.On
 
                 return true;
             }
+            case R.id.exportexportarDisciplinas: {
+                Disciplina disciplina = new Disciplina(this);
+                disciplina.entidade.setYear(this.getYearId());
+                disciplina.entidade.setProfId(this.getProfId());
+                List<RealmObject> lst = disciplina.ReadAllByYear();
 
+                AlertDialog.Builder dialogbuilder = new AlertDialog.Builder(this);
+                View mView = getLayoutInflater().inflate(R.layout.combo_dialog, null);
+                dialogbuilder.setTitle("Selecione o formato!");
 
+                ArrayList<String> txt = new ArrayList<>();
+                txt.add("csv");
+                txt.add("txt");
+
+                Spinner mySpinner = (Spinner) mView.findViewById(R.id.firstSpinnerDialog);
+                ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, txt);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                mySpinner.setAdapter(adapter);
+
+                TextView ftSpinnetTxt = (TextView) mView.findViewById(R.id.firstSpinnerDialogDesc);
+                ftSpinnetTxt.setText("Extensão");
+                ftSpinnetTxt.setVisibility(View.VISIBLE);
+
+                dialogbuilder.setPositiveButton("Ok", (dialog, which) -> {
+                    if (mySpinner.getSelectedItem() != null) {
+                        Excel.ExportDisciplinaModel(lst, this, "disciplinas", mySpinner.getSelectedItem().toString());
+
+                        Toast.makeText(this, "Ficheiro exportado!", Toast.LENGTH_SHORT).show();
+                    }
+
+                    dialog.dismiss();
+                });
+
+                dialogbuilder.setNegativeButton("Dismiss", (dialog, which) -> dialog.dismiss());
+
+                dialogbuilder.setView(mView);
+                AlertDialog dialog = dialogbuilder.create();
+                dialog.show();
+                return true;
+            }
         }
 
         return super.onOptionsItemSelected(item);
@@ -261,7 +303,7 @@ public class MainActivity extends AtividadeGenerica implements NavigationView.On
                 case R.id.nav_view: //Navegate
                 {
 
-                    Intent intent = new Intent(this,ActRecView.class);
+                    Intent intent = new Intent(this, ActRecView.class);
                     startActivity(intent);
 
 //                    Class fragment = null;

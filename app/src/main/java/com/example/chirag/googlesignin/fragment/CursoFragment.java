@@ -114,15 +114,19 @@ public class CursoFragment extends FragmentGenerico {
             mySpinner.setAdapter(adapter);
 
             dialogbuilder.setPositiveButton("Ok", (dialog, which) -> {
-                Integer id = Useful.SplitIdFromDescription(mySpinner.getSelectedItem().toString());
 
-                //Find record by id
-                Optional<RealmObject> res = getMany.getLst().stream().filter(elem -> CastRealmObjectToEntity(elem).getID() == id).findFirst();
+                if(mySpinner.getSelectedItem()!=null) {
 
-                if (res != null) {
-                    currentEntity = CastRealmObjectToEntity(res.get());
+                    Integer id = Useful.SplitIdFromDescription(mySpinner.getSelectedItem().toString());
 
-                    OnOkView();
+                    //Find record by id
+                    Optional<RealmObject> res = getMany.getLst().stream().filter(elem -> CastRealmObjectToEntity(elem).getID() == id).findFirst();
+
+                    if (res != null) {
+                        currentEntity = CastRealmObjectToEntity(res.get());
+
+                        OnOkView();
+                    }
                 }
 
                 dialog.dismiss();

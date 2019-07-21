@@ -10,12 +10,12 @@ public class DisciplinaModel extends RealmObject {
     private Integer ID;
     private String Nome;
 
-    private String Curso;
+    private Integer Curso;
 
-    private Integer Anolectivo;
     private String Acronimo;
+
     private Integer Semestre;
-   // public  String[] Principaistopicos = new String[20];
+
     private RealmList<AulaModel> aulaModels;
 
     public int getYear() {
@@ -38,8 +38,6 @@ public class DisciplinaModel extends RealmObject {
 
     private int ProfId;
 
-
-
     public String getNome() {
         return Nome;
     }
@@ -48,20 +46,12 @@ public class DisciplinaModel extends RealmObject {
         Nome = nome;
     }
 
-    public String getCurso() {
+    public Integer getCurso() {
         return Curso;
     }
 
-    public void setCurso(String curso) {
+    public void setCurso(Integer curso) {
         Curso = curso;
-    }
-
-    public Integer getAnolectivo() {
-        return Anolectivo;
-    }
-
-    public void setAnolectivo(Integer anolectivo) {
-        Anolectivo = anolectivo;
     }
 
     public String getAcronimo() {

@@ -32,7 +32,6 @@
         android:text="Edit" />
 
 
-
     <ScrollView
         android:layout_width="371dp"
         android:layout_height="546dp"
@@ -52,11 +51,19 @@
                 android:layout_marginTop="20sp"
                 android:hint="Sala" />
 
-            <EditText
-                android:id="@+id/tipo"
+            <TextView
+                android:id="@+id/txtTipodeAula"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/sala"
+                android:layout_marginTop="20sp"
+                android:text="Tipo de Aula" />
+
+            <Spinner
+                android:id="@+id/spTipo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txtTipodeAula"
                 android:layout_marginTop="20sp"
                 android:hint="Tipo de Aula" />
 
@@ -64,24 +71,22 @@
                 android:id="@+id/dateHour"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/tipo"
+                android:layout_below="@id/spTipo"
                 android:layout_marginTop="20sp"
-                android:hint="Data e hora da aula"
                 android:cursorVisible="false"
                 android:focusable="false"
                 android:focusableInTouchMode="false"
-                />
+                android:hint="Data e hora da aula" />
 
 
             <EditText
                 android:id="@+id/duracao"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/tipo"
+                android:layout_below="@id/dateHour"
                 android:layout_marginTop="20sp"
                 android:hint="duração"
-                android:inputType="number"
-                />
+                android:inputType="number" />
 
             <EditText
                 android:id="@+id/sumario"
@@ -92,11 +97,27 @@
                 android:hint="Sumário da aula"
                 android:inputType="text" />
 
+            <TextView
+                android:id="@+id/txtTipodeTurma"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/sumario"
+                android:layout_marginTop="20sp"
+                android:text="Turma" />
+
+            <Spinner
+                android:id="@+id/spTurma"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txtTipodeTurma"
+                android:layout_marginTop="20sp"
+                android:hint="Turma" />
+
             <Button
                 android:id="@+id/btDeleteAula"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/sumario"
+                android:layout_below="@id/spTurma"
                 android:layout_marginTop="20sp"
                 android:text="Delete" />
 
