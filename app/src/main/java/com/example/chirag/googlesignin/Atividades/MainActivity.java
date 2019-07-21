@@ -35,7 +35,6 @@ import com.example.chirag.googlesignin.Entidades.Professor;
 import com.example.chirag.googlesignin.Outros.Email;
 import com.example.chirag.googlesignin.R;
 import com.example.chirag.googlesignin.adapters.ViewPagerAdapter;
-import com.example.chirag.googlesignin.fragment.RecView;
 import com.example.chirag.googlesignin.model.AnoModel;
 import com.example.chirag.googlesignin.Outros.Useful;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;

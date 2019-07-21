@@ -1,6 +1,7 @@
 package com.example.chirag.googlesignin.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -13,7 +14,10 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.example.chirag.googlesignin.Atividades.CriarAnoAct;
+import com.example.chirag.googlesignin.Atividades.listcontact;
 import com.example.chirag.googlesignin.Entidades.Aula;
+import com.example.chirag.googlesignin.Entidades.Contacto;
 import com.example.chirag.googlesignin.Entidades.Disciplina;
 import com.example.chirag.googlesignin.R;
 import com.example.chirag.googlesignin.model.AulaModel;
@@ -29,7 +33,6 @@ import io.realm.Realm;
 import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.RealmResults;
-import io.realm.com_example_chirag_googlesignin_model_CursoModelRealmProxy;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -68,19 +71,22 @@ public class TurmasFragment extends FragmentGenerico {
         ReadDataaulas();
     }
 
-    @OnClick(R.id.viewdisciplinas)
-    public void onnClickedd() {
-        ReadDatadiscilinas();
-    }
 
-//    @OnClick(R.id.text)
-//    public void oClickedd() {
-//     String o = display.getText().toString();
-//       String[] parts = o.split(":");
-//      display.setText(parts[1]);
-//
-//
-//    }
+
+
+    @OnClick(R.id.associatecontact)
+    public void onnClickedd() {
+
+
+        Intent intent = new Intent(getContext(), listcontact.class);
+        startActivity(intent);
+
+    }
+    
+
+                
+                
+                
 
     public void ReadDataaulas() {
         Aula s = new Aula(context);

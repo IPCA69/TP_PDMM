@@ -24,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.chirag.googlesignin.Entidades.Aula;
+import com.example.chirag.googlesignin.Entidades.Contacto;
 import com.example.chirag.googlesignin.R;
 import com.example.chirag.googlesignin.model.AnoModel;
 import com.example.chirag.googlesignin.model.AulaModel;
@@ -461,6 +462,7 @@ public class AulaFragment extends FragmentGenerico {
         data.setEnabled(value);
         duracao.setEnabled(value);
         sumario.setEnabled(value);
+
     }
 
     /**
@@ -528,6 +530,7 @@ public class AulaFragment extends FragmentGenerico {
 
     @Override
     public Button getBtSave() {
+
         return btSave;
     }
 

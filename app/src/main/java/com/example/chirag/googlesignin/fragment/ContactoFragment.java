@@ -97,6 +97,9 @@ public class ContactoFragment extends FragmentGenerico {
             currentEntity = s.entidade;
 
             AfterSave();
+            CleanView();
+
+
 
         } catch (Exception e) {
 
@@ -104,6 +107,8 @@ public class ContactoFragment extends FragmentGenerico {
         }
 
     }
+
+
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @OnClick(R.id.btViewContacto)
@@ -283,7 +288,7 @@ public class ContactoFragment extends FragmentGenerico {
             ContactoModel obj = CastRealmObjectToEntity(elem);
 
             if (obj.getDescricao() != null && obj.getEmail()!= null && obj.getNome()!=null)
-                txt.add(Useful.ConcatIdAndDescription(obj.getID(), obj.getDescricao()));
+            txt.add(Useful.ConcatIdAndDescription(obj.getID(), obj.getDescricao()));
             txt.add(Useful.ConcatIdAndDescription(obj.getID(), obj.getEmail()));
             txt.add(Useful.ConcatIdAndDescription(obj.getID(), obj.getNome()));
         });
@@ -312,7 +317,11 @@ public class ContactoFragment extends FragmentGenerico {
 
     @Override
     public void CleanView() {
+
         descricao.setText("");
+        descricao.setText("");
+        email.setText("");
+        Toast.makeText(getContext(),"Saved",Toast.LENGTH_SHORT).show();
     }
 
     @Override

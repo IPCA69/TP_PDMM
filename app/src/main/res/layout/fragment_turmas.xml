@@ -63,4 +63,13 @@
         android:layout_below="@+id/fromcal"
         />
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/spinner2"
+        android:text="Associate Contact"
+        android:layout_marginTop="20sp"
+        android:id="@+id/associatecontact"
+        />
+
 </RelativeLayout>

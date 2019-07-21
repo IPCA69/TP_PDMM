@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.chirag.googlesignin.R;
 import com.example.chirag.googlesignin.Entidades.Disciplina;
@@ -97,22 +98,18 @@ public class DisciplinaFragment extends FragmentGenerico {
 
     private void saveData() {
         Disciplina s = new Disciplina(context);
-  /*
-        Aula f = new Aula(context);
-        f.entidade.setSala("CUCU");
-        f.entidade.setSumario("NADA");
-        f.entidade.setTipo("dasd");
-        f.CreatOrUpdate();
-        */
+
         s.entidade.setAcronimo(acronimo.getText().toString());
         s.entidade.setAnolectivo(Integer.parseInt(anoletivo.getText().toString()));
         s.entidade.setNome(nome.getText().toString());
         s.entidade.setCurso(curso.getText().toString());
         s.entidade.setSemestre(Integer.parseInt(semestre.getText().toString()));
-        // RealmList<AulaModel> j = new RealmList();
-        //  j.btSave(f.entidade);
-        //s.entidade.setAulaModels(j);
+
+
         s.CreatOrUpdate();
+
+        CleanView();
+        Toast.makeText(getContext(),"Saved",Toast.LENGTH_SHORT).show();
     }
 
     @Override
