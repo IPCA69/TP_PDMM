@@ -137,7 +137,7 @@ public class TurmasFragment extends FragmentGenerico {
                 if (f == null) {
                     realm.cancelTransaction();
                 }
-                RealmList<AulaModel> ll = disc.getAulaModels();
+                RealmList<AulaModel> ll = new RealmList<AulaModel>();
                 ll.add(f);
                 realm.insertOrUpdate(disc);
                 realm.commitTransaction();

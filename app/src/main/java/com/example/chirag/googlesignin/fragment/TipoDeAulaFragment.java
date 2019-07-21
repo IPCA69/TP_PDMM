@@ -240,6 +240,7 @@ public class TipoDeAulaFragment extends FragmentGenerico {
                 }
 
                 currentEntity = CastRealmObjectToEntity(selectedLst.get(0));
+                currentEntity.setID(null);
 
                 EntityToDOM();
 

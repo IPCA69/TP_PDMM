@@ -115,7 +115,7 @@ public class CursoFragment extends FragmentGenerico {
 
             dialogbuilder.setPositiveButton("Ok", (dialog, which) -> {
 
-                if(mySpinner.getSelectedItem()!=null) {
+                if (mySpinner.getSelectedItem() != null) {
 
                     Integer id = Useful.SplitIdFromDescription(mySpinner.getSelectedItem().toString());
 
@@ -232,7 +232,7 @@ public class CursoFragment extends FragmentGenerico {
                 }
 
                 currentEntity = CastRealmObjectToEntity(selectedLst.get(0));
-
+                currentEntity.setID(null);
                 EntityToDOM();
 
                 //Clean combo
