@@ -10,18 +10,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.example.chirag.googlesignin.Atividades.CriarAnoAct;
 import com.example.chirag.googlesignin.Atividades.listcontact;
 import com.example.chirag.googlesignin.Entidades.Aula;
 import com.example.chirag.googlesignin.Entidades.Contacto;
+import com.example.chirag.googlesignin.Entidades.Curso;
 import com.example.chirag.googlesignin.Entidades.Disciplina;
+import com.example.chirag.googlesignin.Entidades.Turma;
 import com.example.chirag.googlesignin.R;
 import com.example.chirag.googlesignin.model.AulaModel;
+import com.example.chirag.googlesignin.model.CursoModel;
 import com.example.chirag.googlesignin.model.DisciplinaModel;
+import com.example.chirag.googlesignin.model.TurmaModel;
 
 import java.util.ArrayList;
 
@@ -39,6 +42,19 @@ import io.realm.RealmResults;
  */
 public class TurmasFragment extends FragmentGenerico {
 
+    @BindView(R.id.descricao)
+    EditText description;
+    @BindView(R.id.btDeleteTurma)
+    Button btDeleteTurma;
+    @BindView(R.id.btSaveTurma)
+    Button btSaveTurma;
+    @BindView(R.id.btViewTurma)
+    Button btViewTurma;
+    @BindView(R.id.associatecontact)
+    Button associatecontact;
+    Unbinder unbinder;
+
+    private TurmaModel currentEntity;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -56,39 +72,8 @@ public class TurmasFragment extends FragmentGenerico {
             e.printStackTrace();
         }
 
+        unbinder = ButterKnife.bind(this, view);
         return view;
-    }
-
-    //  @BindView(R.id.text)
-    //  TextView display;
-    @BindView(R.id.viewaulas)
-    Button viewaulas;
-
-    @BindView(R.id.spinner)
-    Spinner spinner;
-
-    @BindView(R.id.spinner2)
-    Spinner spinner2;
-
-    @BindView(R.id.viewdisciplinas)
-    Button viewdisciplinas;
-
-    @BindView(R.id.llayout)
-    LinearLayout layout;
-
-
-    Unbinder unbinder;
-
-    @BindView(R.id.fromcal)
-    TextView fromcal;
-
-    public TurmasFragment() {
-        // Required empty public constructor
-    }
-
-    @OnClick(R.id.viewaulas)
-    public void onnClicked() {
-        ReadDataaulas();
     }
 
 
@@ -254,6 +239,7 @@ public class TurmasFragment extends FragmentGenerico {
     public void onDestroyView() {
         super.onDestroyView();
 //        null.unbind();
+        unbinder.unbind();
     }
 
     @Override
@@ -305,4 +291,33 @@ public class TurmasFragment extends FragmentGenerico {
     public String getFragmentDesc() {
         return "Turmas";
     }
+
+    @OnClick(R.id.btSaveTurma)
+    public void saveOnClick() {
+
+        Turma s;
+        try {
+            if (!Validate())
+                return;
+
+            s = new Turma(context);
+            if (currentEntity != null)
+                s.entidade.setID(currentEntity.getID());
+            s.entidade.setYear(Year);
+            s.entidade.setProfId(ProfId);
+            s.entidade.setDescricao(description.getText().toString());
+
+            s.CreatOrUpdate();
+
+            currentEntity = s.entidade;
+
+            AfterSave();
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+        }
+
+    }
+
 }

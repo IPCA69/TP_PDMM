@@ -107,7 +107,7 @@ public class ContactoFragment extends FragmentGenerico {
             currentEntity = s.entidade;
 
             AfterSave();
-            CleanView();
+            // CleanView();
 
 
         } catch (Exception e) {
