@@ -3,6 +3,8 @@ package com.example.chirag.googlesignin.Outros;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.text.TextUtils;
 
 public class Email {
@@ -48,8 +50,10 @@ public class Email {
         Mensagem = mensagem;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     private Uri SetEmail() {
-        return Uri.parse("mailto:?subject=" + getAssunto() + "&body=" + getMensagem() + "&to=" + getPara());
+        return Uri.parse("mailto:?subject=" + getAssunto() + "&body=" + getMensagem() + "&to=" + String.join(";", getPara()));
+
     }
 
 
