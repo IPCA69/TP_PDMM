@@ -2,41 +2,22 @@ package com.example.chirag.googlesignin.Outros;
 
 import android.Manifest;
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.DatePickerDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Spinner;
-import android.widget.Toast;
-
-import com.example.chirag.googlesignin.Atividades.MainActivity;
-import com.example.chirag.googlesignin.R;
-import com.example.chirag.googlesignin.model.AnoModel;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
-import java.security.Permission;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.Optional;
 import java.util.regex.Pattern;
-
-import io.realm.RealmObject;
-import io.realm.com_example_chirag_googlesignin_model_AnoModelRealmProxy;
 
 public class Useful {
     //Check if string is int and returns its value if not returns 0
@@ -57,6 +38,11 @@ public class Useful {
     //Concats id and description
     public static String ConcatIdAndDescription(int id, String description) {
         return id + "." + description;
+    }
+
+    //Concats id and description
+    public static String Concatcontacto(int id, String nome, String description) {
+        return id + "." + nome+ "." + description;
     }
 
     public static Date GetDateFromString(String datehour) {
@@ -96,10 +82,7 @@ public class Useful {
             if (!isWriteStoragePermissionGranted(context))
                 return false;
 
-            File directory = new File(Environment.getExternalStorageDirectory() + File.separator + "Moodle");
-            directory.mkdirs();
-
-            File file = new File(Environment.getExternalStorageDirectory() + File.separator + "Moodle" + File.separator + fileName + "." + extension);
+            File file = new File(Environment.getExternalStorageDirectory() + "/" + File.separator + fileName + "." + extension);
             file.createNewFile();
 
             //write the bytes in file
@@ -108,13 +91,12 @@ public class Useful {
                 fo.write(data);
                 fo.close();
             }
-        } catch (Exception e) {
-            Toast.makeText(context, "Erro ao gravar ficheiro!", Toast.LENGTH_SHORT).show();
 
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        return true;
 
+        return false;
     }
 
     public static boolean isReadStoragePermissionGranted(Context context) {

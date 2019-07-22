@@ -96,6 +96,11 @@ public class TurmasFragment extends FragmentGenerico {
 
         bundle.putInt("Turma", currentEntity.getID());
 
+        if (currentEntity.getListaContactos() != null){
+            bundle.putString("Lista", currentEntity.getListaContactos().toString());
+        }
+
+
         Intent intent = new Intent(context, listcontact.class);
         intent.putExtras(bundle);
         startActivity(intent);
