@@ -25,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.chirag.googlesignin.Entidades.Aula;
+import com.example.chirag.googlesignin.Entidades.Disciplina;
 import com.example.chirag.googlesignin.Entidades.TipoDeAula;
 import com.example.chirag.googlesignin.R;
 import com.example.chirag.googlesignin.model.AulaModel;
@@ -44,6 +45,7 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import io.realm.RealmObject;
 import io.realm.com_example_chirag_googlesignin_model_AulaModelRealmProxy;
+import io.realm.com_example_chirag_googlesignin_model_DisciplinaModelRealmProxy;
 import io.realm.com_example_chirag_googlesignin_model_TipoDeAulaModelRealmProxy;
 
 public class AulaFragment extends FragmentGenerico {
@@ -52,13 +54,15 @@ public class AulaFragment extends FragmentGenerico {
     EditText sala;
     @BindView(R.id.spTipo)
     Spinner tipoDeAula;
+    @BindView(R.id.spDisciplinaAula)
+    Spinner disciplina;
     @BindView(R.id.dateHour)
     EditText data;
     @BindView(R.id.duracao)
     EditText duracao;
     @BindView(R.id.sumario)
     EditText sumario;
-    @BindView(R.id.spTurma)
+    @BindView(R.id.spTurmaAula)
     Spinner turma;
     @BindView(R.id.chkImportantAula)
     CheckBox important;
@@ -102,8 +106,7 @@ public class AulaFragment extends FragmentGenerico {
 
             AfterCreatView(getArguments());
 
-
-            SetTipoDeAulaData();
+            SetSpinnerData();
             ff();
         } catch (Exception e) {
             e.printStackTrace();
@@ -111,6 +114,13 @@ public class AulaFragment extends FragmentGenerico {
 
 
         return view;
+    }
+
+    private void SetSpinnerData() {
+        SetTipoDeAulaData();
+        SetDisciplinaData();
+        SetTurmaData();
+
     }
 
     private ArrayList<String> GetTipoDeAulaData() {
@@ -148,21 +158,76 @@ public class AulaFragment extends FragmentGenerico {
         tipoDeAula.setSelection(0);
     }
 
-//    private ArrayList<String> GetTurmaData() {
-//        ArrayList<String> txt = new ArrayList<>();
-//        txt.add("");
-//        Turma tipos = new TipoDeAula(context);
+    private ArrayList<String> GetDisciplinaData() {
+        ArrayList<String> txt = new ArrayList<>();
+        txt.add("");
+        Disciplina tipos = new Disciplina(context);
+        tipos.entidade.setProfId(ProfId);
+        tipos.entidade.setYear(Year);
+
+        for (RealmObject c : tipos.ReadAllByYear()) {
+            DisciplinaModel tpA = ((com_example_chirag_googlesignin_model_DisciplinaModelRealmProxy) c);
+
+            txt.add(Useful.ConcatIdAndDescription(tpA.getID(), tpA.getAcronimo()));
+        }
+
+        return txt;
+    }
+
+    private void SetDisciplinaData() {
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, GetDisciplinaData());
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        disciplina.setAdapter(adapter);
+    }
+
+    private void SetDisciplinaItem(int id) {
+        ArrayList<String> data = GetDisciplinaData();
+        SetDisciplinaData();
+        data.add("");
+        for (int i = 0; i < data.size(); i++) {
+            if (Useful.SplitIdFromDescription(data.get(i)) == id) {
+                disciplina.setSelection(i);
+                return;
+            }
+        }
+        disciplina.setSelection(0);
+    }
+
+    private ArrayList<String> GetTurmaData() {
+        ArrayList<String> txt = new ArrayList<>();
+        txt.add("");
+//        Turma tipos = new Turma(context);
 //        tipos.entidade.setProfId(ProfId);
 //        tipos.entidade.setYear(Year);
 //
 //        for (RealmObject c : tipos.ReadAllByYear()) {
-//            TipoDeAulaModel curso = ((com_example_chirag_googlesignin_model_TipoDeAulaModelRealmProxy) c);
+//            TurmaModel tpA = ((com_example_chirag_googlesignin_model_TurmaModelRealmProxy) c);
 //
-//            txt.add(Useful.ConcatIdAndDescription(curso.getID(), curso.getDescricao()));
+//            txt.add(Useful.ConcatIdAndDescription(tpA.getID(), tpA.getAcronimo()));
 //        }
-//
-//        return txt;
-    //  }
+
+        return txt;
+    }
+
+    private void SetTurmaData() {
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, GetTurmaData());
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        turma.setAdapter(adapter);
+    }
+
+    private void SetTurmaItem(int id) {
+        ArrayList<String> data = GetTurmaData();
+        SetTurmaData();
+        data.add("");
+        for (int i = 0; i < data.size(); i++) {
+            if (Useful.SplitIdFromDescription(data.get(i)) == id) {
+                disciplina.setSelection(i);
+                return;
+            }
+        }
+        disciplina.setSelection(0);
+    }
+
 
     private DatePickerDialog datePicker;
     private TimePickerDialog timePicker;
@@ -293,6 +358,9 @@ public class AulaFragment extends FragmentGenerico {
             s.entidade.setDuracao(Useful.ConvertStringToInt(duracao.getText().toString()));
             s.entidade.setSumario(sumario.getText().toString());
             s.entidade.setTipo(tipoDeAula.getSelectedItem() != null ? Useful.SplitIdFromDescription(tipoDeAula.getSelectedItem().toString()) : null);
+            s.entidade.setDisciplinaId(disciplina.getSelectedItem() != null ? Useful.SplitIdFromDescription(disciplina.getSelectedItem().toString()) : null);
+            s.entidade.setTurma(turma.getSelectedItem() != null ? Useful.SplitIdFromDescription(turma.getSelectedItem().toString()) : null);
+
             s.entidade.setImportant(important.isChecked());
 
             s.entidade.setDataDeOcorrencia(Useful.GetDateFromString(data.getText().toString()));
@@ -389,7 +457,8 @@ public class AulaFragment extends FragmentGenerico {
     public void newOnClick() {
         OnClickNew();
 
-        SetTipoDeAulaData();
+        SetSpinnerData();
+
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -523,6 +592,8 @@ public class AulaFragment extends FragmentGenerico {
     public void SetEnable(boolean value) {
         sala.setEnabled(value);
         tipoDeAula.setEnabled(value);
+        disciplina.setEnabled(value);
+        turma.setEnabled(value);
         data.setEnabled(value);
         duracao.setEnabled(value);
         sumario.setEnabled(value);
@@ -536,6 +607,8 @@ public class AulaFragment extends FragmentGenerico {
     public void CleanView() {
         sala.setText("");
         tipoDeAula.setSelection(0);
+        disciplina.setSelection(0);
+        turma.setSelection(0);
         data.setText("");
         duracao.setText("");
         sumario.setText("");
@@ -581,6 +654,8 @@ public class AulaFragment extends FragmentGenerico {
         data.setText(Useful.GetDateAndHourFromDate(currentEntity.getDataDeOcorrencia()));
         sala.setText(currentEntity.getSala());
         SetTipoDeAulaItem(currentEntity.getTipo());
+        SetDisciplinaItem(currentEntity.getDisciplinaId());
+        SetTurmaItem(currentEntity.getTurma());
         important.setChecked(currentEntity.getImportant());
         duracao.setText(currentEntity.getDuracao().toString());
         dd = currentEntity.getDataDeOcorrencia();
