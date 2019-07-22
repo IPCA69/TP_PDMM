@@ -60,5 +60,32 @@
     </LinearLayout>
 
 
+    <Button
+        android:id="@+id/btImportTurma"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="160dp"
+        android:text="Import" />
+
+    <Button
+        android:id="@+id/btNewTurma"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="80dp"
+        android:text="New" />
+
+
+    <Button
+        android:id="@+id/btEditTurma"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:text="Edit" />
+
 
 </RelativeLayout>

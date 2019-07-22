@@ -15,22 +15,14 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.chirag.googlesignin.Atividades.listcontact;
-import com.example.chirag.googlesignin.Entidades.Aula;
-import com.example.chirag.googlesignin.Entidades.Contacto;
-import com.example.chirag.googlesignin.Entidades.Curso;
-import com.example.chirag.googlesignin.Entidades.Disciplina;
 import com.example.chirag.googlesignin.Entidades.Turma;
 import com.example.chirag.googlesignin.Outros.Useful;
 import com.example.chirag.googlesignin.R;
-import com.example.chirag.googlesignin.model.AulaModel;
-import com.example.chirag.googlesignin.model.CursoModel;
-import com.example.chirag.googlesignin.model.DisciplinaModel;
 import com.example.chirag.googlesignin.model.TurmaModel;
 
 import java.util.ArrayList;
@@ -42,11 +34,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import io.realm.Realm;
-import io.realm.RealmList;
 import io.realm.RealmObject;
-import io.realm.RealmResults;
-import io.realm.com_example_chirag_googlesignin_model_CursoModelRealmProxy;
 import io.realm.com_example_chirag_googlesignin_model_TurmaModelRealmProxy;
 
 /**
@@ -65,6 +53,12 @@ public class TurmasFragment extends FragmentGenerico {
     @BindView(R.id.associatecontact)
     Button associatecontact;
     Unbinder unbinder;
+    @BindView(R.id.btImportTurma)
+    Button btImportTurma;
+    @BindView(R.id.btNewTurma)
+    Button btNewTurma;
+    @BindView(R.id.btEditTurma)
+    Button btEditTurma;
 
     private TurmaModel currentEntity;
 
@@ -91,10 +85,16 @@ public class TurmasFragment extends FragmentGenerico {
 
     @OnClick(R.id.associatecontact)
     public void onnClickedd() {
+        if (currentEntity == null || currentEntity.getID() == null) {
+            Toast.makeText(context, "Grave a turma antes de associar os alunos por favor.", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
         Bundle bundle = new Bundle();
         bundle.putInt("Year", this.Year);
         bundle.putInt("ProfId", this.ProfId);
+
+        bundle.putInt("Turma", currentEntity.getID());
 
         Intent intent = new Intent(context, listcontact.class);
         intent.putExtras(bundle);
@@ -192,6 +192,110 @@ public class TurmasFragment extends FragmentGenerico {
     }
 
 
+    @OnClick(R.id.btEditTurma)
+    public void editOnClick() {
+        OnClickEdit();
+    }
+
+    @OnClick(R.id.btNewTurma)
+    public void newOnClick() {
+
+        OnClickNew();
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    @OnClick(R.id.btImportTurma)
+    public void importOnClick() {
+
+        try {
+            Res turmas = GetAll(null);
+            Res anos = GetAnos();
+
+            AlertDialog.Builder dialogbuilder = new AlertDialog.Builder(context);
+            View mView = getLayoutInflater().inflate(R.layout.combo_dialog, null);
+            dialogbuilder.setTitle("Selecione uma " + getFragmentDesc() + "!");
+
+            Spinner mySpinner = (Spinner) mView.findViewById(R.id.firstSpinnerDialog);
+            ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, anos.getTxt());
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            mySpinner.setAdapter(adapter);
+
+            TextView ftSpinnetTxt = (TextView) mView.findViewById(R.id.firstSpinnerDialogDesc);
+            ftSpinnetTxt.setText("Ano");
+            ftSpinnetTxt.setVisibility(View.VISIBLE);
+
+            Spinner mySpinner2 = (Spinner) mView.findViewById(R.id.secondSpinnerDialog);
+            ArrayAdapter<String> adapter2 = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, turmas.getTxt());
+            adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            mySpinner2.setAdapter(adapter2);
+            mySpinner2.setVisibility(View.VISIBLE);
+
+            TextView secSpinnetTxt = (TextView) mView.findViewById(R.id.secondSpinnerDialogDesc);
+            secSpinnetTxt.setText(getFragmentDesc());
+            secSpinnetTxt.setVisibility(View.VISIBLE);
+
+            //OnChange
+            mySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    if (mySpinner.getSelectedItem().toString().isEmpty())
+                        return;
+
+                    Integer selectedId = Useful.SplitIdFromDescription(mySpinner.getSelectedItem().toString());
+
+                    ArrayAdapter<String> adapter2 = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, GetAll(selectedId).getTxt());
+                    adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    mySpinner2.setAdapter(adapter2);
+
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
+
+            //Import click
+            dialogbuilder.setPositiveButton("Importar", (dialog, which) -> {
+                Integer selectedYear = Useful.SplitIdFromDescription(mySpinner.getSelectedItem().toString());
+                Integer selectedAula = Useful.SplitIdFromDescription(mySpinner2.getSelectedItem().toString());
+
+                List<RealmObject> lstAula = GetAll(selectedYear, selectedAula).getLst();
+                if (lstAula.size() == 0) {
+                    Toast.makeText(context, "Nenhuma " + getFragmentDesc() + " foi selecionada", Toast.LENGTH_SHORT).show(); //Show shadow text
+                    CleanView();
+                    return;
+                }
+
+                currentEntity = CopyEntity(CastRealmObjectToEntity(lstAula.get(0)));
+
+                EntityToDOM();
+
+                //Clean combo
+                mySpinner2.setVisibility(View.INVISIBLE);
+                secSpinnetTxt.setText("");
+                secSpinnetTxt.setVisibility(View.INVISIBLE);
+                ftSpinnetTxt.setText("");
+                ftSpinnetTxt.setVisibility(View.INVISIBLE);
+
+                dialog.dismiss();
+            });
+
+            //Dismiss click
+            dialogbuilder.setNegativeButton("Dismiss", (dialog, which) -> {
+                mySpinner2.setVisibility(View.INVISIBLE);
+                dialog.dismiss();
+            });
+
+            dialogbuilder.setView(mView);
+            AlertDialog dialog = dialogbuilder.create();
+            dialog.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
     @RequiresApi(api = Build.VERSION_CODES.N)
     public Res GetAll(Integer year) {
         return GetAll(year, null);
@@ -209,7 +313,7 @@ public class TurmasFragment extends FragmentGenerico {
             lst = lst.stream().filter(p -> CastRealmObjectToEntity(p).getID() == id).collect(Collectors.toList());
 
         lst.forEach((elem) -> {
-           TurmaModel obj = CastRealmObjectToEntity(elem);
+            TurmaModel obj = CastRealmObjectToEntity(elem);
 
             if (obj.getDescricao() != null)
                 txt.add(Useful.ConcatIdAndDescription(obj.getID(), obj.getDescricao()));
@@ -241,11 +345,12 @@ public class TurmasFragment extends FragmentGenerico {
         SetEnable(false);
     }
 
-    public CursoModel CopyEntity(CursoModel oldEntity) {
-        CursoModel newModel = new CursoModel();
+    public TurmaModel CopyEntity(TurmaModel oldEntity) {
+        TurmaModel newModel = new TurmaModel();
         newModel.setProfId(ProfId);
         newModel.setYear(Year);
         newModel.setDescricao(oldEntity.getDescricao());
+        newModel.setListaContactos(oldEntity.getListaContactos());
 
         return newModel;
     }
@@ -256,6 +361,7 @@ public class TurmasFragment extends FragmentGenerico {
 
         currentEntity = null;
     }
+
 
     @Override
     public void SetEnable(boolean value) {
@@ -274,21 +380,27 @@ public class TurmasFragment extends FragmentGenerico {
 
     @Override
     public Button getBtNew() {
-        return null;
+        return btNewTurma;
     }
 
     @Override
     public Button getBtEdit() {
-        return null;
+        return btEditTurma;
     }
 
     @Override
     public Button getBtImport() {
-        return null;
+        return btImportTurma;
     }
 
     @Override
     public String getFragmentDesc() {
-        return "Curso";
+        return "Turma";
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        // null.unbind();
     }
 }

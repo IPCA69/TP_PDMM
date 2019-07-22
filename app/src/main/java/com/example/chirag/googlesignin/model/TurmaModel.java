@@ -1,12 +1,26 @@
 package com.example.chirag.googlesignin.model;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.List;
+
+import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
 public class TurmaModel extends RealmObject {
 
-    private int ID;
+    private Integer ID;
     private String Descricao;
+    private RealmList<Integer> ListaContactos;
+
+    public RealmList<Integer> getListaContactos() {
+        return ListaContactos;
+    }
+
+    public void setListaContactos(RealmList<Integer> listaContactos) {
+        ListaContactos = listaContactos;
+    }
 
     public int getYear() {
         return Year;
@@ -29,11 +43,11 @@ public class TurmaModel extends RealmObject {
     private int ProfId;
 
 
-    public int getID() {
+    public Integer getID() {
         return ID;
     }
 
-    public void setID(int ID) {
+    public void setID(Integer ID) {
         this.ID = ID;
     }
 

@@ -40,6 +40,8 @@ public class Turma extends GestaoDeEntidades {
         find.setDescricao(entidade.getDescricao());
         find.setYear(entidade.getYear());
         find.setProfId(entidade.getProfId());
+        find.setListaContactos(entidade.getListaContactos());
+
         myRealm.insertOrUpdate(find);
         entidade = find;
     }
