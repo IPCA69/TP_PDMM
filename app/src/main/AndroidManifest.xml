@@ -16,8 +16,6 @@
         tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".Atividades.listcontact"></activity>
         <activity android:name=".Atividades.CriarAnoAct" />
-        <activity android:name=".Atividades.ActRecView" />
-        <activity android:name=".Atividades.A_RecView" />
         <activity android:name=".Atividades.SignIn">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
