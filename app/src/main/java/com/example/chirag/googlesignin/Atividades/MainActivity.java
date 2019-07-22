@@ -323,7 +323,8 @@ public class MainActivity extends AtividadeGenerica implements NavigationView.On
 
 
         } catch (Exception e) {
-            Toast.makeText(MainActivity.this, "Não foi possível executar a acção", Toast.LENGTH_SHORT).show(); //Show shadow text
+
+            Toast.makeText(MainActivity.this,"OnOpenGestão:"+ "e.getMessage()", Toast.LENGTH_SHORT).show(); //Show shadow text
 
             e.printStackTrace();
         }
