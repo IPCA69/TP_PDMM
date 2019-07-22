@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.example.chirag.googlesignin.Atividades.MainActivity;
 import com.example.chirag.googlesignin.R;
@@ -89,13 +90,16 @@ public class Useful {
         }
     }
 
-    public static void CreatFile(Context context, String fileName, String extension, byte[] data) {
+    public static boolean CreatFile(Context context, String fileName, String extension, byte[] data) {
         try {
 
             if (!isWriteStoragePermissionGranted(context))
-                return;
+                return false;
 
-            File file = new File(Environment.getExternalStorageDirectory() + "/" + File.separator + fileName + "." + extension);
+            File directory = new File(Environment.getExternalStorageDirectory() + File.separator + "Moodle");
+            directory.mkdirs();
+
+            File file = new File(Environment.getExternalStorageDirectory() + File.separator + "Moodle" + File.separator + fileName + "." + extension);
             file.createNewFile();
 
             //write the bytes in file
@@ -104,10 +108,12 @@ public class Useful {
                 fo.write(data);
                 fo.close();
             }
-
         } catch (Exception e) {
+            Toast.makeText(context, "Erro ao gravar ficheiro!", Toast.LENGTH_SHORT).show();
+
             e.printStackTrace();
         }
+        return true;
 
     }
 
