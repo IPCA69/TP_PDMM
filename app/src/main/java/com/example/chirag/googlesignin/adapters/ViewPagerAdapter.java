@@ -29,57 +29,56 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
+        try {
+            Bundle bundle = new Bundle();
+            bundle.putInt("Year", this.Year);
+            bundle.putInt("ProfId", this.ProfId);
 
-        Bundle bundle = new Bundle();
-        bundle.putInt("Year", this.Year);
-        bundle.putInt("ProfId", this.ProfId);
+            switch (position) {
+                case 0:
+                    AulaFragment aulaFragment = new AulaFragment();
+                    aulaFragment.setArguments(bundle);
+                    return aulaFragment;
+                case 1:
+                    CursoFragment cursoFragment = new CursoFragment();
+                    cursoFragment.setArguments(bundle);
+                    return cursoFragment;
+                case 2:
+                    DisciplinaFragment disciplinaFragment = new DisciplinaFragment();
+                    disciplinaFragment.setArguments(bundle);
+                    return disciplinaFragment;
+                case 3:
+                    EventoFragment eventoFragment = new EventoFragment();
+                    eventoFragment.setArguments(bundle);
+                    return eventoFragment;
+                case 4:
+                    TurmasFragment turmasFragment = new TurmasFragment();
+                    turmasFragment.setArguments(bundle);
+                    return turmasFragment;
+                case 5:
+                    TipoDeAulaFragment tipoDeAulaFragment = new TipoDeAulaFragment();
+                    tipoDeAulaFragment.setArguments(bundle);
+                    return tipoDeAulaFragment;
+                case 6:
+                    ContactoFragment contactoFragment = new ContactoFragment();
+                    contactoFragment.setArguments(bundle);
+                    return contactoFragment;
 
-        switch (position) {
-            case 0:
-                AulaFragment aulaFragment = new AulaFragment();
-                position = position + 1;
-                aulaFragment.setArguments(bundle);
-                return aulaFragment;
-            case 1:
-                CursoFragment cursoFragment = new CursoFragment();
-                position = position + 1;
-                cursoFragment.setArguments(bundle);
-                return cursoFragment;
-            case 2:
-                DisciplinaFragment disciplinaFragment = new DisciplinaFragment();
-                position = position + 1;
-                disciplinaFragment.setArguments(bundle);
-                return disciplinaFragment;
-            case 3:
-                EventoFragment eventoFragment = new EventoFragment();
-                position = position + 1;
-                eventoFragment.setArguments(bundle);
-                return eventoFragment;
-            case 4:
-                TurmasFragment turmasFragment = new TurmasFragment();
-                position = position + 1;
-                turmasFragment.setArguments(bundle);
-                return turmasFragment;
-            case 5:
-                TipoDeAulaFragment tipoDeAulaFragment = new TipoDeAulaFragment();
-                position = position + 1;
-                tipoDeAulaFragment.setArguments(bundle);
-                return tipoDeAulaFragment;
-            case 6:
-                ContactoFragment ContactoFragment = new ContactoFragment();
-                position = position + 1;
-                ContactoFragment.setArguments(bundle);
-                return ContactoFragment;
+            }
 
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
-
         return null;
     }
 
+    /**
+     * number of fragments
+     * @return
+     */
     @Override
     public int getCount() {
-        return 8;
+        return 7;
     }
 
 

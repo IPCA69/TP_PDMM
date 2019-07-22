@@ -303,19 +303,6 @@ public class MainActivity extends AtividadeGenerica implements NavigationView.On
                     signOut();
                     break;
                 }
-                case R.id.nav_view: //Navegate
-                {
-
-                    Intent intent = new Intent(this, ActRecView.class);
-                    startActivity(intent);
-
-//                    Class fragment = null;
-//                    DrawerLayout drawer = findViewById(R.id.drawer_layout);
-//                    drawer.closeDrawer(GravityCompat.START);
-//                    fragment = RecView.class;
-//                    showFragment(fragment);
-                    break;
-                }
                 default: {
                     return false;
                 }
