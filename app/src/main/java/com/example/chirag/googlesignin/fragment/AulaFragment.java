@@ -3,6 +3,7 @@ package com.example.chirag.googlesignin.fragment;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.icu.util.Calendar;
 import android.os.Build;
@@ -26,12 +27,16 @@ import android.widget.Toast;
 
 import com.example.chirag.googlesignin.Entidades.Aula;
 import com.example.chirag.googlesignin.Entidades.Disciplina;
+import com.example.chirag.googlesignin.Entidades.Professor;
 import com.example.chirag.googlesignin.Entidades.TipoDeAula;
+import com.example.chirag.googlesignin.Entidades.Turma;
+import com.example.chirag.googlesignin.Outros.Email;
 import com.example.chirag.googlesignin.R;
 import com.example.chirag.googlesignin.model.AulaModel;
 import com.example.chirag.googlesignin.Outros.Useful;
 import com.example.chirag.googlesignin.model.DisciplinaModel;
 import com.example.chirag.googlesignin.model.TipoDeAulaModel;
+import com.example.chirag.googlesignin.model.TurmaModel;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -47,6 +52,7 @@ import io.realm.RealmObject;
 import io.realm.com_example_chirag_googlesignin_model_AulaModelRealmProxy;
 import io.realm.com_example_chirag_googlesignin_model_DisciplinaModelRealmProxy;
 import io.realm.com_example_chirag_googlesignin_model_TipoDeAulaModelRealmProxy;
+import io.realm.com_example_chirag_googlesignin_model_TurmaModelRealmProxy;
 
 public class AulaFragment extends FragmentGenerico {
 
@@ -68,9 +74,9 @@ public class AulaFragment extends FragmentGenerico {
     CheckBox important;
 
     public static String l;
-    public static String ll;
+    public static String NovaSala;
     public static Date dd;
-    public static Date ddd;
+    public static Date NovaData;
 
     @BindView(R.id.btSaveAula)
     Button btSave;
@@ -107,7 +113,7 @@ public class AulaFragment extends FragmentGenerico {
             AfterCreatView(getArguments());
 
             SetSpinnerData();
-            ff();
+            OnChangeDataSala();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -145,7 +151,11 @@ public class AulaFragment extends FragmentGenerico {
         tipoDeAula.setAdapter(adapter);
     }
 
-    private void SetTipoDeAulaItem(int id) {
+    private void SetTipoDeAulaItem(Integer id) {
+        if (id == null) {
+            tipoDeAula.setSelection(0);
+            return;
+        }
         ArrayList<String> data = GetTipoDeAulaData();
         SetTipoDeAulaData();
         data.add("");
@@ -180,7 +190,12 @@ public class AulaFragment extends FragmentGenerico {
         disciplina.setAdapter(adapter);
     }
 
-    private void SetDisciplinaItem(int id) {
+    private void SetDisciplinaItem(Integer id) {
+        if (id == null) {
+            disciplina.setSelection(0);
+            return;
+        }
+
         ArrayList<String> data = GetDisciplinaData();
         SetDisciplinaData();
         data.add("");
@@ -196,15 +211,15 @@ public class AulaFragment extends FragmentGenerico {
     private ArrayList<String> GetTurmaData() {
         ArrayList<String> txt = new ArrayList<>();
         txt.add("");
-//        Turma tipos = new Turma(context);
-//        tipos.entidade.setProfId(ProfId);
-//        tipos.entidade.setYear(Year);
-//
-//        for (RealmObject c : tipos.ReadAllByYear()) {
-//            TurmaModel tpA = ((com_example_chirag_googlesignin_model_TurmaModelRealmProxy) c);
-//
-//            txt.add(Useful.ConcatIdAndDescription(tpA.getID(), tpA.getAcronimo()));
-//        }
+        Turma tipos = new Turma(context);
+        tipos.entidade.setProfId(ProfId);
+        tipos.entidade.setYear(Year);
+
+        for (RealmObject c : tipos.ReadAllByYear()) {
+            TurmaModel tpA = ((com_example_chirag_googlesignin_model_TurmaModelRealmProxy) c);
+
+            txt.add(Useful.ConcatIdAndDescription(tpA.getID(), tpA.getDescricao()));
+        }
 
         return txt;
     }
@@ -215,17 +230,21 @@ public class AulaFragment extends FragmentGenerico {
         turma.setAdapter(adapter);
     }
 
-    private void SetTurmaItem(int id) {
+    private void SetTurmaItem(Integer id) {
+        if (id == null) {
+            turma.setSelection(0);
+            return;
+        }
         ArrayList<String> data = GetTurmaData();
         SetTurmaData();
         data.add("");
         for (int i = 0; i < data.size(); i++) {
             if (Useful.SplitIdFromDescription(data.get(i)) == id) {
-                disciplina.setSelection(i);
+                turma.setSelection(i);
                 return;
             }
         }
-        disciplina.setSelection(0);
+        turma.setSelection(0);
     }
 
 
@@ -264,7 +283,7 @@ public class AulaFragment extends FragmentGenerico {
 
     }
 
-    public void ff() {
+    public void OnChangeDataSala() {
         data.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -274,7 +293,7 @@ public class AulaFragment extends FragmentGenerico {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                ddd = Useful.GetDateFromString(s.toString());
+                NovaData = Useful.GetDateFromString(s.toString());
 
             }
 
@@ -293,7 +312,7 @@ public class AulaFragment extends FragmentGenerico {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.length() != 0) {
                     Log.d(TAG, "TEXT CHANGED");
-                    ll = s.toString();
+                    NovaSala = s.toString();
                 }
 
             }
@@ -317,36 +336,128 @@ public class AulaFragment extends FragmentGenerico {
                 return;
 
             s = new Aula(context);
-            if (ddd.equals(dd)) {
+            if (NovaData.equals(dd)) {
 
-            } else if (ddd != dd && dd != null && ddd != null) {
+            } else if (NovaData != dd && dd != null && NovaData != null) {
 
-                Intent i = new Intent(Intent.ACTION_SEND);
-                i.setType("text/plain");
-                i.putExtra(Intent.EXTRA_EMAIL, new String[]{"ricardodiaas19@gmail.com"});//devia ser contactos
-                i.putExtra(Intent.EXTRA_SUBJECT, "subject of email");
-                i.putExtra(Intent.EXTRA_TEXT, "A hora da aula era " + dd + " agora passou a ser " + ddd);
                 try {
-                    startActivity(Intent.createChooser(i, "Send mail..."));
-                } catch (android.content.ActivityNotFoundException ex) {
-                    //      Toast.makeText(, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
+                    AlertDialog.Builder dialogbuilder = new AlertDialog.Builder(context);
+                    View mView = getLayoutInflater().inflate(R.layout.combo_dialog, null);
+                    dialogbuilder.setTitle("Selecione um tipo de contactos para enviar um mail acerca das alterações feitas na aula!");
+
+                    Spinner mySpinner = (Spinner) mView.findViewById(R.id.firstSpinnerDialog);
+
+                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, new String[]{"Alunos", "Delegados"});
+                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    mySpinner.setAdapter(adapter);
+
+                    dialogbuilder.setPositiveButton("Enviar", (dialog, which) -> {
+                        if (mySpinner.getSelectedItem() != null) {
+                            if (mySpinner.getSelectedItem() == "Alunos") {
+                                Turma turma = new Turma(context);
+                                turma.entidade.setYear(Year);
+                                turma.entidade.setProfId(ProfId);
+                                turma.entidade.setID(currentEntity.getTurma());
+                                turma.Read();
+                                //BUSCAR CONTACTOS
+
+                                Email mail = new Email();
+                                mail.setAssunto("Mudança de data da aula");
+                                mail.setMensagem("A aula ia ser no dia " + currentEntity.getDataDeOcorrencia() + "mas passou para o dia " + NovaData + ".");
+                                mail.SendEmail(context);
+
+
+                            } else if (mySpinner.getSelectedItem() == "Delegados") {
+
+                                Turma turma = new Turma(context);
+                                turma.entidade.setYear(Year);
+                                turma.entidade.setProfId(ProfId);
+                                turma.entidade.setID(currentEntity.getTurma());
+                                turma.Read();
+                                //BUSCAR CONTACTOS
+
+                                Email mail = new Email();
+                                mail.setAssunto("Mudança da sala da aula");
+                                mail.setMensagem("A aula ia ser na sala " + currentEntity.getSala() + "mas passou a sala " + NovaSala + ".");
+                                mail.SendEmail(context);
+
+                            }
+
+                        }
+
+                        dialog.dismiss();
+                    });
+
+                    dialogbuilder.setNegativeButton("Cancelar", (dialog, which) -> dialog.dismiss());
+
+                    dialogbuilder.setView(mView);
+                    AlertDialog dialog = dialogbuilder.create();
+                    dialog.show();
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
-            if (ll.equals(l)) {
+            if (NovaSala.equals(l)) {
                 Log.d(TAG, Useful.GetDateAndHourFromDate(dd));
-                Log.d(TAG, Useful.GetDateAndHourFromDate(ddd));
+                Log.d(TAG, Useful.GetDateAndHourFromDate(NovaData));
                 Log.d(TAG, "SAME Sala");
-            } else if (ll != l && l != null && ll != null) {
+            } else if (NovaSala != l && l != null && NovaSala != null) {
 
-                Intent i = new Intent(Intent.ACTION_SEND);
-                i.setType("text/plain");
-                i.putExtra(Intent.EXTRA_EMAIL, new String[]{"ricardodiaas19@gmail.com"});
-                i.putExtra(Intent.EXTRA_SUBJECT, "subject of email");
-                i.putExtra(Intent.EXTRA_TEXT, "A sala era " + l + " agora passou a ser " + ll);
                 try {
-                    startActivity(Intent.createChooser(i, "Send mail..."));
-                } catch (android.content.ActivityNotFoundException ex) {
-                    //      Toast.makeText(, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
+                    AlertDialog.Builder dialogbuilder = new AlertDialog.Builder(context);
+                    View mView = getLayoutInflater().inflate(R.layout.combo_dialog, null);
+                    dialogbuilder.setTitle("Selecione um tipo de contactos para enviar E-mail!");
+
+                    Spinner mySpinner = (Spinner) mView.findViewById(R.id.firstSpinnerDialog);
+
+                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, new String[]{"Alunos", "Delegados"});
+                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    mySpinner.setAdapter(adapter);
+
+                    dialogbuilder.setPositiveButton("Enviar", (dialog, which) -> {
+                        if (mySpinner.getSelectedItem() != null) {
+                            if (mySpinner.getSelectedItem() == "Alunos") {
+                                Turma turma = new Turma(context);
+                                turma.entidade.setYear(Year);
+                                turma.entidade.setProfId(ProfId);
+                                turma.entidade.setID(currentEntity.getTurma());
+                                turma.Read();
+                                //BUSCAR CONTACTOS
+
+                                Email mail = new Email();
+                                mail.setAssunto("Mudança da sala da aula");
+                                mail.setMensagem("A aula ia ser na sala " + currentEntity.getSala() + "mas passou a sala " + NovaSala + ".");
+                                mail.SendEmail(context);
+
+
+                            } else if (mySpinner.getSelectedItem() == "Delegados") {
+
+                                Turma turma = new Turma(context);
+                                turma.entidade.setYear(Year);
+                                turma.entidade.setProfId(ProfId);
+                                turma.entidade.setID(currentEntity.getTurma());
+                                turma.Read();
+                                //BUSCAR CONTACTOS
+
+                                Email mail = new Email();
+                                mail.setAssunto("Mudança da sala da aula");
+                                mail.setMensagem("A aula ia ser na sala " + currentEntity.getSala() + "mas passou a sala " + NovaSala + ".");
+                                mail.SendEmail(context);
+
+                            }
+
+                        }
+
+                        dialog.dismiss();
+                    });
+
+                    dialogbuilder.setNegativeButton("Cancelar", (dialog, which) -> dialog.dismiss());
+
+                    dialogbuilder.setView(mView);
+                    AlertDialog dialog = dialogbuilder.create();
+                    dialog.show();
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
 
             }

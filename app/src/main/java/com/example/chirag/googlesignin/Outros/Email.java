@@ -16,6 +16,9 @@ public class Email {
         setAssunto(assunto);
         setMensagem(mensagem);
     }
+    public Email(){
+
+    }
 
     public String[] getPara() {
         return Para;
