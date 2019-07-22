@@ -368,9 +368,11 @@ public class EventoFragment extends FragmentGenerico {
     public void EntityToDOM() {
         descricao.setText(currentEntity.getDescricao());
         data.setText(Useful.GetDateAndHourFromDate(currentEntity.getDataInicio()));
-        duracao.setText(currentEntity.getDuracao());
+        Integer f = currentEntity.getDuracao();
+        duracao.setText(f.toString());
         data.setText(Useful.GetDateAndHourFromDate(currentEntity.getDataInicio()));
         important.setChecked(currentEntity.getImportant());
+        SetEnable(false);
     }
 
     @Override
@@ -379,6 +381,8 @@ public class EventoFragment extends FragmentGenerico {
         duracao.setText("");
         data.setText("");
         important.setChecked(false);
+
+      //  currentEntity = null;
     }
 
     @Override

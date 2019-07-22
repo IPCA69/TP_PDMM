@@ -247,7 +247,6 @@ public class MainActivity extends AtividadeGenerica implements NavigationView.On
                     if (mySpinner.getSelectedItem() != null) {
                         Excel.ExportDisciplinaModel(lst, this, "disciplinas", mySpinner.getSelectedItem().toString());
 
-                        Toast.makeText(this, "Ficheiro exportado!", Toast.LENGTH_SHORT).show();
                     }
 
                     dialog.dismiss();
@@ -311,7 +310,7 @@ public class MainActivity extends AtividadeGenerica implements NavigationView.On
 
         } catch (Exception e) {
 
-            Toast.makeText(MainActivity.this,"OnOpenGestão:"+ "e.getMessage()", Toast.LENGTH_SHORT).show(); //Show shadow text
+            Toast.makeText(MainActivity.this, "OnOpenGestão:+ " + e.getMessage(), Toast.LENGTH_SHORT).show(); //Show shadow text
 
             e.printStackTrace();
         }

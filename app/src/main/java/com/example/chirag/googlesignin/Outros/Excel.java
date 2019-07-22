@@ -15,37 +15,35 @@ import io.realm.com_example_chirag_googlesignin_model_DisciplinaModelRealmProxy;
 
 public class Excel {
 
-    public static void ExportDisciplinaModel(List<RealmObject> disciplinas, Context context, String fileName, String extension) {
+    public static boolean ExportDisciplinaModel(List<RealmObject> disciplinas, Context context, String fileName, String extension) {
         String newLine = System.getProperty("line.separator");
 
         if (!extension.equals("csv") && !extension.equals("txt"))
             throw new IllegalArgumentException("File extension must be csv or txt.");
 
         if (disciplinas.size() == 0) {
-            Toast.makeText(context, "Não foi selecionada nenhuma disciplina para exportar para csv.", Toast.LENGTH_SHORT).show(); //Show shadow text
-            return;
+            Toast.makeText(context, "Não foi selecionada nenhuma disciplina para exportar para "+extension+ ".", Toast.LENGTH_SHORT).show(); //Show shadow text
+            return false;
         }
+
+        if (!Useful.isWriteStoragePermissionGranted(context))
+            return false;
 
         StringBuilder txt = new StringBuilder();
-        if (!Useful.isWriteStoragePermissionGranted(context))
-            return;
-        txt.append("Prof,Year,Id,Curso,Acronimo,Semestre,Aulas" + newLine);
+
+        txt.append("Prof,Year,Id,Nome,Curso,Acronimo,Semestre" + newLine);
         for (RealmObject c : disciplinas) {
             DisciplinaModel disc = ((com_example_chirag_googlesignin_model_DisciplinaModelRealmProxy) c);
-            txt.append(disc.getProfId() + "," + disc.getYear() + "," + disc.getID() + "," + disc.getCurso() + "," + disc.getAcronimo() + "," + disc.getSemestre() + "," + newLine);
+            txt.append(disc.getProfId() + "," + disc.getYear() + "," + disc.getID() + "," + disc.getNome() + "," + disc.getCurso() + "," + disc.getAcronimo() + "," + disc.getSemestre() + "," + newLine);
 
-//            if (disc.getAulaModels().size() != 0)
-//                txt.append(",,,,,,Prof,Year,Id,DataDeOcorrencia,Duracao,Sala,Tipo,Sumario" + newLine);
-//            for (AulaModel aula : disc.getAulaModels()) {
-//                txt.append(",,,,,," + aula.getProfId() + "," + aula.getProfId() + "," + aula.getID() + "," + Useful.GetDateAndHourFromDate(aula.getDataDeOcorrencia()) + "," + aula.getDuracao() + "," + aula.getSala() + "," + aula.getTipo() + "," + aula.getSumario() + newLine);
-//                txt.append(",,,,,,");
-//
-//                txt.append(newLine);
-//            }
 
         }
 
-        Useful.CreatFile(context, fileName, extension, txt.toString().getBytes());
+        if (Useful.CreatFile(context, fileName, extension, txt.toString().getBytes())) {
+            Toast.makeText(context, "Ficheiro exportado!", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        return false;
     }
 
 }
