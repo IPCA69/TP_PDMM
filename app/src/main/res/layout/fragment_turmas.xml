@@ -9,67 +9,56 @@
     android:orientation="vertical">
 
 
-    <!-- TODO: Update blank fragment layout -->
-    <Spinner
-        android:id="@+id/spinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:drawable/btn_dropdown"
-        android:spinnerMode="dropdown"
-        />
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="View Aulas"
-        android:layout_below="@id/spinner"
-        android:layout_marginTop="60sp"
-        android:id="@+id/viewaulas"
-        />
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/viewaulas"
-        android:text="View Disciplinas"
-        android:layout_marginTop="20sp"
-        android:id="@+id/viewdisciplinas"
-        />
     <LinearLayout
-        android:orientation="vertical"
-
-        android:id="@+id/llayout"
-        android:layout_below="@id/viewdisciplinas"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+           <EditText
+            android:id="@+id/descricao"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/pass"
+            android:layout_marginTop="20sp"
+            android:hint="Descrição" />
+
+        <Button
+            android:id="@+id/btDeleteTurma"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/sumario"
+            android:layout_marginTop="20sp"
+            android:text="Delete" />
+
+        <Button
+            android:id="@+id/btSaveTurma"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btDeleteAula"
+            android:layout_marginTop="20sp"
+            android:text="Save" />
+
+        <Button
+            android:id="@+id/btViewTurma"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btSaveAula"
+            android:layout_marginTop="20sp"
+            android:text="View" />
+
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/btViewTurma"
+            android:text="Associate Contact"
+            android:layout_marginTop="20sp"
+            android:id="@+id/associatecontact"
+            />
+
     </LinearLayout>
 
 
-    <TextView
-        android:id="@+id/fromcal"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_below="@+id/llayout"
-        android:layout_marginTop="20dp"
-        android:text="TESTE"
-        />
-
-    <Spinner
-        android:id="@+id/spinner2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:drawable/btn_dropdown"
-        android:spinnerMode="dropdown"
-        android:layout_below="@+id/fromcal"
-        />
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/spinner2"
-        android:text="Associate Contact"
-        android:layout_marginTop="20sp"
-        android:id="@+id/associatecontact"
-        />
 
 </RelativeLayout>
