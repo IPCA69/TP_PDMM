@@ -34,14 +34,14 @@ public class Excel {
             DisciplinaModel disc = ((com_example_chirag_googlesignin_model_DisciplinaModelRealmProxy) c);
             txt.append(disc.getProfId() + "," + disc.getYear() + "," + disc.getID() + "," + disc.getCurso() + "," + disc.getAcronimo() + "," + disc.getSemestre() + "," + newLine);
 
-            if (disc.getAulaModels().size() != 0)
-                txt.append(",,,,,,Prof,Year,Id,DataDeOcorrencia,Duracao,Sala,Tipo,Sumario" + newLine);
-            for (AulaModel aula : disc.getAulaModels()) {
-                txt.append(",,,,,," + aula.getProfId() + "," + aula.getProfId() + "," + aula.getID() + "," + Useful.GetDateAndHourFromDate(aula.getDataDeOcorrencia()) + "," + aula.getDuracao() + "," + aula.getSala() + "," + aula.getTipo() + "," + aula.getSumario() + newLine);
-                txt.append(",,,,,,");
-
-                txt.append(newLine);
-            }
+//            if (disc.getAulaModels().size() != 0)
+//                txt.append(",,,,,,Prof,Year,Id,DataDeOcorrencia,Duracao,Sala,Tipo,Sumario" + newLine);
+//            for (AulaModel aula : disc.getAulaModels()) {
+//                txt.append(",,,,,," + aula.getProfId() + "," + aula.getProfId() + "," + aula.getID() + "," + Useful.GetDateAndHourFromDate(aula.getDataDeOcorrencia()) + "," + aula.getDuracao() + "," + aula.getSala() + "," + aula.getTipo() + "," + aula.getSumario() + newLine);
+//                txt.append(",,,,,,");
+//
+//                txt.append(newLine);
+//            }
 
         }
 

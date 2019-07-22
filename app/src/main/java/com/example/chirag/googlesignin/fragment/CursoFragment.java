@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.example.chirag.googlesignin.Outros.Useful;
 import com.example.chirag.googlesignin.R;
 import com.example.chirag.googlesignin.Entidades.Curso;
+import com.example.chirag.googlesignin.model.ContactoModel;
 import com.example.chirag.googlesignin.model.CursoModel;
 
 import java.util.ArrayList;
@@ -115,7 +116,7 @@ public class CursoFragment extends FragmentGenerico {
 
             dialogbuilder.setPositiveButton("Ok", (dialog, which) -> {
 
-                if(mySpinner.getSelectedItem()!=null) {
+                if (mySpinner.getSelectedItem() != null) {
 
                     Integer id = Useful.SplitIdFromDescription(mySpinner.getSelectedItem().toString());
 
@@ -231,7 +232,7 @@ public class CursoFragment extends FragmentGenerico {
                     return;
                 }
 
-                currentEntity = CastRealmObjectToEntity(selectedLst.get(0));
+                currentEntity = CopyEntity(CastRealmObjectToEntity(selectedLst.get(0)));
 
                 EntityToDOM();
 
@@ -307,6 +308,15 @@ public class CursoFragment extends FragmentGenerico {
         description.setText(currentEntity.getDescricao());
 
         SetEnable(false);
+    }
+
+    public CursoModel CopyEntity(CursoModel oldEntity) {
+        CursoModel newModel = new CursoModel();
+        newModel.setProfId(ProfId);
+        newModel.setYear(Year);
+        newModel.setDescricao(oldEntity.getDescricao());
+
+        return newModel;
     }
 
     @Override

@@ -33,7 +33,7 @@ public class TipoDeAulaModel extends RealmObject {
         return ID;
     }
 
-    public void setID(int ID) {
+    public void setID(Integer ID) {
         this.ID = ID;
     }
 

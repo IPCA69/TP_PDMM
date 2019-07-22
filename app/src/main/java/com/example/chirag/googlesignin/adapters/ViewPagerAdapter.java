@@ -7,7 +7,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.example.chirag.googlesignin.fragment.AulaFragment;
-import com.example.chirag.googlesignin.fragment.CalendarioFragment;
 import com.example.chirag.googlesignin.fragment.ContactoFragment;
 import com.example.chirag.googlesignin.fragment.CursoFragment;
 import com.example.chirag.googlesignin.fragment.DisciplinaFragment;
@@ -42,36 +41,31 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
                 aulaFragment.setArguments(bundle);
                 return aulaFragment;
             case 1:
-                CalendarioFragment calendarioFragment = new CalendarioFragment();
-                position = position + 1;
-                calendarioFragment.setArguments(bundle);
-                return calendarioFragment;
-            case 2:
                 CursoFragment cursoFragment = new CursoFragment();
                 position = position + 1;
                 cursoFragment.setArguments(bundle);
                 return cursoFragment;
-            case 3:
+            case 2:
                 DisciplinaFragment disciplinaFragment = new DisciplinaFragment();
                 position = position + 1;
                 disciplinaFragment.setArguments(bundle);
                 return disciplinaFragment;
-            case 4:
+            case 3:
                 EventoFragment eventoFragment = new EventoFragment();
                 position = position + 1;
                 eventoFragment.setArguments(bundle);
                 return eventoFragment;
-            case 5:
+            case 4:
                 TurmasFragment turmasFragment = new TurmasFragment();
                 position = position + 1;
                 turmasFragment.setArguments(bundle);
                 return turmasFragment;
-            case 6:
+            case 5:
                 TipoDeAulaFragment tipoDeAulaFragment = new TipoDeAulaFragment();
                 position = position + 1;
                 tipoDeAulaFragment.setArguments(bundle);
                 return tipoDeAulaFragment;
-            case 7:
+            case 6:
                 ContactoFragment ContactoFragment = new ContactoFragment();
                 position = position + 1;
                 ContactoFragment.setArguments(bundle);
@@ -100,26 +94,23 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
                 nome = "Aula";
                 return nome;
             case 1:
-                nome = "Cal";
-                return nome;
-            case 2:
                 nome = "Curso";
                 return nome;
-            case 3:
+            case 2:
                 nome = "Disc";
                 return nome;
-            case 4:
+            case 3:
                 nome = "Evento";
                 return nome;
-            case 5:
+            case 4:
                 nome = "Turma";
                 return nome;
-            case 6:
+            case 5:
                 nome = "TipoAula";
                 return nome;
-            case 7:
-                nome="Contacto";
-                        return nome;
+            case 6:
+                nome = "Contacto";
+                return nome;
         }
         return null;
     }

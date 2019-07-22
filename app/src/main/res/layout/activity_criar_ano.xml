@@ -7,18 +7,8 @@
     tools:context=".Atividades.CriarAnoAct">
 
 
-
-    <Button
-        android:id="@+id/btImportTipoDeAno"
-        android:layout_width="80dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginRight="140dp"
-        android:text="Import" />
-
-    <Button
-        android:id="@+id/btNewTipoDeAno"
+     <Button
+        android:id="@+id/btNewAno"
         android:layout_width="71dp"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
@@ -28,7 +18,7 @@
 
 
     <Button
-        android:id="@+id/btEditTipoDeAno"
+        android:id="@+id/btEditAno"
         android:layout_width="71dp"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
@@ -49,7 +39,7 @@
 
 
             <EditText
-                android:id="@+id/descriptionTipoDeAno"
+                android:id="@+id/descriptionAno"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20sp"
@@ -57,7 +47,7 @@
 
 
             <Button
-                android:id="@+id/btDeleteTipoDeAno"
+                android:id="@+id/btDeleteAno"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/sumario"
@@ -65,21 +55,13 @@
                 android:text="Delete" />
 
             <Button
-                android:id="@+id/btSaveTipoDeAno"
+                android:id="@+id/btSaveAno"
 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/btDeleteTipoDeAno"
+                android:layout_below="@id/btDeleteAno"
                 android:layout_marginTop="20sp"
                 android:text="Save" />
-
-            <Button
-                android:id="@+id/btViewTipoDeAno"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/btSaveTipoDeAno"
-                android:layout_marginTop="20sp"
-                android:text="View" />
 
 
         </LinearLayout>

@@ -22,6 +22,7 @@ import com.example.chirag.googlesignin.Outros.Useful;
 import com.example.chirag.googlesignin.R;
 import com.example.chirag.googlesignin.model.AulaModel;
 
+import com.example.chirag.googlesignin.model.EventoModel;
 import com.example.chirag.googlesignin.model.TipoDeAulaModel;
 
 import java.util.ArrayList;
@@ -239,7 +240,7 @@ public class TipoDeAulaFragment extends FragmentGenerico {
                     return;
                 }
 
-                currentEntity = CastRealmObjectToEntity(selectedLst.get(0));
+                currentEntity = CopyEntity(CastRealmObjectToEntity(selectedLst.get(0)));
 
                 EntityToDOM();
 
@@ -304,6 +305,15 @@ public class TipoDeAulaFragment extends FragmentGenerico {
         }
 
         return true;
+    }
+
+    public TipoDeAulaModel CopyEntity(TipoDeAulaModel oldEntity) {
+        TipoDeAulaModel newModel = new TipoDeAulaModel();
+        newModel.setProfId(ProfId);
+        newModel.setYear(Year);
+        newModel.setDescricao(oldEntity.getDescricao());
+
+        return newModel;
     }
 
     @Override

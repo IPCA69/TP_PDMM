@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -22,6 +23,7 @@ import android.widget.Toast;
 import com.example.chirag.googlesignin.Outros.Useful;
 import com.example.chirag.googlesignin.R;
 import com.example.chirag.googlesignin.Entidades.Evento;
+import com.example.chirag.googlesignin.model.DisciplinaModel;
 import com.example.chirag.googlesignin.model.EventoModel;
 
 import java.util.ArrayList;
@@ -44,6 +46,8 @@ public class EventoFragment extends FragmentGenerico {
     EditText duracao;
     @BindView(R.id.dateHourEvt)
     EditText data;
+    @BindView(R.id.chkImportantEvent)
+    CheckBox important;
 
     @BindView(R.id.btSaveEvento)
     Button btSave;
@@ -132,6 +136,7 @@ public class EventoFragment extends FragmentGenerico {
             s.entidade.setDuracao(Useful.ConvertStringToInt(duracao.getText().toString()));
 
             s.entidade.setDataInicio(Useful.GetDateFromString(data.getText().toString()));
+            s.entidade.setImportant(important.isChecked());
             s.CreatOrUpdate();
 
             currentEntity = s.entidade;
@@ -276,7 +281,7 @@ public class EventoFragment extends FragmentGenerico {
                     return;
                 }
 
-                currentEntity = CastRealmObjectToEntity(selectedLst.get(0));
+                currentEntity = CopyEntity(CastRealmObjectToEntity(selectedLst.get(0)));
 
                 EntityToDOM();
 
@@ -348,12 +353,24 @@ public class EventoFragment extends FragmentGenerico {
         return true;
     }
 
+    public EventoModel CopyEntity(EventoModel oldEntity) {
+        EventoModel newModel = new EventoModel();
+        newModel.setProfId(ProfId);
+        newModel.setYear(Year);
+        newModel.setDataInicio(oldEntity.getDataInicio());
+        newModel.setDuracao(oldEntity.getDuracao());
+        newModel.setDescricao(oldEntity.getDescricao());
+        newModel.setImportant(oldEntity.getImportant());
+        return newModel;
+    }
+
     @Override
     public void EntityToDOM() {
         descricao.setText(currentEntity.getDescricao());
         data.setText(Useful.GetDateAndHourFromDate(currentEntity.getDataInicio()));
         duracao.setText(currentEntity.getDuracao());
         data.setText(Useful.GetDateAndHourFromDate(currentEntity.getDataInicio()));
+        important.setChecked(currentEntity.getImportant());
     }
 
     @Override
@@ -361,7 +378,7 @@ public class EventoFragment extends FragmentGenerico {
         descricao.setText("");
         duracao.setText("");
         data.setText("");
-
+        important.setChecked(false);
     }
 
     @Override
@@ -369,7 +386,7 @@ public class EventoFragment extends FragmentGenerico {
         descricao.setEnabled(value);
         duracao.setEnabled(value);
         data.setEnabled(value);
-
+        important.setEnabled(value);
     }
 
     @Override

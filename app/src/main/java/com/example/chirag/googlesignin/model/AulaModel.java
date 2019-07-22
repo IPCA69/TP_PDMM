@@ -12,7 +12,6 @@ import io.realm.annotations.PrimaryKey;
 public class AulaModel extends RealmObject implements Serializable {
 
     public AulaModel() {
-
     }
 
     @PrimaryKey
@@ -23,6 +22,8 @@ public class AulaModel extends RealmObject implements Serializable {
     private Integer Tipo;
     private String Sumario;
     private Integer Turma;
+    private Integer DisciplinaId;
+    private boolean Important;
 
 
     public int getYear() {
@@ -51,6 +52,14 @@ public class AulaModel extends RealmObject implements Serializable {
 
     public void setID(Integer ID) {
         this.ID = ID;
+    }
+
+    public boolean getImportant() {
+        return Important;
+    }
+
+    public void setImportant(boolean important) {
+        Important = important;
     }
 
     public Date getDataDeOcorrencia() {
@@ -102,6 +111,14 @@ public class AulaModel extends RealmObject implements Serializable {
 
     public void setTurma(Integer turma) {
         Turma = turma;
+    }
+
+    public Integer getDisciplinaId() {
+        return DisciplinaId;
+    }
+
+    public void setDisciplinaId(Integer disciplinaId) {
+        DisciplinaId = disciplinaId;
     }
 
 

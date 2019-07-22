@@ -204,8 +204,12 @@ public class MainActivity extends AtividadeGenerica implements NavigationView.On
             }
             case R.id.createYear: {
 
+                Bundle bundle = new Bundle();
+                bundle.putInt("Year", this.getYearId());
+                bundle.putInt("ProfId", this.getProfId());
 
                 Intent intent = new Intent(this, CriarAnoAct.class);
+                intent.putExtras(bundle);
                 startActivity(intent);
 
 //                Class fragment = null;
@@ -319,7 +323,8 @@ public class MainActivity extends AtividadeGenerica implements NavigationView.On
 
 
         } catch (Exception e) {
-            Toast.makeText(MainActivity.this, "Não foi possível executar a acção", Toast.LENGTH_SHORT).show(); //Show shadow text
+
+            Toast.makeText(MainActivity.this,"OnOpenGestão:"+ "e.getMessage()", Toast.LENGTH_SHORT).show(); //Show shadow text
 
             e.printStackTrace();
         }

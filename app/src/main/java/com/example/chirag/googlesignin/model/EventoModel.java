@@ -11,6 +11,7 @@ public class EventoModel extends RealmObject {
     private String Descricao;
     private Date DataInicio;
     private int Duracao;
+    private boolean Important;
 
     public int getYear() {
         return Year;
@@ -32,6 +33,13 @@ public class EventoModel extends RealmObject {
 
     private int ProfId;
 
+    public boolean getImportant() {
+        return Important;
+    }
+
+    public void setImportant(boolean important) {
+        Important = important;
+    }
 
     public Date getDataInicio() {
         return DataInicio;
@@ -42,12 +50,11 @@ public class EventoModel extends RealmObject {
     }
 
 
-
     public int getID() {
         return ID;
     }
 
-    public void setID(int ID) {
+    public void setID(Integer ID) {
         this.ID = ID;
     }
 

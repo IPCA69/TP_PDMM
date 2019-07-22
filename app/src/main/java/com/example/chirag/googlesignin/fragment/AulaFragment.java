@@ -18,17 +18,19 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.chirag.googlesignin.Entidades.Aula;
+import com.example.chirag.googlesignin.Entidades.Disciplina;
 import com.example.chirag.googlesignin.Entidades.TipoDeAula;
-import com.example.chirag.googlesignin.Outros.Email;
 import com.example.chirag.googlesignin.R;
 import com.example.chirag.googlesignin.model.AulaModel;
 import com.example.chirag.googlesignin.Outros.Useful;
+import com.example.chirag.googlesignin.model.DisciplinaModel;
 import com.example.chirag.googlesignin.model.TipoDeAulaModel;
 
 import java.util.ArrayList;
@@ -43,6 +45,7 @@ import butterknife.OnClick;
 import butterknife.Unbinder;
 import io.realm.RealmObject;
 import io.realm.com_example_chirag_googlesignin_model_AulaModelRealmProxy;
+import io.realm.com_example_chirag_googlesignin_model_DisciplinaModelRealmProxy;
 import io.realm.com_example_chirag_googlesignin_model_TipoDeAulaModelRealmProxy;
 
 public class AulaFragment extends FragmentGenerico {
@@ -51,19 +54,23 @@ public class AulaFragment extends FragmentGenerico {
     EditText sala;
     @BindView(R.id.spTipo)
     Spinner tipoDeAula;
+    @BindView(R.id.spDisciplinaAula)
+    Spinner disciplina;
     @BindView(R.id.dateHour)
     EditText data;
     @BindView(R.id.duracao)
     EditText duracao;
     @BindView(R.id.sumario)
     EditText sumario;
-    @BindView(R.id.spTurma)
+    @BindView(R.id.spTurmaAula)
     Spinner turma;
+    @BindView(R.id.chkImportantAula)
+    CheckBox important;
 
     public static String l;
-    public static String novasala;
+    public static String ll;
     public static Date dd;
-    public static Date novadata;
+    public static Date ddd;
 
     @BindView(R.id.btSaveAula)
     Button btSave;
@@ -83,7 +90,6 @@ public class AulaFragment extends FragmentGenerico {
 
     private AulaModel currentEntity;
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -97,18 +103,24 @@ public class AulaFragment extends FragmentGenerico {
 
             //Prevents the open of the keyboard
             data.setInputType(InputType.TYPE_NULL);
-//        data.setKeyListener(null);
+
             AfterCreatView(getArguments());
 
-
-            SetTipoDeAulaData();
-            changeDataSala();
+            SetSpinnerData();
+            ff();
         } catch (Exception e) {
             e.printStackTrace();
         }
 
 
         return view;
+    }
+
+    private void SetSpinnerData() {
+        SetTipoDeAulaData();
+        SetDisciplinaData();
+        SetTurmaData();
+
     }
 
     private ArrayList<String> GetTipoDeAulaData() {
@@ -146,21 +158,76 @@ public class AulaFragment extends FragmentGenerico {
         tipoDeAula.setSelection(0);
     }
 
-//    private ArrayList<String> GetTurmaData() {
-//        ArrayList<String> txt = new ArrayList<>();
-//        txt.add("");
-//        Turma tipos = new TipoDeAula(context);
+    private ArrayList<String> GetDisciplinaData() {
+        ArrayList<String> txt = new ArrayList<>();
+        txt.add("");
+        Disciplina tipos = new Disciplina(context);
+        tipos.entidade.setProfId(ProfId);
+        tipos.entidade.setYear(Year);
+
+        for (RealmObject c : tipos.ReadAllByYear()) {
+            DisciplinaModel tpA = ((com_example_chirag_googlesignin_model_DisciplinaModelRealmProxy) c);
+
+            txt.add(Useful.ConcatIdAndDescription(tpA.getID(), tpA.getAcronimo()));
+        }
+
+        return txt;
+    }
+
+    private void SetDisciplinaData() {
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, GetDisciplinaData());
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        disciplina.setAdapter(adapter);
+    }
+
+    private void SetDisciplinaItem(int id) {
+        ArrayList<String> data = GetDisciplinaData();
+        SetDisciplinaData();
+        data.add("");
+        for (int i = 0; i < data.size(); i++) {
+            if (Useful.SplitIdFromDescription(data.get(i)) == id) {
+                disciplina.setSelection(i);
+                return;
+            }
+        }
+        disciplina.setSelection(0);
+    }
+
+    private ArrayList<String> GetTurmaData() {
+        ArrayList<String> txt = new ArrayList<>();
+        txt.add("");
+//        Turma tipos = new Turma(context);
 //        tipos.entidade.setProfId(ProfId);
 //        tipos.entidade.setYear(Year);
 //
 //        for (RealmObject c : tipos.ReadAllByYear()) {
-//            TipoDeAulaModel curso = ((com_example_chirag_googlesignin_model_TipoDeAulaModelRealmProxy) c);
+//            TurmaModel tpA = ((com_example_chirag_googlesignin_model_TurmaModelRealmProxy) c);
 //
-//            txt.add(Useful.ConcatIdAndDescription(curso.getID(), curso.getDescricao()));
+//            txt.add(Useful.ConcatIdAndDescription(tpA.getID(), tpA.getAcronimo()));
 //        }
-//
-//        return txt;
-    //  }
+
+        return txt;
+    }
+
+    private void SetTurmaData() {
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, GetTurmaData());
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        turma.setAdapter(adapter);
+    }
+
+    private void SetTurmaItem(int id) {
+        ArrayList<String> data = GetTurmaData();
+        SetTurmaData();
+        data.add("");
+        for (int i = 0; i < data.size(); i++) {
+            if (Useful.SplitIdFromDescription(data.get(i)) == id) {
+                disciplina.setSelection(i);
+                return;
+            }
+        }
+        disciplina.setSelection(0);
+    }
+
 
     private DatePickerDialog datePicker;
     private TimePickerDialog timePicker;
@@ -197,7 +264,7 @@ public class AulaFragment extends FragmentGenerico {
 
     }
 
-    public void changeDataSala() {
+    public void ff() {
         data.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -207,7 +274,7 @@ public class AulaFragment extends FragmentGenerico {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                novadata = Useful.GetDateFromString(s.toString());
+                ddd = Useful.GetDateFromString(s.toString());
 
             }
 
@@ -226,7 +293,7 @@ public class AulaFragment extends FragmentGenerico {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.length() != 0) {
                     Log.d(TAG, "TEXT CHANGED");
-                    novasala = s.toString();
+                    ll = s.toString();
                 }
 
             }
@@ -250,21 +317,37 @@ public class AulaFragment extends FragmentGenerico {
                 return;
 
             s = new Aula(context);
-            if (novadata.equals(currentEntity.getDataDeOcorrencia())) {
+            if (ddd.equals(dd)) {
 
-            } else if (novadata != currentEntity.getDataDeOcorrencia() && currentEntity.getDataDeOcorrencia() != null && novadata != null) {
-                Email mail = new Email(new String[]{"ricardodiaas19@gmail.com"},"subject of email","A hora da aula era " + currentEntity.getDataDeOcorrencia() + " agora passou a ser " + novadata);
-                mail.SendEmail(context);
+            } else if (ddd != dd && dd != null && ddd != null) {
 
+                Intent i = new Intent(Intent.ACTION_SEND);
+                i.setType("text/plain");
+                i.putExtra(Intent.EXTRA_EMAIL, new String[]{"ricardodiaas19@gmail.com"});//devia ser contactos
+                i.putExtra(Intent.EXTRA_SUBJECT, "subject of email");
+                i.putExtra(Intent.EXTRA_TEXT, "A hora da aula era " + dd + " agora passou a ser " + ddd);
+                try {
+                    startActivity(Intent.createChooser(i, "Send mail..."));
+                } catch (android.content.ActivityNotFoundException ex) {
+                    //      Toast.makeText(, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
+                }
             }
-            if (novasala.equals(currentEntity.getSala())) {
+            if (ll.equals(l)) {
                 Log.d(TAG, Useful.GetDateAndHourFromDate(dd));
-                Log.d(TAG, Useful.GetDateAndHourFromDate(novadata));
+                Log.d(TAG, Useful.GetDateAndHourFromDate(ddd));
                 Log.d(TAG, "SAME Sala");
-            } else if (novasala != currentEntity.getSala() && currentEntity.getSala() != null && novasala != null) {
-                Email mail = new Email(new String[]{"ricardodiaas19@gmail.com"},"subject of email","A sala da aula era " + currentEntity.getSala() + " agora passou a ser " + novasala);
-                mail.SendEmail(context);
+            } else if (ll != l && l != null && ll != null) {
 
+                Intent i = new Intent(Intent.ACTION_SEND);
+                i.setType("text/plain");
+                i.putExtra(Intent.EXTRA_EMAIL, new String[]{"ricardodiaas19@gmail.com"});
+                i.putExtra(Intent.EXTRA_SUBJECT, "subject of email");
+                i.putExtra(Intent.EXTRA_TEXT, "A sala era " + l + " agora passou a ser " + ll);
+                try {
+                    startActivity(Intent.createChooser(i, "Send mail..."));
+                } catch (android.content.ActivityNotFoundException ex) {
+                    //      Toast.makeText(, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
+                }
 
             }
             if (currentEntity != null)
@@ -275,7 +358,10 @@ public class AulaFragment extends FragmentGenerico {
             s.entidade.setDuracao(Useful.ConvertStringToInt(duracao.getText().toString()));
             s.entidade.setSumario(sumario.getText().toString());
             s.entidade.setTipo(tipoDeAula.getSelectedItem() != null ? Useful.SplitIdFromDescription(tipoDeAula.getSelectedItem().toString()) : null);
+            s.entidade.setDisciplinaId(disciplina.getSelectedItem() != null ? Useful.SplitIdFromDescription(disciplina.getSelectedItem().toString()) : null);
+            s.entidade.setTurma(turma.getSelectedItem() != null ? Useful.SplitIdFromDescription(turma.getSelectedItem().toString()) : null);
 
+            s.entidade.setImportant(important.isChecked());
 
             s.entidade.setDataDeOcorrencia(Useful.GetDateFromString(data.getText().toString()));
             s.CreatOrUpdate();
@@ -371,7 +457,8 @@ public class AulaFragment extends FragmentGenerico {
     public void newOnClick() {
         OnClickNew();
 
-        SetTipoDeAulaData();
+        SetSpinnerData();
+
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -438,11 +525,10 @@ public class AulaFragment extends FragmentGenerico {
                     return;
                 }
 
-                AulaModel aula = CastRealmObjectToEntity(lstAula.get(0));
-                currentEntity = aula;
-                l = aula.getSala();
+                currentEntity = CopyEntity(CastRealmObjectToEntity(lstAula.get(0)));
+                l = currentEntity.getSala();
 
-                dd = aula.getDataDeOcorrencia();
+                dd = currentEntity.getDataDeOcorrencia();
 
                 EntityToDOM();
 
@@ -506,10 +592,12 @@ public class AulaFragment extends FragmentGenerico {
     public void SetEnable(boolean value) {
         sala.setEnabled(value);
         tipoDeAula.setEnabled(value);
+        disciplina.setEnabled(value);
+        turma.setEnabled(value);
         data.setEnabled(value);
         duracao.setEnabled(value);
         sumario.setEnabled(value);
-
+        important.setEnabled(value);
     }
 
     /**
@@ -519,9 +607,12 @@ public class AulaFragment extends FragmentGenerico {
     public void CleanView() {
         sala.setText("");
         tipoDeAula.setSelection(0);
+        disciplina.setSelection(0);
+        turma.setSelection(0);
         data.setText("");
         duracao.setText("");
         sumario.setText("");
+        important.setChecked(false);
 
         currentEntity = null;
     }
@@ -563,12 +654,30 @@ public class AulaFragment extends FragmentGenerico {
         data.setText(Useful.GetDateAndHourFromDate(currentEntity.getDataDeOcorrencia()));
         sala.setText(currentEntity.getSala());
         SetTipoDeAulaItem(currentEntity.getTipo());
-
+        SetDisciplinaItem(currentEntity.getDisciplinaId());
+        SetTurmaItem(currentEntity.getTurma());
+        important.setChecked(currentEntity.getImportant());
         duracao.setText(currentEntity.getDuracao().toString());
         dd = currentEntity.getDataDeOcorrencia();
 
         SetEnable(false);
 
+    }
+
+    public AulaModel CopyEntity(AulaModel oldEntity) {
+        AulaModel newModel = new AulaModel();
+        newModel.setProfId(ProfId);
+        newModel.setYear(Year);
+        newModel.setTipo(oldEntity.getTipo());
+        newModel.setTurma(oldEntity.getTurma());
+        newModel.setDataDeOcorrencia(oldEntity.getDataDeOcorrencia());
+        newModel.setDisciplinaId(oldEntity.getDisciplinaId());
+        newModel.setDuracao(oldEntity.getDuracao());
+        newModel.setSala(oldEntity.getSala());
+        newModel.setSumario(oldEntity.getSumario());
+        newModel.setImportant(oldEntity.getImportant());
+
+        return newModel;
     }
 
     @Override
@@ -578,7 +687,6 @@ public class AulaFragment extends FragmentGenerico {
 
     @Override
     public Button getBtSave() {
-
         return btSave;
     }
 

@@ -18,6 +18,7 @@ import com.example.chirag.googlesignin.Outros.Useful;
 import com.example.chirag.googlesignin.R;
 import com.example.chirag.googlesignin.model.AnoModel;
 import com.example.chirag.googlesignin.model.AulaModel;
+import com.example.chirag.googlesignin.model.DisciplinaModel;
 
 import java.io.StringReader;
 import java.lang.reflect.Method;
@@ -33,6 +34,7 @@ import java.util.concurrent.Callable;
 import java.util.regex.Pattern;
 
 import io.realm.Realm;
+import io.realm.RealmModel;
 import io.realm.RealmObject;
 import io.realm.com_example_chirag_googlesignin_model_AnoModelRealmProxy;
 
