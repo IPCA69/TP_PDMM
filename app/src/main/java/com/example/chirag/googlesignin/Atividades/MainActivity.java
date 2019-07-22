@@ -303,7 +303,6 @@ public class MainActivity extends AtividadeGenerica implements NavigationView.On
                     signOut();
                     break;
                 }
-
                 default: {
                     return false;
                 }
