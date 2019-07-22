@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -59,6 +60,8 @@ public class AulaFragment extends FragmentGenerico {
     EditText sumario;
     @BindView(R.id.spTurma)
     Spinner turma;
+    @BindView(R.id.chkImportantAula)
+    CheckBox important;
 
     public static String l;
     public static String ll;
@@ -96,7 +99,7 @@ public class AulaFragment extends FragmentGenerico {
 
             //Prevents the open of the keyboard
             data.setInputType(InputType.TYPE_NULL);
-//        data.setKeyListener(null);
+
             AfterCreatView(getArguments());
 
 
@@ -290,7 +293,7 @@ public class AulaFragment extends FragmentGenerico {
             s.entidade.setDuracao(Useful.ConvertStringToInt(duracao.getText().toString()));
             s.entidade.setSumario(sumario.getText().toString());
             s.entidade.setTipo(tipoDeAula.getSelectedItem() != null ? Useful.SplitIdFromDescription(tipoDeAula.getSelectedItem().toString()) : null);
-
+            s.entidade.setImportant(important.isChecked());
 
             s.entidade.setDataDeOcorrencia(Useful.GetDateFromString(data.getText().toString()));
             s.CreatOrUpdate();
@@ -523,6 +526,7 @@ public class AulaFragment extends FragmentGenerico {
         data.setEnabled(value);
         duracao.setEnabled(value);
         sumario.setEnabled(value);
+        important.setEnabled(value);
     }
 
     /**
@@ -535,6 +539,7 @@ public class AulaFragment extends FragmentGenerico {
         data.setText("");
         duracao.setText("");
         sumario.setText("");
+        important.setChecked(false);
 
         currentEntity = null;
     }
@@ -576,7 +581,7 @@ public class AulaFragment extends FragmentGenerico {
         data.setText(Useful.GetDateAndHourFromDate(currentEntity.getDataDeOcorrencia()));
         sala.setText(currentEntity.getSala());
         SetTipoDeAulaItem(currentEntity.getTipo());
-
+        important.setChecked(currentEntity.getImportant());
         duracao.setText(currentEntity.getDuracao().toString());
         dd = currentEntity.getDataDeOcorrencia();
 
@@ -595,6 +600,7 @@ public class AulaFragment extends FragmentGenerico {
         newModel.setDuracao(oldEntity.getDuracao());
         newModel.setSala(oldEntity.getSala());
         newModel.setSumario(oldEntity.getSumario());
+        newModel.setImportant(oldEntity.getImportant());
 
         return newModel;
     }

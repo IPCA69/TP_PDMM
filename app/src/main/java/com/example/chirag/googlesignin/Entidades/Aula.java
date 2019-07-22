@@ -46,6 +46,7 @@ public class Aula extends GestaoDeEntidades {
         find.setYear(entidade.getYear());
         find.setProfId(entidade.getProfId());
         find.setTurma(entidade.getTurma());
+        find.setImportant(entidade.getImportant());
 
         myRealm.insertOrUpdate(find);
         entidade = find;

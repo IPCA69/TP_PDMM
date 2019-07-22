@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -45,6 +46,8 @@ public class EventoFragment extends FragmentGenerico {
     EditText duracao;
     @BindView(R.id.dateHourEvt)
     EditText data;
+    @BindView(R.id.chkImportantEvent)
+    CheckBox important;
 
     @BindView(R.id.btSaveEvento)
     Button btSave;
@@ -133,6 +136,7 @@ public class EventoFragment extends FragmentGenerico {
             s.entidade.setDuracao(Useful.ConvertStringToInt(duracao.getText().toString()));
 
             s.entidade.setDataInicio(Useful.GetDateFromString(data.getText().toString()));
+            s.entidade.setImportant(important.isChecked());
             s.CreatOrUpdate();
 
             currentEntity = s.entidade;
@@ -356,7 +360,7 @@ public class EventoFragment extends FragmentGenerico {
         newModel.setDataInicio(oldEntity.getDataInicio());
         newModel.setDuracao(oldEntity.getDuracao());
         newModel.setDescricao(oldEntity.getDescricao());
-
+        newModel.setImportant(oldEntity.getImportant());
         return newModel;
     }
 
@@ -366,6 +370,7 @@ public class EventoFragment extends FragmentGenerico {
         data.setText(Useful.GetDateAndHourFromDate(currentEntity.getDataInicio()));
         duracao.setText(currentEntity.getDuracao());
         data.setText(Useful.GetDateAndHourFromDate(currentEntity.getDataInicio()));
+        important.setChecked(currentEntity.getImportant());
     }
 
     @Override
@@ -373,7 +378,7 @@ public class EventoFragment extends FragmentGenerico {
         descricao.setText("");
         duracao.setText("");
         data.setText("");
-
+        important.setChecked(false);
     }
 
     @Override
@@ -381,7 +386,7 @@ public class EventoFragment extends FragmentGenerico {
         descricao.setEnabled(value);
         duracao.setEnabled(value);
         data.setEnabled(value);
-
+        important.setEnabled(value);
     }
 
     @Override

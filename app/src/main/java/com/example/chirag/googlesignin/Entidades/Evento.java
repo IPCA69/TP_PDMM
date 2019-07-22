@@ -42,6 +42,7 @@ public class Evento extends GestaoDeEntidades {
         find.setDuracao(entidade.getDuracao());
         find.setYear(entidade.getYear());
         find.setProfId(entidade.getProfId());
+        find.setImportant(entidade.getImportant());
         myRealm.insertOrUpdate(find);
         entidade = find;
     }
