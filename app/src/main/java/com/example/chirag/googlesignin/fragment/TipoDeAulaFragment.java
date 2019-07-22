@@ -324,6 +324,9 @@ public class TipoDeAulaFragment extends FragmentGenerico {
     @Override
     public void CleanView() {
         descricao.setText("");
+
+        currentEntity = null;
+
     }
 
     @Override

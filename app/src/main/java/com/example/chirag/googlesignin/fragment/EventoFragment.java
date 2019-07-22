@@ -379,6 +379,8 @@ public class EventoFragment extends FragmentGenerico {
         duracao.setText("");
         data.setText("");
         important.setChecked(false);
+
+        currentEntity = null;
     }
 
     @Override

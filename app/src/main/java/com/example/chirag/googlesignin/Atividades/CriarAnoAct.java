@@ -130,6 +130,9 @@ public class CriarAnoAct extends AtividadeGenerica {
 
     public void CleanView() {
         EAno.setText("");
+
+        currentEntity = null;
+
     }
 
     public void SetEnable(boolean value) {

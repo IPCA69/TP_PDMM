@@ -59,11 +59,19 @@
                 android:layout_marginTop="20sp"
                 android:hint="Acronimo" />
 
+            <TextView
+                android:id="@+id/txtCurso"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/acronimo"
+                android:layout_marginTop="20sp"
+                android:hint="Curso" />
+
             <Spinner
                 android:id="@+id/curso"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/acronimo"
+                android:layout_below="@id/txtCurso"
                 android:layout_marginTop="20sp"
                 android:hint="Curso" />
 

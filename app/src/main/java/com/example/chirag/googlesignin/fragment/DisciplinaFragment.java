@@ -146,6 +146,7 @@ public class DisciplinaFragment extends FragmentGenerico {
             AfterSave();
 
         } catch (Exception e) {
+            Toast.makeText(context, "OnSave " + e.getMessage(), Toast.LENGTH_SHORT).show(); //Show shadow text
 
             e.printStackTrace();
         }
@@ -385,6 +386,7 @@ public class DisciplinaFragment extends FragmentGenerico {
         curso.setSelection(0);
         semestre.setText("");
 
+        currentEntity = null;
     }
 
     @Override

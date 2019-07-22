@@ -348,6 +348,8 @@ public class ContactoFragment extends FragmentGenerico {
         nome.setText("");
         email.setText("");
         Toast.makeText(getContext(), "Saved", Toast.LENGTH_SHORT).show();
+        currentEntity = null;
+
     }
 
     @Override
