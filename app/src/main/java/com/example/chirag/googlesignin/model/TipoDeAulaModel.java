@@ -7,6 +7,8 @@ public class TipoDeAulaModel extends RealmObject {
     @PrimaryKey
     private int ID;
     private String Descricao;
+    private int Year;
+    private int ProfId;
 
     public int getYear() {
         return Year;
@@ -16,7 +18,7 @@ public class TipoDeAulaModel extends RealmObject {
         Year = year;
     }
 
-    private int Year;
+
 
     public int getProfId() {
         return ProfId;
@@ -26,7 +28,7 @@ public class TipoDeAulaModel extends RealmObject {
         ProfId = profId;
     }
 
-    private int ProfId;
+
 
 
     public int getID() {

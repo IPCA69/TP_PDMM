@@ -84,7 +84,6 @@ public class ContactoFragment extends FragmentGenerico {
     }
 
 
-
     @OnClick(R.id.btSaveContacto)
     public void saveOnClick() {
 
@@ -98,10 +97,12 @@ public class ContactoFragment extends FragmentGenerico {
                 s.entidade.setID(currentEntity.getID());
             s.entidade.setYear(Year);
             s.entidade.setProfId(ProfId);
+            String lol = descricao.getSelectedItem() != null ? descricao.getSelectedItem().toString() : null;
+            s.entidade.setDescricao(lol);
 
-            s.entidade.setDescricao(descricao.getSelectedItem().toString());
             s.entidade.setEmail(email.getText().toString());
             s.entidade.setNome(nome.getText().toString());
+
             s.CreatOrUpdate();
 
             currentEntity = s.entidade;
@@ -117,8 +118,23 @@ public class ContactoFragment extends FragmentGenerico {
 
     }
 
+    private void SetTipoDeContactoItem(Integer id) {
+        if (id == null) {
+            descricao.setSelection(0);
+            return;
+        }
+        String[] data = new String[]{"", "Aluno", "Delegado"};
+        for (int i = 0; i < data.length; i++) {
+            if (Useful.SplitIdFromDescription(data[i]) == id) {
+                descricao.setSelection(i);
+                return;
+            }
+        }
+        descricao.setSelection(0);
+    }
+
     private void Settipodecontacto() {
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, new String[]{"Aluno", "Delegado"});
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_spinner_item, new String[]{"", "Aluno", "Delegado"});
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         descricao.setAdapter(adapter);
     }
@@ -333,12 +349,14 @@ public class ContactoFragment extends FragmentGenerico {
         return newModel;
     }
 
+
     @Override
     public void EntityToDOM() {
-        Settipodecontacto();
+        //  Settipodecontacto();
 
         email.setText(currentEntity.getEmail());
         nome.setText(currentEntity.getNome());
+        SetEnable(false);
     }
 
     @Override
@@ -354,7 +372,11 @@ public class ContactoFragment extends FragmentGenerico {
 
     @Override
     public void SetEnable(boolean value) {
+
         descricao.setEnabled(value);
+        nome.setEnabled(value);
+        email.setEnabled(value);
+
     }
 
     @Override

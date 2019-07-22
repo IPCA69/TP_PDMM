@@ -637,9 +637,7 @@ public class AulaFragment extends FragmentGenerico {
                 }
 
                 currentEntity = CopyEntity(CastRealmObjectToEntity(lstAula.get(0)));
-                l = currentEntity.getSala();
 
-                dd = currentEntity.getDataDeOcorrencia();
 
                 EntityToDOM();
 

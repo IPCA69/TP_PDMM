@@ -109,12 +109,22 @@ private RealmList<DisciplinaModel> disciplinaModels;
 private String Contactos;
 ```
 
-TipodeAula
+TipodeAulaModel
 
-```java
+```
 @PrimaryKeyprivate 
 int ID;
 private String Descricao;
+```
+
+ContactoModel
+
+```Java
+@PrimaryKey
+private int ID;
+private String Descricao;
+private int Year;
+private int ProfId;
 ```
 
 
