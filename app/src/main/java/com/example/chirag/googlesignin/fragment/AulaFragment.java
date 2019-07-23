@@ -492,10 +492,11 @@ public class AulaFragment extends FragmentGenerico {
                     turmaa.Read();
                     if(turmaa.entidade.getListaContactos()==null){
 
-                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                        AlertDialog.Builder builder = new AlertDialog.Builder(context);
                         builder.setMessage("LISTA DE CONTACTOS VAZIA! Por Favor associe contactos a turmas!")
                                 .setTitle("ERROR");
                         AlertDialog dialog = builder.create();
+                        dialog.show();
                     }
                     dialogbuilder.setPositiveButton("Enviar", (dialog, which) -> {
                         if (mySpinner.getSelectedItem() != null) {
@@ -599,7 +600,7 @@ public class AulaFragment extends FragmentGenerico {
                 }
 
             }
-
+/*
             if(NovaSala != salaantiga && NovaData != dd){
                 try {
                     AlertDialog.Builder dialogbuilder = new AlertDialog.Builder(context);
@@ -616,13 +617,7 @@ public class AulaFragment extends FragmentGenerico {
                     turmaa.entidade.setProfId(ProfId);
                     turmaa.entidade.setID(currentEntity.getTurma());
                     turmaa.Read();
-                    if(turmaa.entidade.getListaContactos()==null){
 
-                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                        builder.setMessage("LISTA DE CONTACTOS VAZIA! Por Favor associe contactos a turmas!")
-                                .setTitle("ERROR");
-                        AlertDialog dialog = builder.create();
-                    }
                     dialogbuilder.setPositiveButton("Enviar", (dialog, which) -> {
                         if (mySpinner.getSelectedItem() != null) {
                             if (mySpinner.getSelectedItem() == "Alunos") {
@@ -722,7 +717,7 @@ public class AulaFragment extends FragmentGenerico {
                     e.printStackTrace();
                 }
 
-            }
+            */
             if (currentEntity != null)
                 s.entidade.setID(currentEntity.getID());
             s.entidade.setYear(Year);

@@ -276,10 +276,7 @@ public class MainActivity extends AtividadeGenerica implements NavigationView.On
 
                 case R.id.nav_Main: //Main NEEDS WORK!!!! //INICIO
                 {
-                    //possivel solução
-//                    Intent intent = new Intent(this, CriarAnoAct.class);
-//                    intent.putExtras(bundle);
-//                    startActivity(intent);
+
                     if (pager == null){
                         break;
                     }
