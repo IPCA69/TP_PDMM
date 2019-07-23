@@ -7,6 +7,7 @@ import android.icu.util.Calendar;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
+import android.support.v7.widget.AlertDialogLayout;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
@@ -32,6 +33,7 @@ import com.example.chirag.googlesignin.Outros.Email;
 import com.example.chirag.googlesignin.R;
 import com.example.chirag.googlesignin.model.AulaModel;
 import com.example.chirag.googlesignin.Outros.Useful;
+import com.example.chirag.googlesignin.model.ContactoModel;
 import com.example.chirag.googlesignin.model.DisciplinaModel;
 import com.example.chirag.googlesignin.model.TipoDeAulaModel;
 import com.example.chirag.googlesignin.model.TurmaModel;
@@ -348,7 +350,18 @@ public class AulaFragment extends FragmentGenerico {
                     ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, new String[]{"Alunos", "Delegados", "Ambos"});
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     mySpinner.setAdapter(adapter);
+                    Turma turmaa = new Turma(context);
+                    turmaa.entidade.setYear(Year);
+                    turmaa.entidade.setProfId(ProfId);
+                    turmaa.entidade.setID(currentEntity.getTurma());
+                    turmaa.Read();
+                    if(turmaa.entidade.getListaContactos()==null){
 
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                        builder.setMessage("LISTA DE CONTACTOS VAZIA! Por Favor associe contactos a turma!s")
+                                .setTitle("ERROR");
+                        AlertDialog dialog = builder.create();
+                    }
                     dialogbuilder.setPositiveButton("Enviar", (dialog, which) -> {
                         if (mySpinner.getSelectedItem() != null) {
                             if (mySpinner.getSelectedItem() == "Alunos") {
@@ -472,7 +485,18 @@ public class AulaFragment extends FragmentGenerico {
                     ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, new String[]{"Alunos", "Delegados", "Ambos"});
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     mySpinner.setAdapter(adapter);
+                    Turma turmaa = new Turma(context);
+                    turmaa.entidade.setYear(Year);
+                    turmaa.entidade.setProfId(ProfId);
+                    turmaa.entidade.setID(currentEntity.getTurma());
+                    turmaa.Read();
+                    if(turmaa.entidade.getListaContactos()==null){
 
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                        builder.setMessage("LISTA DE CONTACTOS VAZIA! Por Favor associe contactos a turmas!")
+                                .setTitle("ERROR");
+                        AlertDialog dialog = builder.create();
+                    }
                     dialogbuilder.setPositiveButton("Enviar", (dialog, which) -> {
                         if (mySpinner.getSelectedItem() != null) {
                             if (mySpinner.getSelectedItem() == "Alunos") {
@@ -587,7 +611,18 @@ public class AulaFragment extends FragmentGenerico {
                     ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, new String[]{"Alunos", "Delegados", "Ambos"});
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     mySpinner.setAdapter(adapter);
+                    Turma turmaa = new Turma(context);
+                    turmaa.entidade.setYear(Year);
+                    turmaa.entidade.setProfId(ProfId);
+                    turmaa.entidade.setID(currentEntity.getTurma());
+                    turmaa.Read();
+                    if(turmaa.entidade.getListaContactos()==null){
 
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                        builder.setMessage("LISTA DE CONTACTOS VAZIA! Por Favor associe contactos a turmas!")
+                                .setTitle("ERROR");
+                        AlertDialog dialog = builder.create();
+                    }
                     dialogbuilder.setPositiveButton("Enviar", (dialog, which) -> {
                         if (mySpinner.getSelectedItem() != null) {
                             if (mySpinner.getSelectedItem() == "Alunos") {
