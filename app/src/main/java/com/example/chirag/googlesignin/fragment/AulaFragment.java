@@ -3,12 +3,11 @@ package com.example.chirag.googlesignin.fragment;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
-import android.content.Context;
-import android.content.Intent;
 import android.icu.util.Calendar;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
+import android.support.v7.widget.AlertDialogLayout;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
@@ -26,14 +25,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.chirag.googlesignin.Entidades.Aula;
+import com.example.chirag.googlesignin.Entidades.Contacto;
 import com.example.chirag.googlesignin.Entidades.Disciplina;
-import com.example.chirag.googlesignin.Entidades.Professor;
 import com.example.chirag.googlesignin.Entidades.TipoDeAula;
 import com.example.chirag.googlesignin.Entidades.Turma;
 import com.example.chirag.googlesignin.Outros.Email;
 import com.example.chirag.googlesignin.R;
 import com.example.chirag.googlesignin.model.AulaModel;
 import com.example.chirag.googlesignin.Outros.Useful;
+import com.example.chirag.googlesignin.model.ContactoModel;
 import com.example.chirag.googlesignin.model.DisciplinaModel;
 import com.example.chirag.googlesignin.model.TipoDeAulaModel;
 import com.example.chirag.googlesignin.model.TurmaModel;
@@ -73,7 +73,7 @@ public class AulaFragment extends FragmentGenerico {
     @BindView(R.id.chkImportantAula)
     CheckBox important;
 
-    public static String l;
+    public static String salaantiga;
     public static String NovaSala;
     public static Date dd;
     public static Date NovaData;
@@ -329,7 +329,7 @@ public class AulaFragment extends FragmentGenerico {
 
     @OnClick(R.id.btSaveAula)
     public void saveOnClick() {
-
+        List<String> contacts = new ArrayList<String>();
         Aula s;
         try {
             if (!Validate())
@@ -347,39 +347,111 @@ public class AulaFragment extends FragmentGenerico {
 
                     Spinner mySpinner = (Spinner) mView.findViewById(R.id.firstSpinnerDialog);
 
-                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, new String[]{"Alunos", "Delegados"});
+                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, new String[]{"Alunos", "Delegados", "Ambos"});
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     mySpinner.setAdapter(adapter);
+                    Turma turmaa = new Turma(context);
+                    turmaa.entidade.setYear(Year);
+                    turmaa.entidade.setProfId(ProfId);
+                    turmaa.entidade.setID(currentEntity.getTurma());
+                    turmaa.Read();
+                    if(turmaa.entidade.getListaContactos()==null){
 
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                        builder.setMessage("LISTA DE CONTACTOS VAZIA! Por Favor associe contactos a turma!s")
+                                .setTitle("ERROR");
+                        AlertDialog dialog = builder.create();
+                    }
                     dialogbuilder.setPositiveButton("Enviar", (dialog, which) -> {
                         if (mySpinner.getSelectedItem() != null) {
                             if (mySpinner.getSelectedItem() == "Alunos") {
+                                contacts.clear();
                                 Turma turma = new Turma(context);
                                 turma.entidade.setYear(Year);
                                 turma.entidade.setProfId(ProfId);
                                 turma.entidade.setID(currentEntity.getTurma());
                                 turma.Read();
-                                //BUSCAR CONTACTOS
 
+                                for (Integer elem : turma.entidade.getListaContactos()) {
+                                    Contacto c = new Contacto(context);
+
+                                    c.entidade.setProfId(ProfId);
+                                    c.entidade.setID(elem);
+                                    c.entidade.setYear(Year);
+                                    c.Read();
+
+                                    if (!c.entidade.getDescricao().equals("Aluno"))
+                                        continue;
+                                    contacts.add(c.entidade.getEmail());
+
+                                }
+                                //BUSCAR CONTACTOS
+                                String[] arr = contacts.toArray(new String[contacts.size()]);
                                 Email mail = new Email();
-                                mail.setAssunto("Mudança de data da aula");
-                                mail.setMensagem("A aula ia ser no dia " + currentEntity.getDataDeOcorrencia() + "mas passou para o dia " + NovaData + ".");
+                                mail.setAssunto("Mudança da Data da aula");
+                                mail.setMensagem("A aula ia ser na data " + dd + "mas passou para dia " + NovaData + ".");
+
+
+                                mail.setPara(arr);
                                 mail.SendEmail(context);
 
 
                             } else if (mySpinner.getSelectedItem() == "Delegados") {
-
+                                contacts.clear();
                                 Turma turma = new Turma(context);
                                 turma.entidade.setYear(Year);
                                 turma.entidade.setProfId(ProfId);
                                 turma.entidade.setID(currentEntity.getTurma());
                                 turma.Read();
                                 //BUSCAR CONTACTOS
+                                for (Integer elem : turma.entidade.getListaContactos()) {
+                                    Contacto c = new Contacto(context);
+
+                                    c.entidade.setProfId(ProfId);
+                                    c.entidade.setID(elem);
+                                    c.entidade.setYear(Year);
+                                    c.Read();
+                                    if (!c.entidade.getDescricao().equals("Delegado"))
+                                        continue;
+                                    contacts.add(c.entidade.getEmail());
+
+                                }
 
                                 Email mail = new Email();
-                                mail.setAssunto("Mudança da sala da aula");
-                                mail.setMensagem("A aula ia ser na sala " + currentEntity.getSala() + "mas passou a sala " + NovaSala + ".");
+                                mail.setAssunto("Mudança da data da aula");
+                                mail.setMensagem("A aula ia ser na data  " + dd + "mas passou para dia " + NovaData + ".");
+
+                                String[] arr = contacts.toArray(new String[contacts.size()]);
+                                mail.setPara(arr);
                                 mail.SendEmail(context);
+
+                            }
+                            else if(mySpinner.getSelectedItem() == "Ambos") {
+                                contacts.clear();
+                                Turma turma = new Turma(context);
+                                turma.entidade.setYear(Year);
+                                turma.entidade.setProfId(ProfId);
+                                turma.entidade.setID(currentEntity.getTurma());
+                                turma.Read();
+                                //BUSCAR CONTACTOS
+                                for (Integer elem : turma.entidade.getListaContactos()) {
+                                    Contacto c = new Contacto(context);
+
+                                    c.entidade.setProfId(ProfId);
+                                    c.entidade.setID(elem);
+                                    c.entidade.setYear(Year);
+                                    c.Read();
+                                    contacts.add(c.entidade.getEmail());
+
+                                }
+                                String[] arr = contacts.toArray(new String[contacts.size()]);
+
+                                Email mail = new Email();
+                                mail.setAssunto("Mudança da data da aula");
+                                mail.setMensagem("A aula ia ser no dia " + dd + "mas passou para o dia " + NovaData + ".");
+                                mail.setPara(arr);
+                                mail.SendEmail(context);
+
 
                             }
 
@@ -397,11 +469,11 @@ public class AulaFragment extends FragmentGenerico {
                     e.printStackTrace();
                 }
             }
-            if (NovaSala.equals(l)) {
+            if (NovaSala.equals(salaantiga)) {
                 Log.d(TAG, Useful.GetDateAndHourFromDate(dd));
                 Log.d(TAG, Useful.GetDateAndHourFromDate(NovaData));
                 Log.d(TAG, "SAME Sala");
-            } else if (NovaSala != l && l != null && NovaSala != null) {
+            } else if (NovaSala != salaantiga && salaantiga != null && NovaSala != null) {
 
                 try {
                     AlertDialog.Builder dialogbuilder = new AlertDialog.Builder(context);
@@ -410,49 +482,116 @@ public class AulaFragment extends FragmentGenerico {
 
                     Spinner mySpinner = (Spinner) mView.findViewById(R.id.firstSpinnerDialog);
 
-                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, new String[]{"Alunos", "Delegados"});
+                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, new String[]{"Alunos", "Delegados", "Ambos"});
                     adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     mySpinner.setAdapter(adapter);
+                    Turma turmaa = new Turma(context);
+                    turmaa.entidade.setYear(Year);
+                    turmaa.entidade.setProfId(ProfId);
+                    turmaa.entidade.setID(currentEntity.getTurma());
+                    turmaa.Read();
+                    if(turmaa.entidade.getListaContactos()==null){
 
+                        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                        builder.setMessage("LISTA DE CONTACTOS VAZIA! Por Favor associe contactos a turmas!")
+                                .setTitle("ERROR");
+                        AlertDialog dialog = builder.create();
+                        dialog.show();
+                    }
                     dialogbuilder.setPositiveButton("Enviar", (dialog, which) -> {
                         if (mySpinner.getSelectedItem() != null) {
                             if (mySpinner.getSelectedItem() == "Alunos") {
+                                contacts.clear();
                                 Turma turma = new Turma(context);
                                 turma.entidade.setYear(Year);
                                 turma.entidade.setProfId(ProfId);
                                 turma.entidade.setID(currentEntity.getTurma());
                                 turma.Read();
                                 //BUSCAR CONTACTOS
+                                for (Integer elem : turma.entidade.getListaContactos()) {
+                                    Contacto c = new Contacto(context);
+
+                                    c.entidade.setProfId(ProfId);
+                                    c.entidade.setID(elem);
+                                    c.entidade.setYear(Year);
+                                    c.Read();
+
+                                    if (!c.entidade.getDescricao().equals("Aluno"))
+                                        continue;
+                                    contacts.add(c.entidade.getEmail());
+
+                                }
+                                String[] arr = contacts.toArray(new String[contacts.size()]);
 
                                 Email mail = new Email();
                                 mail.setAssunto("Mudança da sala da aula");
                                 mail.setMensagem("A aula ia ser na sala " + currentEntity.getSala() + "mas passou a sala " + NovaSala + ".");
+                                mail.setPara(arr);
                                 mail.SendEmail(context);
 
 
                             } else if (mySpinner.getSelectedItem() == "Delegados") {
+                                contacts.clear();
+                                Turma turma = new Turma(context);
+                                turma.entidade.setYear(Year);
+                                turma.entidade.setProfId(ProfId);
+                                turma.entidade.setID(currentEntity.getTurma());
+                                turma.Read();
+                                for (Integer elem : turma.entidade.getListaContactos()) {
+                                    Contacto c = new Contacto(context);
 
+                                    c.entidade.setProfId(ProfId);
+                                    c.entidade.setID(elem);
+                                    c.entidade.setYear(Year);
+                                    c.Read();
+
+                                    if (!c.entidade.getDescricao().equals("Delegado"))
+                                        continue;
+                                    contacts.add(c.entidade.getEmail());
+
+                                }
+                                //BUSCAR CONTACTOS
+
+                                Email mail = new Email();
+                                mail.setAssunto("Mudança da sala da aula");
+                                mail.setMensagem("A aula ia ser na sala " + salaantiga + "mas passou a sala " + NovaSala + ".");
+                                String[] arr = contacts.toArray(new String[contacts.size()]);
+                                mail.setPara(arr);
+                                mail.SendEmail(context);
+                            }
+                            else if(mySpinner.getSelectedItem() == "Ambos") {
+                                contacts.clear();
                                 Turma turma = new Turma(context);
                                 turma.entidade.setYear(Year);
                                 turma.entidade.setProfId(ProfId);
                                 turma.entidade.setID(currentEntity.getTurma());
                                 turma.Read();
                                 //BUSCAR CONTACTOS
+                                for (Integer elem : turma.entidade.getListaContactos()) {
+                                    Contacto c = new Contacto(context);
+
+                                    c.entidade.setProfId(ProfId);
+                                    c.entidade.setID(elem);
+                                    c.entidade.setYear(Year);
+                                    c.Read();
+                                    contacts.add(c.entidade.getEmail());
+
+                                }
+                                String[] arr = contacts.toArray(new String[contacts.size()]);
 
                                 Email mail = new Email();
                                 mail.setAssunto("Mudança da sala da aula");
-                                mail.setMensagem("A aula ia ser na sala " + currentEntity.getSala() + "mas passou a sala " + NovaSala + ".");
+                                mail.setMensagem("A aula ia ser na sala " + salaantiga + "mas passou a sala " + NovaSala + ".");
+                                mail.setPara(arr);
                                 mail.SendEmail(context);
 
-                            }
 
+                            }
                         }
 
                         dialog.dismiss();
                     });
-
                     dialogbuilder.setNegativeButton("Cancelar", (dialog, which) -> dialog.dismiss());
-
                     dialogbuilder.setView(mView);
                     AlertDialog dialog = dialogbuilder.create();
                     dialog.show();
@@ -461,6 +600,124 @@ public class AulaFragment extends FragmentGenerico {
                 }
 
             }
+/*
+            if(NovaSala != salaantiga && NovaData != dd){
+                try {
+                    AlertDialog.Builder dialogbuilder = new AlertDialog.Builder(context);
+                    View mView = getLayoutInflater().inflate(R.layout.combo_dialog, null);
+                    dialogbuilder.setTitle("Selecione um tipo de contactos para enviar E-mail!");
+
+                    Spinner mySpinner = (Spinner) mView.findViewById(R.id.firstSpinnerDialog);
+
+                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, new String[]{"Alunos", "Delegados", "Ambos"});
+                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    mySpinner.setAdapter(adapter);
+                    Turma turmaa = new Turma(context);
+                    turmaa.entidade.setYear(Year);
+                    turmaa.entidade.setProfId(ProfId);
+                    turmaa.entidade.setID(currentEntity.getTurma());
+                    turmaa.Read();
+
+                    dialogbuilder.setPositiveButton("Enviar", (dialog, which) -> {
+                        if (mySpinner.getSelectedItem() != null) {
+                            if (mySpinner.getSelectedItem() == "Alunos") {
+                                contacts.clear();
+                                Turma turma = new Turma(context);
+                                turma.entidade.setYear(Year);
+                                turma.entidade.setProfId(ProfId);
+                                turma.entidade.setID(currentEntity.getTurma());
+                                turma.Read();
+                                //BUSCAR CONTACTOS
+                                for (Integer elem : turma.entidade.getListaContactos()) {
+                                    Contacto c = new Contacto(context);
+
+                                    c.entidade.setProfId(ProfId);
+                                    c.entidade.setID(elem);
+                                    c.entidade.setYear(Year);
+                                    c.Read();
+
+                                    if (!c.entidade.getDescricao().equals("Aluno"))
+                                        continue;
+                                    contacts.add(c.entidade.getEmail());
+
+                                }
+                                String[] arr = contacts.toArray(new String[contacts.size()]);
+
+                                Email mail = new Email();
+                                mail.setAssunto("Mudança da sala e data da aula");
+                                mail.setMensagem("A aula ia ser na sala " + salaantiga + "mas passou a sala " + NovaSala + ","+" a aula ia ser na data "+ dd + " mas passou a ser no dia "+NovaData);
+                                mail.setPara(arr);
+                                mail.SendEmail(context);
+
+
+                            } else if (mySpinner.getSelectedItem() == "Delegados") {
+                                contacts.clear();
+                                Turma turma = new Turma(context);
+                                turma.entidade.setYear(Year);
+                                turma.entidade.setProfId(ProfId);
+                                turma.entidade.setID(currentEntity.getTurma());
+                                turma.Read();
+                                for (Integer elem : turma.entidade.getListaContactos()) {
+                                    Contacto c = new Contacto(context);
+
+                                    c.entidade.setProfId(ProfId);
+                                    c.entidade.setID(elem);
+                                    c.entidade.setYear(Year);
+                                    c.Read();
+
+                                    contacts.add(c.entidade.getEmail());
+
+                                }
+                                //BUSCAR CONTACTOS
+
+                                Email mail = new Email();
+                                mail.setAssunto("Mudança da sala e data da aula");
+                                mail.setMensagem("A aula ia ser na sala " + salaantiga + "mas passou a sala " + NovaSala + "." +"/n"+"A aula ia ser na data "+ dd + " mas passou a ser no dia "+NovaData);
+                                String[] arr = contacts.toArray(new String[contacts.size()]);
+                                mail.setPara(arr);
+                                mail.SendEmail(context);
+                            }
+                            else if(mySpinner.getSelectedItem() == "Ambos") {
+                                contacts.clear();
+                                Turma turma = new Turma(context);
+                                turma.entidade.setYear(Year);
+                                turma.entidade.setProfId(ProfId);
+                                turma.entidade.setID(currentEntity.getTurma());
+                                turma.Read();
+                                //BUSCAR CONTACTOS
+                                for (Integer elem : turma.entidade.getListaContactos()) {
+                                    Contacto c = new Contacto(context);
+
+                                    c.entidade.setProfId(ProfId);
+                                    c.entidade.setID(elem);
+                                    c.entidade.setYear(Year);
+                                    c.Read();
+                                    contacts.add(c.entidade.getEmail());
+
+                                }
+                                String[] arr = contacts.toArray(new String[contacts.size()]);
+
+                                Email mail = new Email();
+                                mail.setAssunto("Mudança da sala e data da aula");
+                                mail.setMensagem("A aula ia ser na sala " + salaantiga + "mas passou a sala " + NovaSala + "." +"/n"+"A aula ia ser na data "+ dd+ " mas passou a ser no dia "+NovaData);
+                                mail.setPara(arr);
+                                mail.SendEmail(context);
+
+
+                            }
+                        }
+
+                        dialog.dismiss();
+                    });
+                    dialogbuilder.setNegativeButton("Cancelar", (dialog, which) -> dialog.dismiss());
+                    dialogbuilder.setView(mView);
+                    AlertDialog dialog = dialogbuilder.create();
+                    dialog.show();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            */
             if (currentEntity != null)
                 s.entidade.setID(currentEntity.getID());
             s.entidade.setYear(Year);
@@ -768,7 +1025,7 @@ public class AulaFragment extends FragmentGenerico {
         important.setChecked(currentEntity.getImportant());
         duracao.setText(currentEntity.getDuracao().toString());
         dd = currentEntity.getDataDeOcorrencia();
-
+        salaantiga = currentEntity.getSala();
         SetEnable(false);
 
     }

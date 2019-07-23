@@ -274,13 +274,27 @@ public class MainActivity extends AtividadeGenerica implements NavigationView.On
 
             switch (id) {
 
-                case R.id.nav_Main: //Main NEEDS WORK!!!!
+                case R.id.nav_Main: //Main NEEDS WORK!!!! //INICIO
                 {
-                    if (pager == null)
-                        break;
-                    else if (pager.getVisibility() != View.VISIBLE)
-                        break;
 
+                    if (pager == null){
+                        break;
+                    }
+                    else if (pager.getVisibility() != View.VISIBLE) {
+                    //    Intent intent = new Intent(this, SignIn.class);
+                        //intent.putExtras(bundle);
+                     //   startActivity(intent);
+                        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+                        drawer.closeDrawer(GravityCompat.START);
+                        adapter = null;
+                        pager.setAdapter(adapter);
+
+                        pager.setVisibility(View.INVISIBLE);
+                        tabs.setupWithViewPager(pager);
+                        yearDescription.setVisibility(View.VISIBLE);
+                        anoletivo.setVisibility(View.VISIBLE);
+                        break;
+                    }
                     for (Fragment fragment : getSupportFragmentManager().getFragments()) {
                         getSupportFragmentManager().beginTransaction().remove(fragment).commit();
                     }
