@@ -1,20 +1,20 @@
 package com.example.chirag.googlesignin.adapters;
 
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+        import android.os.Bundle;
+        import android.support.annotation.Nullable;
+        import android.support.v4.app.Fragment;
+        import android.support.v4.app.FragmentManager;
+        import android.support.v4.app.FragmentPagerAdapter;
 
-import com.example.chirag.googlesignin.fragment.AulaFragment;
-import com.example.chirag.googlesignin.fragment.ContactoFragment;
-import com.example.chirag.googlesignin.fragment.CursoFragment;
-import com.example.chirag.googlesignin.fragment.DisciplinaFragment;
-import com.example.chirag.googlesignin.fragment.EventoFragment;
-import com.example.chirag.googlesignin.fragment.TipoDeAulaFragment;
-import com.example.chirag.googlesignin.fragment.TurmasFragment;
+        import com.example.chirag.googlesignin.fragment.AulaFragment;
+        import com.example.chirag.googlesignin.fragment.ContactoFragment;
+        import com.example.chirag.googlesignin.fragment.CursoFragment;
+        import com.example.chirag.googlesignin.fragment.DisciplinaFragment;
+        import com.example.chirag.googlesignin.fragment.EventoFragment;
+        import com.example.chirag.googlesignin.fragment.TipoDeAulaFragment;
+        import com.example.chirag.googlesignin.fragment.TurmasFragment;
 
-import java.time.Year;
+        import java.time.Year;
 
 public class ViewPagerAdapter extends FragmentPagerAdapter {
 

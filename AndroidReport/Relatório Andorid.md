@@ -22,8 +22,8 @@ Neste contexto, foram levantados os requisitos propostos pelo professor.
 | 3    | O professor deve ser capaz de navegar nos anteriores anos, cursos, disciplinas e aulas. | [P1]   | ![transferir](C:\Users\dan\Desktop\AndroidReport\transferir.png) |
 | 4    | O professor deve ser capaz de definir pessoas de contato com e-mails (todos os alunos ou pelo menos delegados). | [P1]   | ![transferir](C:\Users\dan\Desktop\AndroidReport\transferir.png) |
 | 5    | Professor deve poder mudar de classe (sala ou datas / horas) e notificar (via e-mail) alunos e pessoas administrativas. | [P1]   | ![transferir](C:\Users\dan\Desktop\AndroidReport\transferir.png) |
-| 6    | O professor deve poder copiar o conteúdo de uma disciplina para uma nova (independentemente do ano). | [P2]   |                                                              |
-| 7    | O professor deve poder exportar o planejamento de uma disciplina para um (ou todos) de: Excel + texto simples ou Excel + PDF. | [P2]   |                                                              |
+| 6    | O professor deve poder copiar o conteúdo de uma disciplina para uma nova (independentemente do ano). | [P2]   | ![transferir](C:\Users\dan\Desktop\AndroidReport\transferir.png) |
+| 7    | O professor deve poder exportar o planejamento de uma disciplina para um (ou todos) de: Excel + texto simples ou Excel + PDF. | [P2]   | ![transferir](C:\Users\dan\Desktop\AndroidReport\transferir.png) |
 | 8    | O professor deve ser capaz de decidir se deseja ser notificado sobre aulas, eventos, reuniões de estudantes e afins. | [P2]   |                                                              |
 | 9    | Login com o Google.                                          | [B1]   | ![transferir](C:\Users\dan\Desktop\AndroidReport\transferir.png) |
 | 10   | Implementar uma ou várias estratégias de monetização.        | [B2]   |                                                              |
@@ -44,7 +44,9 @@ Para o desenvolvimento foi utilizado o Android Studio.
 
 Neste ponto expõe se o modelo de dados:
 
-![1562516629413](C:\Users\dan\Desktop\AndroidReport\1562516658648.png)
+![1562516658648](E:\mestrado Informatica\05-AplicMoveis\TB_V5\TP_PDMM\AndroidReport\1562516658648.png)
+
+
 
 AnoModel
 
@@ -62,8 +64,13 @@ Aula Model
     private Date DataDeOcorrencia;
     private Integer Duracao;
     private String Sala;
-    private String Tipo;
+    private Integer Tipo;
     private String Sumario;
+    private Integer Turma;
+    private Integer DisciplinaId;
+    private boolean Important;
+    private int Year;
+    private int ProfId;
 ```
 
 CursoModel
@@ -71,6 +78,8 @@ CursoModel
 ```java
     private int ID;
     private String Descricao;
+    private int Year;
+    private int ProfId;
 ```
 DisciplinaModel
 
@@ -84,47 +93,66 @@ DisciplinaModel
     private Integer Semestre;
    // public  String[] Principaistopicos = new String[20];
     private RealmList<AulaModel> aulaModels;
+    private int Year;
+    private int ProfId;
 ```
 
 EventoModel
 
 ```java
 @PrimaryKeyprivate 
-int ID;
-private String Descricao;
-private Date DataInicio;
-private int Duracao;
+    int ID;
+    private String Descricao;
+    private Date DataInicio;
+    private int Duracao;
+    private int Year;
+    private int ProfId;
 ```
 
 ProfessorModel
 
 ```java
-@PrimaryKeyprivate 
-int ID;
-private String IdToken;
-private String PhotoUrl;
-private String Nome;
-private String Email;
-private RealmList<DisciplinaModel> disciplinaModels;
-private String Contactos;
+    @PrimaryKey
+    private int ID;
+    private String IdToken;
+    private String PhotoUrl;
+    private String Nome;
+    private String Email;
+    private RealmList<DisciplinaModel> disciplinaModels;
+    private RealmList<ContactoModel> Contactos;
+    private int Year;
+    private int ProfId;
 ```
 
 TipodeAulaModel
 
 ```
 @PrimaryKeyprivate 
-int ID;
-private String Descricao;
+    int ID;
+    private String Descricao;
+    private int Year;
+    private int ProfId;
 ```
 
 ContactoModel
 
 ```Java
-@PrimaryKey
-private int ID;
-private String Descricao;
-private int Year;
-private int ProfId;
+   @PrimaryKey
+    private Integer ID;
+    private String Nome;
+    private String Email;
+    private String Descricao;
+    private int Year;
+    private int ProfId;
+```
+
+TurmaModel
+
+```Java
+   @PrimaryKey
+    private Integer ID;
+    private String Descricao;
+    private RealmList<Integer> ListaContactos;
 ```
 
 
@@ -160,6 +188,17 @@ As operações de CRUD foram organizadas na secção "Entidades", para cada um d
 Ex: Entidade Ano
 
 ```java
+package com.example.chirag.googlesignin.Entidades;
+
+import android.content.Context;
+import android.util.Log;
+
+import com.example.chirag.googlesignin.model.AnoModel;
+
+import io.realm.Realm;
+import io.realm.RealmQuery;
+import io.realm.RealmResults;
+
 public class Ano extends GestaoDeEntidades {
     public AnoModel entidade;
 
@@ -173,10 +212,15 @@ public class Ano extends GestaoDeEntidades {
     }
 
     @Override
+    public RealmQuery<? extends AnoModel> BaseQuery(Realm realm) {
+        return realm.where(AnoModel.class);
+    }
+
+    @Override
     public void ExecuteCreatOrUpdate(Realm myRealm) {
 
         //Checks if the object already exists
-        AnoModel findEntidade = myRealm.where(AnoModel.class).equalTo("ID", entidade.getID()).findFirst();
+        AnoModel findEntidade = BaseQuery(myRealm).equalTo("ID", entidade.getID()).findFirst();
 
         if (findEntidade == null) {
             findEntidade = new AnoModel();
@@ -190,7 +234,7 @@ public class Ano extends GestaoDeEntidades {
 
     @Override
     public void ExecuteDelete(Realm realm) {
-        RealmResults<AnoModel> result = realm.where(AnoModel.class).equalTo("ID", entidade.getID()).findAll();
+        RealmResults<? extends AnoModel> result = BaseQuery(realm).equalTo("ID", entidade.getID()).findAll();
 
         if (result.size() == 0)
             Log.d("DataBase", "NO DATA FOUND TO DELETE");
@@ -205,7 +249,7 @@ public class Ano extends GestaoDeEntidades {
 
     @Override
     public void ExecuteRead(Realm myRealm, Integer ID) {
-        setEntidade(myRealm.where(entidade.getClass()).equalTo("ID", ID == null ? entidade.getID() : ID).findFirst());
+        setEntidade(BaseQuery(myRealm).equalTo("ID", ID == null ? entidade.getID() : ID).findFirst());
     }
 
     private void setEntidade(AnoModel entidade) {
@@ -219,6 +263,22 @@ public class Ano extends GestaoDeEntidades {
 GestãodeEntidades
 
 ```java
+package com.example.chirag.googlesignin.Entidades;
+
+import android.content.Context;
+import android.util.Log;
+
+import com.example.chirag.googlesignin.Outros.Enums;
+
+import java.util.Collections;
+import java.util.List;
+
+import io.realm.Realm;
+import io.realm.RealmConfiguration;
+import io.realm.RealmObject;
+import io.realm.RealmQuery;
+import io.realm.exceptions.RealmMigrationNeededException;
+
 public abstract class GestaoDeEntidades {
     private Realm realm;
 
@@ -232,23 +292,22 @@ public abstract class GestaoDeEntidades {
 
     public abstract void ExecuteRead(Realm realm);
 
+    public abstract RealmQuery BaseQuery(Realm realm);
+
     public void CreatOrUpdate() {
         realm = getRealm();
 
         realm.executeTransaction(r -> {
             ExecuteCreatOrUpdate(realm);
         });
-        realm.close();
     }
 
     public void Delete() {
         Realm realm = getRealm();
         realm.executeTransaction(r -> {
-
             ExecuteDelete(realm);
-
         });
-        realm.close();
+
     }
 
     public void Read() {
@@ -256,7 +315,32 @@ public abstract class GestaoDeEntidades {
         realm.executeTransaction(r -> {
             ExecuteRead(realm);
         });
-        realm.close();
+
+    }
+
+    public List<RealmObject> ReadAll(Class classToSearch) {
+        try {
+            realm = getRealm();
+
+            return realm.where(classToSearch).findAll();
+        } catch (Exception e) {
+            Log.d("Erro on ID", "");
+        } finally {
+        }
+        return Collections.emptyList();
+    }
+
+    public List<RealmObject> ReadAllByYear() {
+        try {
+            realm = getRealm();
+
+            return BaseQuery(realm).findAll();
+        } catch (Exception e) {
+            Log.d("Erro on ID", "");
+        } finally {
+        }
+        return Collections.emptyList();
+
     }
 
     public Realm getRealm() {
@@ -280,7 +364,7 @@ public abstract class GestaoDeEntidades {
     }
 
     public static RealmConfiguration getRealmConfiguration() {
-        return new RealmConfiguration.Builder().name("myrealm.realm").build();
+        return new RealmConfiguration.Builder().name("myrealm2.realm").build();
     }
 
     Integer GetNextId(Realm realm, Class classToSearch) {
@@ -309,11 +393,14 @@ public abstract class GestaoDeEntidades {
                     idToSearch = idRef + 1;
                     break;
                 }
+                case Este: {
+                    idToSearch = idRef;
+                    break;
+                }
             }
 
             ExecuteRead(realm, idToSearch);
         });
-        realm.close();
     }
 
     public Context getContext() {
@@ -328,7 +415,15 @@ public abstract class GestaoDeEntidades {
 
 
 
+
+
+- Objectivo id 3
+
 De forma a navegar e aceder às operações CRUD foi utilizado ViewPager com as diferentes Fragments de cada model com respetiva interação.
+
+Mudar de ano:
+
+![1563839791660](C:\Users\dan\AppData\Roaming\Typora\typora-user-images\1563839791660.png)
 
 | NavBar                                                    | ViewPager                                                 |
 | --------------------------------------------------------- | --------------------------------------------------------- |
@@ -337,60 +432,84 @@ De forma a navegar e aceder às operações CRUD foi utilizado ViewPager com as 
 ViewPagerAdapter
 
 ```java
+package com.example.chirag.googlesignin.adapters;
+
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+
+import com.example.chirag.googlesignin.fragment.AulaFragment;
+import com.example.chirag.googlesignin.fragment.ContactoFragment;
+import com.example.chirag.googlesignin.fragment.CursoFragment;
+import com.example.chirag.googlesignin.fragment.DisciplinaFragment;
+import com.example.chirag.googlesignin.fragment.EventoFragment;
+import com.example.chirag.googlesignin.fragment.TipoDeAulaFragment;
+import com.example.chirag.googlesignin.fragment.TurmasFragment;
+
+import java.time.Year;
+
 public class ViewPagerAdapter extends FragmentPagerAdapter {
 
-    public ViewPagerAdapter(FragmentManager fm) {
+    private Integer Year = 0;
+    private Integer ProfId = 0;
+
+    public ViewPagerAdapter(FragmentManager fm, int year, int profId) {
         super(fm);
+        this.Year = year;
+        this.ProfId = profId;
     }
 
     @Override
     public Fragment getItem(int position) {
+        try {
+            Bundle bundle = new Bundle();
+            bundle.putInt("Year", this.Year);
+            bundle.putInt("ProfId", this.ProfId);
 
-        Bundle bundle = new Bundle();
-        bundle.putString("message","Fragment"+position);
+            switch (position) {
+                case 0:
+                    AulaFragment aulaFragment = new AulaFragment();
+                    aulaFragment.setArguments(bundle);
+                    return aulaFragment;
+                case 1:
+                    CursoFragment cursoFragment = new CursoFragment();
+                    cursoFragment.setArguments(bundle);
+                    return cursoFragment;
+                case 2:
+                    DisciplinaFragment disciplinaFragment = new DisciplinaFragment();
+                    disciplinaFragment.setArguments(bundle);
+                    return disciplinaFragment;
+                case 3:
+                    EventoFragment eventoFragment = new EventoFragment();
+                    eventoFragment.setArguments(bundle);
+                    return eventoFragment;
+                case 4:
+                    TurmasFragment turmasFragment = new TurmasFragment();
+                    turmasFragment.setArguments(bundle);
+                    return turmasFragment;
+                case 5:
+                    TipoDeAulaFragment tipoDeAulaFragment = new TipoDeAulaFragment();
+                    tipoDeAulaFragment.setArguments(bundle);
+                    return tipoDeAulaFragment;
+                case 6:
+                    ContactoFragment contactoFragment = new ContactoFragment();
+                    contactoFragment.setArguments(bundle);
+                    return contactoFragment;
 
-        switch(position) {
-            case 0:
-                AulaFragment aulaFragment =new AulaFragment();
-                position = position +1;
-                aulaFragment.setArguments(bundle);
-                return aulaFragment;
-            case 1:
-                CalendarioFragment calendarioFragment =new CalendarioFragment();
-                position = position +1;
-                calendarioFragment.setArguments(bundle);
-                return calendarioFragment;
-            case 2:
-                CursoFragment cursoFragment =new CursoFragment();
-                position = position +1;
-                cursoFragment.setArguments(bundle);
-                return cursoFragment;
-            case 3:
-                DisciplinaFragment disciplinaFragment =new DisciplinaFragment();
-                position = position +1;
-                disciplinaFragment.setArguments(bundle);
-                return disciplinaFragment;
-            case 4:
-                EventoFragment eventoFragment =new EventoFragment();
-                position = position +1;
-                eventoFragment.setArguments(bundle);
-                return eventoFragment;
-            case 5:
-                TurmasFragment turmasFragment =new TurmasFragment();
-                position = position +1;
-                turmasFragment.setArguments(bundle);
-                return turmasFragment;
-            case 6:
-                TipoDeAulaFragment tipoDeAulaFragment =new TipoDeAulaFragment();
-                position = position +1;
-                tipoDeAulaFragment.setArguments(bundle);
-                return tipoDeAulaFragment;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
-
         return null;
     }
 
+    /**
+     * number of fragments
+     * @return
+     */
     @Override
     public int getCount() {
         return 7;
@@ -401,51 +520,41 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
     @Override
     public CharSequence getPageTitle(int position) {
 
-       String nome = null;
+        String nome = null;
 
-        switch(position) {
+        switch (position) {
             case 0:
-                nome= "Aula";
+                nome = "Aula";
                 return nome;
             case 1:
-                nome= "Curso";
+                nome = "Curso";
                 return nome;
             case 2:
-                nome= "Disc";
+                nome = "Disc";
                 return nome;
             case 3:
-                nome= "Evento";
+                nome = "Evento";
                 return nome;
             case 4:
-                nome= "Turma";
+                nome = "Turma";
                 return nome;
             case 5:
-               nome= "TipoAula";
+                nome = "TipoAula";
+                return nome;
+            case 6:
+                nome = "Contacto";
                 return nome;
         }
         return null;
     }
 }
-
 ```
-
-
-
-- Objectivo id 3
-
-Para a Navegação foi usado RecyclerView com de Ano->Disciplinas->Aulas .....
-
-
-
-.... A concluir
 
 
 
 - Objectivo id 4
 
 O envio de email é realizado através do icon desenvolvido na class email.
-
-![1562520969176](C:\Users\dan\AppData\Roaming\Typora\typora-user-images\1562520969176.png)Icon
 
 ```java
 public class Email {
@@ -458,6 +567,9 @@ public class Email {
         setPara(para);
         setAssunto(assunto);
         setMensagem(mensagem);
+    }
+    public Email(){
+
     }
 
     public String[] getPara() {
@@ -503,9 +615,46 @@ public class Email {
 
 
 
+Objectivo id 7
+
+A extração do ficheiro para análise, está na classe excel.
+
+```java
+public class Excel {
+
+    public static boolean ExportDisciplinaModel(List<RealmObject> disciplinas, Context context, String fileName, String extension) {
+        String newLine = System.getProperty("line.separator");
+
+        if (!extension.equals("csv") && !extension.equals("txt"))
+            throw new IllegalArgumentException("File extension must be csv or txt.");
+
+        if (disciplinas.size() == 0) {
+            Toast.makeText(context, "Não foi selecionada nenhuma disciplina para exportar para "+extension+ ".", Toast.LENGTH_SHORT).show(); //Show shadow text
+            return false;
+        }
+
+        if (!Useful.isWriteStoragePermissionGranted(context))
+            return false;
+
+        StringBuilder txt = new StringBuilder();
+
+        txt.append("Prof,Year,Id,Nome,Curso,Acronimo,Semestre" + newLine);
+        for (RealmObject c : disciplinas) {
+            DisciplinaModel disc = ((com_example_chirag_googlesignin_model_DisciplinaModelRealmProxy) c);
+            txt.append(disc.getProfId() + "," + disc.getYear() + "," + disc.getID() + "," + disc.getNome() + "," + disc.getCurso() + "," + disc.getAcronimo() + "," + disc.getSemestre() + "," + newLine);
 
 
+        }
 
+        if (Useful.CreatFile(context, fileName, extension, txt.toString().getBytes())) {
+            Toast.makeText(context, "Ficheiro exportado!", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+        return false;
+    }
+
+}
+```
 
 ### Maquetes
 
@@ -513,18 +662,36 @@ Nesta secção iremos demonstrar os exemplos finais dos dashboards de navegaçã
 
 
 
-..... A criar
+![1563885186128](C:\Users\dan\AppData\Roaming\Typora\typora-user-images\1563885186128.png)
 
 
 
+Para a navegação foram criados os botões com determinadas funções:
+
+- **Delete** - Apaga o registo da BD.
+
+- **Save** - Grava o registo na BD.
+
+- **View** - Consulta a BD e mostra os elementos criados.
+
+  Ex:
+  ![1563885872216](C:\Users\dan\AppData\Roaming\Typora\typora-user-images\1563885872216.png)
+
+- **Import** - Permite selecionar elementos criados em anos transatos de modo a importar e copiar o mesmo registo.
+
+- **New** - Para limpar os campos e criar de forma a criar novo registo.
+
+- **Edit** - Após selecionar registo da BD permite a sua alteração.
+
+  
 
 # Conclusões e trabalho futuro
 
 Após a conclusão deste trabalho foi possível concluir a grande evolução de todos os membros do grupo, totalmente inexperientes em programação android.
 
-A nível das dificuldade que encontramos foi na utilização do git que gerou ainda alguns problemas locais após atualizações, muito devido às configurações do gradle. 
+A nível das dificuldades que encontramos, inicialmente autilização do git gerou alguns problemas, após atualizações, muito devido às configurações do gradle. 
 
-A navegação através de Recycler view foi também um desafio, considerando que a forma como está definida não é prática para desenvolvimento.
+A tentativa de utilizar a agenda e apresentar o calendário com marcações de aulas foi um desafio, após algumas tentativas sem sucesso, decidiu-se alterar a estratégia de forma a cumprir com os requisitos propostos.
 
 Este projeto permitiu cada membro do grupo ultrapassar o as suas próprias limitações e munir cada um de mais uma valência para o mercado de trabalho o que pode resultar em futuras oportunidades. 
 

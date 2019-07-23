@@ -81,7 +81,7 @@ public class listcontact extends AtividadeGenerica {
                 parent.addView(chk);
                 chk.setChecked(true);
                 list_chekboxes.add(chk.getText().toString());
-                
+
                 chk.setOnCheckedChangeListener((compoundButton, isChecked) -> {
                     if (isChecked) {
 
