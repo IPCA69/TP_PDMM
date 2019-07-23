@@ -355,10 +355,10 @@ public class AulaFragment extends FragmentGenerico {
                     turmaa.entidade.setProfId(ProfId);
                     turmaa.entidade.setID(currentEntity.getTurma());
                     turmaa.Read();
-                    if(turmaa.entidade.getListaContactos()==null){
+                    if (turmaa.entidade.getListaContactos() == null) {
 
                         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                        builder.setMessage("LISTA DE CONTACTOS VAZIA! Por Favor associe contactos a turma!s")
+                        builder.setMessage("LISTA DE CONTACTOS VAZIA!")
                                 .setTitle("ERROR");
                         AlertDialog dialog = builder.create();
                     }
@@ -372,7 +372,8 @@ public class AulaFragment extends FragmentGenerico {
                                 turma.entidade.setID(currentEntity.getTurma());
                                 turma.Read();
 
-                                for (Integer elem : turma.entidade.getListaContactos()) {
+                                if (turma.entidade.getListaContactos() != null && turma.entidade.getListaContactos().size() > 0)
+                                    for (Integer elem : turma.entidade.getListaContactos()) {
                                     Contacto c = new Contacto(context);
 
                                     c.entidade.setProfId(ProfId);
@@ -404,7 +405,8 @@ public class AulaFragment extends FragmentGenerico {
                                 turma.entidade.setID(currentEntity.getTurma());
                                 turma.Read();
                                 //BUSCAR CONTACTOS
-                                for (Integer elem : turma.entidade.getListaContactos()) {
+                                if (turma.entidade.getListaContactos() != null && turma.entidade.getListaContactos().size() > 0)
+                                    for (Integer elem : turma.entidade.getListaContactos()) {
                                     Contacto c = new Contacto(context);
 
                                     c.entidade.setProfId(ProfId);
@@ -425,8 +427,7 @@ public class AulaFragment extends FragmentGenerico {
                                 mail.setPara(arr);
                                 mail.SendEmail(context);
 
-                            }
-                            else if(mySpinner.getSelectedItem() == "Ambos") {
+                            } else if (mySpinner.getSelectedItem() == "Ambos") {
                                 contacts.clear();
                                 Turma turma = new Turma(context);
                                 turma.entidade.setYear(Year);
@@ -434,7 +435,8 @@ public class AulaFragment extends FragmentGenerico {
                                 turma.entidade.setID(currentEntity.getTurma());
                                 turma.Read();
                                 //BUSCAR CONTACTOS
-                                for (Integer elem : turma.entidade.getListaContactos()) {
+                                if (turma.entidade.getListaContactos() != null && turma.entidade.getListaContactos().size() > 0)
+                                    for (Integer elem : turma.entidade.getListaContactos()) {
                                     Contacto c = new Contacto(context);
 
                                     c.entidade.setProfId(ProfId);
@@ -490,10 +492,10 @@ public class AulaFragment extends FragmentGenerico {
                     turmaa.entidade.setProfId(ProfId);
                     turmaa.entidade.setID(currentEntity.getTurma());
                     turmaa.Read();
-                    if(turmaa.entidade.getListaContactos()==null){
+                    if (turmaa.entidade.getListaContactos() == null) {
 
                         AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                        builder.setMessage("LISTA DE CONTACTOS VAZIA! Por Favor associe contactos a turmas!")
+                        builder.setMessage("LISTA DE CONTACTOS VAZIA!")
                                 .setTitle("ERROR");
                         AlertDialog dialog = builder.create();
                         dialog.show();
@@ -508,19 +510,20 @@ public class AulaFragment extends FragmentGenerico {
                                 turma.entidade.setID(currentEntity.getTurma());
                                 turma.Read();
                                 //BUSCAR CONTACTOS
-                                for (Integer elem : turma.entidade.getListaContactos()) {
-                                    Contacto c = new Contacto(context);
+                                if (turma.entidade.getListaContactos() != null && turma.entidade.getListaContactos().size() > 0)
+                                    for (Integer elem : turma.entidade.getListaContactos()) {
+                                        Contacto c = new Contacto(context);
 
-                                    c.entidade.setProfId(ProfId);
-                                    c.entidade.setID(elem);
-                                    c.entidade.setYear(Year);
-                                    c.Read();
+                                        c.entidade.setProfId(ProfId);
+                                        c.entidade.setID(elem);
+                                        c.entidade.setYear(Year);
+                                        c.Read();
 
-                                    if (!c.entidade.getDescricao().equals("Aluno"))
-                                        continue;
-                                    contacts.add(c.entidade.getEmail());
+                                        if (!c.entidade.getDescricao().equals("Aluno"))
+                                            continue;
+                                        contacts.add(c.entidade.getEmail());
 
-                                }
+                                    }
                                 String[] arr = contacts.toArray(new String[contacts.size()]);
 
                                 Email mail = new Email();
@@ -537,7 +540,8 @@ public class AulaFragment extends FragmentGenerico {
                                 turma.entidade.setProfId(ProfId);
                                 turma.entidade.setID(currentEntity.getTurma());
                                 turma.Read();
-                                for (Integer elem : turma.entidade.getListaContactos()) {
+                                if (turma.entidade.getListaContactos() != null && turma.entidade.getListaContactos().size() > 0)
+                                    for (Integer elem : turma.entidade.getListaContactos()) {
                                     Contacto c = new Contacto(context);
 
                                     c.entidade.setProfId(ProfId);
@@ -558,8 +562,7 @@ public class AulaFragment extends FragmentGenerico {
                                 String[] arr = contacts.toArray(new String[contacts.size()]);
                                 mail.setPara(arr);
                                 mail.SendEmail(context);
-                            }
-                            else if(mySpinner.getSelectedItem() == "Ambos") {
+                            } else if (mySpinner.getSelectedItem() == "Ambos") {
                                 contacts.clear();
                                 Turma turma = new Turma(context);
                                 turma.entidade.setYear(Year);
@@ -567,7 +570,8 @@ public class AulaFragment extends FragmentGenerico {
                                 turma.entidade.setID(currentEntity.getTurma());
                                 turma.Read();
                                 //BUSCAR CONTACTOS
-                                for (Integer elem : turma.entidade.getListaContactos()) {
+                                if (turma.entidade.getListaContactos() != null && turma.entidade.getListaContactos().size() > 0)
+                                    for (Integer elem : turma.entidade.getListaContactos()) {
                                     Contacto c = new Contacto(context);
 
                                     c.entidade.setProfId(ProfId);
